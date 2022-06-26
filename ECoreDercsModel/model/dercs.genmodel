@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/ECoreDercsModel/src-gen" creationIcons="false"
+    editDirectory="" editorDirectory="" modelPluginID="DercsModel" modelName="Dercs"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" codeFormatting="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>dercs.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Dercs" disposableProviderFactory="true" ecorePackage="dercs.ecore#/">
+    <genClasses ecoreClass="dercs.ecore#//Model">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dercs.ecore#//Model/classes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dercs.ecore#//Model/objects"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dercs.ecore#//Model/behaviors"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dercs.ecore#//Model/events"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dercs.ecore#//Model/aspects"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dercs.ecore#//Model/joinPoints"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dercs.ecore#//Model/enumerations"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dercs.ecore#//Model/nodes"/>
+    </genClasses>
+    <nestedGenPackages prefix="Structure" basePackage="dercs" disposableProviderFactory="true"
+        ecorePackage="dercs.ecore#//structure">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="dercs.ecore#//structure/Visibility">
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//structure/Visibility/PRIVATE"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//structure/Visibility/PROTECTED"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//structure/Visibility/PUBLIC"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="dercs.ecore#//structure/ParameterKind">
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//structure/ParameterKind/IN"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//structure/ParameterKind/OUT"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//structure/ParameterKind/INOUT"/>
+      </genEnums>
+      <genClasses ecoreClass="dercs.ecore#//structure/BaseElement">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/BaseElement/static"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="dercs.ecore#//structure/NamedElement">
+        <genFeatures documentation="" createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/NamedElement/name"/>
+        <genFeatures documentation="" createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/NamedElement/tags"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//structure/Class">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//structure/Class/superClass"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/Class/activeClass"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/Class/abstract"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/Class/passiveClass"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dercs.ecore#//structure/Class/attributes"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//structure/Class/referencedClasses"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dercs.ecore#//structure/Class/methods"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dercs.ecore#//structure/Class/states"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dercs.ecore#//structure/Class/events"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//structure/Class/owner"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//structure/Attribute">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/Attribute/defaultValue"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/Attribute/visibility"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference dercs.ecore#//structure/Attribute/ownerClass"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//structure/Attribute/dataType"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/Attribute/readOnly"/>
+        <genOperations ecoreOperation="dercs.ecore#//structure/Attribute/isObject"
+            body="return false;"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//structure/Parameter">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/Parameter/parameterKind"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//structure/Parameter/dataType"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference dercs.ecore#//structure/Parameter/ownerMethod"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//structure/Method">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference dercs.ecore#//structure/Method/ownerClass"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/Method/visibility"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/Method/abstract"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/Method/active"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/Method/overwritingMethod"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dercs.ecore#//structure/Method/triggeredBehavior"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//structure/Method/returnType"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dercs.ecore#//structure/Method/parameters"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/Method/every"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//structure/Method/associatedAttribute"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//structure/Constructor"/>
+      <genClasses ecoreClass="dercs.ecore#//structure/Destructor"/>
+      <nestedGenPackages prefix="Runtime" disposableProviderFactory="true" ecorePackage="dercs.ecore#//structure/runtime">
+        <genClasses image="false" ecoreClass="dercs.ecore#//structure/runtime/RuntimeElement">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//structure/runtime/RuntimeElement/associatedElement"/>
+          <genOperations ecoreOperation="dercs.ecore#//structure/runtime/RuntimeElement/isObject"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//structure/runtime/Node">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/runtime/Node/platformName"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dercs.ecore#//structure/runtime/Node/deployedObjects"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//structure/runtime/Object">
+          <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference dercs.ecore#//structure/runtime/Object/node"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//structure/runtime/Object/instanceOfClass"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//structure/runtime/Object/runtimeInformation"/>
+          <genOperations ecoreOperation="dercs.ecore#//structure/runtime/Object/isObject"
+              body="return true;"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//structure/runtime/State">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/runtime/State/name"/>
+        </genClasses>
+        <genClasses image="false" ecoreClass="dercs.ecore#//structure/runtime/RuntimeInformation">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/runtime/RuntimeInformation/value"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//structure/runtime/RuntimeInformation/array"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//structure/runtime/ParameterRuntimeInformation">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//structure/runtime/ParameterRuntimeInformation/parameter"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//structure/runtime/PassiveObject"/>
+        <genClasses ecoreClass="dercs.ecore#//structure/runtime/ActiveObject">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//structure/runtime/ActiveObject/mainBehaviour"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//structure/runtime/AttributeRuntimeInformation">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//structure/runtime/AttributeRuntimeInformation/relatedObject"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//structure/runtime/AttributeRuntimeInformation/relatedAttribute"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//structure/runtime/LocalVariableRuntimeInformation">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//structure/runtime/LocalVariableRuntimeInformation/localVariable"/>
+        </genClasses>
+      </nestedGenPackages>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Datatypes" basePackage="dercs" disposableProviderFactory="true"
+        ecorePackage="dercs.ecore#//datatypes">
+      <genClasses image="false" ecoreClass="dercs.ecore#//datatypes/DataType">
+        <genOperations ecoreOperation="dercs.ecore#//datatypes/DataType/compareTo">
+          <genParameters ecoreParameter="dercs.ecore#//datatypes/DataType/compareTo/other"/>
+        </genOperations>
+        <genOperations ecoreOperation="dercs.ecore#//datatypes/DataType/isPrimitive"
+            body="return true;"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="dercs.ecore#//datatypes/IntegerDataTypes">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//datatypes/IntegerDataTypes/isSignal"/>
+        <genOperations ecoreOperation="dercs.ecore#//datatypes/IntegerDataTypes/isSigned"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="dercs.ecore#//datatypes/FloatingPointDatatypes"/>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/Boolean"/>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/Enumeration">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//datatypes/Enumeration/name"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//datatypes/Enumeration/values"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/Void"/>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/ClassDataType">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//datatypes/ClassDataType/represents"/>
+        <genOperations ecoreOperation="dercs.ecore#//datatypes/ClassDataType/isPrimitive"
+            body="return false;"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/Array">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//datatypes/Array/size"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//datatypes/Array/lowerValue"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//datatypes/Array/upperValue"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//datatypes/Array/dataType"/>
+        <genOperations ecoreOperation="dercs.ecore#//datatypes/Array/isPrimitive"
+            body="return dataType.isPrimitive();"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/Byte"/>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/Short"/>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/Long"/>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/Integer"/>
+      <genClasses image="false" ecoreClass="dercs.ecore#//datatypes/CharacterDataTypes"/>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/Char"/>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/String">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//datatypes/String/size"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/Float"/>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/Double"/>
+      <genClasses ecoreClass="dercs.ecore#//datatypes/DateTime"/>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Behavior" disposableProviderFactory="true" ecorePackage="dercs.ecore#//behavior">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="dercs.ecore#//behavior/MessageSort">
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//behavior/MessageSort/SYNCHCALL"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//behavior/MessageSort/ASYNCHCALL"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//behavior/MessageSort/OTHER"/>
+      </genEnums>
+      <genClasses image="false" ecoreClass="dercs.ecore#//behavior/BehavioralElement"/>
+      <genClasses ecoreClass="dercs.ecore#//behavior/Behavior">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//behavior/Behavior/enterCondition"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//behavior/Behavior/exitCondition"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference dercs.ecore#//behavior/Behavior/owner"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//behavior/Behavior/numberOfRepetitions"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dercs.ecore#//behavior/Behavior/behavioralElements"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dercs.ecore#//behavior/Behavior/localVariables"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//behavior/Behavior/alternateBehavior"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//behavior/Behavior/runtimeInformation"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//behavior/LocalVariable">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//behavior/LocalVariable/dataType"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//behavior/StateTransition">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//behavior/StateTransition/fromState"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//behavior/StateTransition/toState"/>
+      </genClasses>
+      <nestedGenPackages prefix="Actions" disposableProviderFactory="true" ecorePackage="dercs.ecore#//behavior/actions">
+        <genClasses image="false" ecoreClass="dercs.ecore#//behavior/actions/Action"/>
+        <genClasses image="false" ecoreClass="dercs.ecore#//behavior/actions/ActionWithOutput">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/ActionWithOutput/outputReceiverAction"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//behavior/actions/SendMessageAction">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/SendMessageAction/relatedMethod"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/SendMessageAction/fromObject"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/SendMessageAction/toObject"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//behavior/actions/SendMessageAction/parameterValues"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//behavior/actions/SendMessageAction/messageSort"/>
+        </genClasses>
+        <genClasses image="false" ecoreClass="dercs.ecore#//behavior/actions/ArrayAction">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/ArrayAction/arrayVariable"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//behavior/actions/ArrayAction/arrayElement"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/ArrayAction/arrayAttribute"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/ArrayAction/arrayObject"/>
+        </genClasses>
+        <genClasses image="false" ecoreClass="dercs.ecore#//behavior/actions/ObjectAction">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/ObjectAction/relatedObject"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//behavior/actions/CreateObjectAction">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//behavior/actions/CreateObjectAction/parameterValues"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//behavior/actions/DestroyObjectAction"/>
+        <genClasses ecoreClass="dercs.ecore#//behavior/actions/GetArrayElementAction"/>
+        <genClasses ecoreClass="dercs.ecore#//behavior/actions/GetArrayLengthAction"/>
+        <genClasses ecoreClass="dercs.ecore#//behavior/actions/InsertArrayElementAction">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//behavior/actions/InsertArrayElementAction/value"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//behavior/actions/RemoveArrayElementAction"/>
+        <genClasses ecoreClass="dercs.ecore#//behavior/actions/SetArrayElementAction">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//behavior/actions/SetArrayElementAction/value"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//behavior/actions/ReturnAction">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/ReturnAction/method"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//behavior/actions/ModifyStateAction">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/ModifyStateAction/relatedTransition"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//behavior/actions/ExpressionAction">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//behavior/actions/ExpressionAction/expression"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//behavior/actions/AssignmentAction">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//behavior/actions/AssignmentAction/value"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/AssignmentAction/destinationVariable"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/AssignmentAction/destinationAttribute"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/AssignmentAction/destinationObject"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//behavior/actions/AssignmentAction/destinationArrayElement"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/actions/AssignmentAction/resultOfAction"/>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages prefix="Events" disposableProviderFactory="true" ecorePackage="dercs.ecore#//behavior/events">
+        <genEnums typeSafeEnumCompatible="false" ecoreEnum="dercs.ecore#//behavior/events/TriggerKind">
+          <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//behavior/events/TriggerKind/SEQUENTIAL"/>
+          <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//behavior/events/TriggerKind/PARALLEL"/>
+        </genEnums>
+        <genClasses image="false" ecoreClass="dercs.ecore#//behavior/events/Event">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/events/Event/triggeredBehaviors"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//behavior/events/Event/behaviorTriggerKind"/>
+        </genClasses>
+        <genClasses image="false" ecoreClass="dercs.ecore#//behavior/events/MessageEvent">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference dercs.ecore#//behavior/events/MessageEvent/action"/>
+        </genClasses>
+        <genClasses ecoreClass="dercs.ecore#//behavior/events/SendMessageEvent"/>
+        <genClasses ecoreClass="dercs.ecore#//behavior/events/ReceiveMessageEvent"/>
+        <genClasses image="false" ecoreClass="dercs.ecore#//behavior/events/StateEvent"/>
+        <genClasses ecoreClass="dercs.ecore#//behavior/events/EnterStateEvent"/>
+        <genClasses ecoreClass="dercs.ecore#//behavior/events/ExitStateEvent"/>
+        <genClasses ecoreClass="dercs.ecore#//behavior/events/StateTransitionEvent"/>
+        <genClasses ecoreClass="dercs.ecore#//behavior/events/InterruptionEvent"/>
+      </nestedGenPackages>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="AO" disposableProviderFactory="true" ecorePackage="dercs.ecore#//AO">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="dercs.ecore#//AO/RelativePosition">
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/RelativePosition/BEFORE"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/RelativePosition/AFTER"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/RelativePosition/AROUND"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/RelativePosition/REPLACE"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/RelativePosition/ADD_NEW_FEATURE"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/RelativePosition/MODIFY_STRUCTURE"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="dercs.ecore#//AO/ElementSelectionKind">
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/ElementSelectionKind/UNKNOWN"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/ElementSelectionKind/CLASS"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/ElementSelectionKind/ATTRIBUTE"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/ElementSelectionKind/METHOD"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/ElementSelectionKind/OBJECT"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/ElementSelectionKind/NODE"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/ElementSelectionKind/ACTION_MESSAGE_SENDING"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/ElementSelectionKind/ACTION_RETURN"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/ElementSelectionKind/ACTION_OBJECT_CREATION"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/ElementSelectionKind/ACTION_OBJECT_DESTRUCTION"/>
+        <genEnumLiterals ecoreEnumLiteral="dercs.ecore#//AO/ElementSelectionKind/BEHAVIOR"/>
+      </genEnums>
+      <genClasses image="false" ecoreClass="dercs.ecore#//AO/AspectAdaptation">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//AO/AspectAdaptation/owner"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//AO/Aspect">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dercs.ecore#//AO/Aspect/structuralAdaptations"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dercs.ecore#//AO/Aspect/behavioralAdaptations"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//AO/Aspect/pointcuts"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dercs.ecore#//AO/Aspect/crosscutting"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//AO/BehavioralAdaptation"/>
+      <genClasses ecoreClass="dercs.ecore#//AO/StructuralAdaptation"/>
+      <genClasses ecoreClass="dercs.ecore#//AO/JoinPoint">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//AO/JoinPoint/selectedElements"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//AO/JoinPoint/model"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//AO/JoinPoint/elementSelectionKind"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//AO/Pointcut">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//AO/Pointcut/joinPoints"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//AO/Pointcut/aspectAdaptation"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//AO/Pointcut/relativePosition"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//AO/Crosscutting">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//AO/Crosscutting/affectedElement"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference dercs.ecore#//AO/Crosscutting/crosscuttingInformations"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference dercs.ecore#//AO/Crosscutting/associatedAspect"/>
+      </genClasses>
+      <genClasses ecoreClass="dercs.ecore#//AO/CrosscuttingInformation">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dercs.ecore#//AO/CrosscuttingInformation/value"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated dercs -->
+      <package
+            uri="http://utfpr.edu.br/dercs"
+            class="dercs.DercsPackage"
+            genModel="model/dercs.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated dercs -->
+      <package
+            uri="http://utfpr.edu.br/dercs/structure"
+            class="dercs.structure.StructurePackage"
+            genModel="model/dercs.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated dercs -->
+      <package
+            uri="http://utfpr.edu.br/dercs/structure/runtime"
+            class="dercs.structure.runtime.RuntimePackage"
+            genModel="model/dercs.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated dercs -->
+      <package
+            uri="http://utfpr.edu.br/dercs/datatypes"
+            class="dercs.datatypes.DatatypesPackage"
+            genModel="model/dercs.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated dercs -->
+      <package
+            uri="http://utfpr.edu.br/dercs/behavior"
+            class="dercs.behavior.BehaviorPackage"
+            genModel="model/dercs.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated dercs -->
+      <package
+            uri="http://utfpr.edu.br/dercs/behavior/actions"
+            class="dercs.behavior.actions.ActionsPackage"
+            genModel="model/dercs.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated dercs -->
+      <package
+            uri="http://utfpr.edu.br/dercs/behavior/events"
+            class="dercs.behavior.events.EventsPackage"
+            genModel="model/dercs.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated dercs -->
+      <package
+            uri="http://utfpr.edu.br/dercs/AO"
+            class="dercs.AO.AOPackage"
+            genModel="model/dercs.genmodel"/>
+   </extension>
+
+</plugin>

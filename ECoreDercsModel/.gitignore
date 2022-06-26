@@ -1,0 +1,6 @@
+# We will keep the Eclipse files around for this subproject because it will only ever be opened in Eclipse
+!build.properties
+!plugin.properties
+!plugin.xml
+!.classpath
+!.project
