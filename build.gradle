@@ -1,0 +1,76 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+}
+
+group = 'dercs'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation libs.junit.api
+    testRuntimeOnly libs.junit.runtime
+
+    implementation libs.emf.common
+    implementation libs.emf.ecore
+
+    implementation libs.slf4j.api
+    runtimeOnly libs.logback
+
+    // something is broken in the intellij gradle importer and
+    // using the version catalog here causes it to crash
+//    implementation libs.emf.xmi
+//
+//    implementation (libs.uml2.common) {
+//        transitive = false
+//    }
+//
+//    implementation (libs.uml2.types) {
+//        transitive = false
+//    }
+//
+//    implementation (libs.emf.ecore2xml) {
+//        transitive = false
+//    }
+//
+//    implementation (libs.uml2.uml) {
+//        transitive = false
+//    }
+
+    // the maven artifacts for uml2 seem to have outdated dependencies
+    // so we exclude them and add working ones ourselves
+    implementation 'org.eclipse.emf:org.eclipse.emf.ecore.xmi:2.16.0'
+
+    implementation ('org.eclipse.uml2:common:2.0.0-v20140602-0749') {
+        transitive = false
+    }
+
+    implementation ('org.eclipse.uml2:types:2.0.0-v20140602-0749') {
+        transitive = false
+    }
+
+    implementation ('org.eclipse.emf.mapping:ecore2xml:2.3.0-v200706262000') {
+        transitive = false
+    }
+
+    implementation ('org.eclipse.uml2:uml:5.0.0-v20140602-0749') {
+        transitive = false
+    }
+
+    implementation files("externalLibs/org.eclipse.papyrus.marte.static.profile_1.2.2.jar")
+    implementation files("externalLibs/AMoDE-RT.profile.jar")
+}
+
+sourceSets {
+    main {
+        java.srcDirs = ['ECoreDercsModel/src-gen', 'ECoreDercsModel/src', 'src/main/java']
+        resources.srcDirs = ['src/main/resources']
+    }
+}
+
+version '1.0-SNAPSHOT'

@@ -1,0 +1,19 @@
+# Gradle
+.gradle/
+**/build/
+**/out/
+
+# Eclipse
+**/.settings/
+**/bin/
+*.project
+*.classpath
+
+# IntelliJ Idea
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# DERCS specific
+logs/
