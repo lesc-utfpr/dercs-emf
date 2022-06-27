@@ -3,20 +3,23 @@ package dercs.loader;
 import dercs.DercsFactory;
 import dercs.Model;
 import dercs.loader.extractor.AbstractModelExtractor;
+import dercs.loader.extractor.ClassesExtractor;
 import dercs.loader.fixer.AbstractModelFixer;
-import dercs.loader.io.UmlResourceLoader;
+import dercs.loader.resource.UmlResourceLoader;
+import dercs.loader.resource.WrappedUmlResource;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UmlDercsLoader implements IDercsLoader{
     private static final Logger LOGGER = LoggerFactory.getLogger("DercsLoader");
 
-    private final Resource umlResource;
+    private final WrappedUmlResource umlResource;
     private final Model dercsModel;
 
     private final List<AbstractModelExtractor> modelExtractors = new ArrayList<>();
@@ -25,7 +28,8 @@ public class UmlDercsLoader implements IDercsLoader{
     public UmlDercsLoader(URI umlFileUri) {
         // load resource
         org.eclipse.emf.common.util.URI emfUri = org.eclipse.emf.common.util.URI.createURI(umlFileUri.toString());
-        this.umlResource = UmlResourceLoader.loadResourceFromFile(emfUri);
+        Resource loadedResource = UmlResourceLoader.loadResourceFromFile(emfUri);
+        this.umlResource = new WrappedUmlResource(loadedResource);
 
         this.dercsModel = DercsFactory.eINSTANCE.createModel();
 
@@ -62,7 +66,9 @@ public class UmlDercsLoader implements IDercsLoader{
      * Instantiate and add all the Model Extractors that will be used.
      */
     private void registerExtractors() {
-        //modelExtractors.add()
+        Collections.addAll(this.modelExtractors,
+                new ClassesExtractor()
+        );
     }
 
     /**

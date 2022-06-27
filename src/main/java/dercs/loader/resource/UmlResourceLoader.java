@@ -1,4 +1,4 @@
-package dercs.loader.io;
+package dercs.loader.resource;
 
 import AMoDERT.AspectsModeling.AspectsModelingPackage;
 import AMoDERT.Utils.UtilsPackage;
