@@ -84,6 +84,14 @@ public class UmlDercsLoader implements IDercsLoader{
     }
 
     /**
+     * Returns the UML resource that is being loaded from
+     * @return the UML resource
+     */
+    public WrappedUmlResource getUmlResource() {
+        return this.umlResource;
+    }
+
+    /**
      * Instantiate and add all the Model Extractors that will be used.
      */
     private void registerExtractors() {

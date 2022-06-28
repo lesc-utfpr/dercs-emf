@@ -53,7 +53,9 @@ public class ClassesExtractor extends AbstractModelExtractor {
         dercsClass.setSuperClass(null);
 
         dercsClass.setActiveClass(getAppliedStereotype(umlClass, GRMPackage.Literals.SCHEDULABLE_RESOURCE) != null);
-        dercsClass.setPassiveClass(getAppliedStereotype(umlClass, GRMPackage.Literals.RESOURCE) != null);
+        if (!dercsClass.isActiveClass()) {
+            dercsClass.setPassiveClass(getAppliedStereotype(umlClass, GRMPackage.Literals.RESOURCE) != null);
+        }
 
         this.dercsModel.getClasses().add(dercsClass);
     }

@@ -73,4 +73,8 @@ sourceSets {
     }
 }
 
+test {
+    useJUnitPlatform()
+}
+
 version '1.0-SNAPSHOT'
