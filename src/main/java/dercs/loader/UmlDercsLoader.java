@@ -16,15 +16,36 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * A DERCS loader that creates a model from a UML2 file created in Eclipse Papyrus.
+ */
 public class UmlDercsLoader implements IDercsLoader{
     private static final Logger LOGGER = LoggerFactory.getLogger("DercsLoader");
 
+    /**
+     * The UML resource that is loaded from the file.
+     */
     private final WrappedUmlResource umlResource;
+
+    /**
+     * The DERCS model that will be filled.
+     */
     private final Model dercsModel;
 
+    /**
+     * The list of extractors that will be run on the resource.
+     */
     private final List<AbstractModelExtractor> modelExtractors = new ArrayList<>();
+
+    /**
+     * The list of fixers that will be run on the model.
+     */
     private final List<AbstractModelFixer> modelFixers = new ArrayList<>();
 
+    /**
+     * Create an instance of the loader based on the given UML2 file.
+     * @param umlFileUri the URI of the file to be processed
+     */
     public UmlDercsLoader(URI umlFileUri) {
         // load resource
         org.eclipse.emf.common.util.URI emfUri = org.eclipse.emf.common.util.URI.createURI(umlFileUri.toString());

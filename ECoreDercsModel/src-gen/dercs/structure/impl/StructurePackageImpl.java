@@ -778,7 +778,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		// Initialize classes, features, and operations; add parameters
 		initEClass(baseElementEClass, BaseElement.class, "BaseElement", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBaseElement_Static(), ecorePackage.getEBoolean(), "static", null, 0, 1, BaseElement.class,
+		initEAttribute(getBaseElement_Static(), ecorePackage.getEBoolean(), "static", "false", 0, 1, BaseElement.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(namedElementEClass, NamedElement.class, "NamedElement", IS_ABSTRACT, !IS_INTERFACE,
@@ -797,7 +797,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		initEAttribute(getClass_ActiveClass(), ecorePackage.getEBoolean(), "activeClass", "false", 0, 1,
 				dercs.structure.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getClass_Abstract(), ecorePackage.getEBoolean(), "abstract", null, 0, 1,
+		initEAttribute(getClass_Abstract(), ecorePackage.getEBoolean(), "abstract", "false", 0, 1,
 				dercs.structure.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getClass_PassiveClass(), ecorePackage.getEBoolean(), "passiveClass", "false", 0, 1,
@@ -835,7 +835,7 @@ public class StructurePackageImpl extends EPackageImpl implements StructurePacka
 		initEReference(getAttribute_DataType(), theDatatypesPackage.getDataType(), null, "dataType", null, 0, 1,
 				Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAttribute_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 0, 1, Attribute.class,
+		initEAttribute(getAttribute_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", "false", 0, 1, Attribute.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEOperation(getAttribute__IsObject(), ecorePackage.getEBoolean(), "isObject", 0, 1, IS_UNIQUE, IS_ORDERED);

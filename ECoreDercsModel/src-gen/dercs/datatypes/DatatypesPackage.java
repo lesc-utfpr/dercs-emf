@@ -115,13 +115,13 @@ public interface DatatypesPackage extends EPackage {
 	int INTEGER_DATA_TYPES = 1;
 
 	/**
-	 * The feature id for the '<em><b>Is Signal</b></em>' attribute.
+	 * The feature id for the '<em><b>Signal</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_DATA_TYPES__IS_SIGNAL = DATA_TYPE_FEATURE_COUNT + 0;
+	int INTEGER_DATA_TYPES__SIGNAL = DATA_TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Integer Data Types</em>' class.
@@ -518,13 +518,13 @@ public interface DatatypesPackage extends EPackage {
 	int BYTE = 8;
 
 	/**
-	 * The feature id for the '<em><b>Is Signal</b></em>' attribute.
+	 * The feature id for the '<em><b>Signal</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BYTE__IS_SIGNAL = INTEGER_DATA_TYPES__IS_SIGNAL;
+	int BYTE__SIGNAL = INTEGER_DATA_TYPES__SIGNAL;
 
 	/**
 	 * The number of structural features of the '<em>Byte</em>' class.
@@ -582,13 +582,13 @@ public interface DatatypesPackage extends EPackage {
 	int SHORT = 9;
 
 	/**
-	 * The feature id for the '<em><b>Is Signal</b></em>' attribute.
+	 * The feature id for the '<em><b>Signal</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHORT__IS_SIGNAL = INTEGER_DATA_TYPES__IS_SIGNAL;
+	int SHORT__SIGNAL = INTEGER_DATA_TYPES__SIGNAL;
 
 	/**
 	 * The number of structural features of the '<em>Short</em>' class.
@@ -646,13 +646,13 @@ public interface DatatypesPackage extends EPackage {
 	int LONG = 10;
 
 	/**
-	 * The feature id for the '<em><b>Is Signal</b></em>' attribute.
+	 * The feature id for the '<em><b>Signal</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LONG__IS_SIGNAL = INTEGER_DATA_TYPES__IS_SIGNAL;
+	int LONG__SIGNAL = INTEGER_DATA_TYPES__SIGNAL;
 
 	/**
 	 * The number of structural features of the '<em>Long</em>' class.
@@ -710,13 +710,13 @@ public interface DatatypesPackage extends EPackage {
 	int INTEGER = 11;
 
 	/**
-	 * The feature id for the '<em><b>Is Signal</b></em>' attribute.
+	 * The feature id for the '<em><b>Signal</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER__IS_SIGNAL = INTEGER_DATA_TYPES__IS_SIGNAL;
+	int INTEGER__SIGNAL = INTEGER_DATA_TYPES__SIGNAL;
 
 	/**
 	 * The number of structural features of the '<em>Integer</em>' class.
@@ -1089,15 +1089,15 @@ public interface DatatypesPackage extends EPackage {
 	EClass getIntegerDataTypes();
 
 	/**
-	 * Returns the meta object for the attribute '{@link dercs.datatypes.IntegerDataTypes#isIsSignal <em>Is Signal</em>}'.
+	 * Returns the meta object for the attribute '{@link dercs.datatypes.IntegerDataTypes#isSignal <em>Signal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Signal</em>'.
-	 * @see dercs.datatypes.IntegerDataTypes#isIsSignal()
+	 * @return the meta object for the attribute '<em>Signal</em>'.
+	 * @see dercs.datatypes.IntegerDataTypes#isSignal()
 	 * @see #getIntegerDataTypes()
 	 * @generated
 	 */
-	EAttribute getIntegerDataTypes_IsSignal();
+	EAttribute getIntegerDataTypes_Signal();
 
 	/**
 	 * Returns the meta object for the '{@link dercs.datatypes.IntegerDataTypes#isSigned() <em>Is Signed</em>}' operation.
@@ -1437,12 +1437,12 @@ public interface DatatypesPackage extends EPackage {
 		EClass INTEGER_DATA_TYPES = eINSTANCE.getIntegerDataTypes();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Signal</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Signal</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute INTEGER_DATA_TYPES__IS_SIGNAL = eINSTANCE.getIntegerDataTypes_IsSignal();
+		EAttribute INTEGER_DATA_TYPES__SIGNAL = eINSTANCE.getIntegerDataTypes_Signal();
 
 		/**
 		 * The meta object literal for the '<em><b>Is Signed</b></em>' operation.

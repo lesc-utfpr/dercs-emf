@@ -323,7 +323,7 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 	 * @generated
 	 */
 	@Override
-	public EAttribute getIntegerDataTypes_IsSignal() {
+	public EAttribute getIntegerDataTypes_Signal() {
 		return (EAttribute) integerDataTypesEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -632,7 +632,7 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 		createEOperation(dataTypeEClass, DATA_TYPE___IS_PRIMITIVE);
 
 		integerDataTypesEClass = createEClass(INTEGER_DATA_TYPES);
-		createEAttribute(integerDataTypesEClass, INTEGER_DATA_TYPES__IS_SIGNAL);
+		createEAttribute(integerDataTypesEClass, INTEGER_DATA_TYPES__SIGNAL);
 		createEOperation(integerDataTypesEClass, INTEGER_DATA_TYPES___IS_SIGNED);
 
 		floatingPointDatatypesEClass = createEClass(FLOATING_POINT_DATATYPES);
@@ -741,7 +741,7 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 
 		initEClass(integerDataTypesEClass, IntegerDataTypes.class, "IntegerDataTypes", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIntegerDataTypes_IsSignal(), ecorePackage.getEBoolean(), "isSignal", null, 0, 1,
+		initEAttribute(getIntegerDataTypes_Signal(), ecorePackage.getEBoolean(), "signal", null, 0, 1,
 				IntegerDataTypes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
 

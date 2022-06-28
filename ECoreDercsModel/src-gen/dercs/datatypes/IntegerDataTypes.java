@@ -15,7 +15,7 @@ package dercs.datatypes;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link dercs.datatypes.IntegerDataTypes#isIsSignal <em>Is Signal</em>}</li>
+ *   <li>{@link dercs.datatypes.IntegerDataTypes#isSignal <em>Signal</em>}</li>
  * </ul>
  *
  * @see dercs.datatypes.DatatypesPackage#getIntegerDataTypes()
@@ -24,29 +24,29 @@ package dercs.datatypes;
  */
 public interface IntegerDataTypes extends DataType {
 	/**
-	 * Returns the value of the '<em><b>Is Signal</b></em>' attribute.
+	 * Returns the value of the '<em><b>Signal</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Indicates whether the number is a signal bit
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Signal</em>' attribute.
-	 * @see #setIsSignal(boolean)
-	 * @see dercs.datatypes.DatatypesPackage#getIntegerDataTypes_IsSignal()
+	 * @return the value of the '<em>Signal</em>' attribute.
+	 * @see #setSignal(boolean)
+	 * @see dercs.datatypes.DatatypesPackage#getIntegerDataTypes_Signal()
 	 * @model
 	 * @generated
 	 */
-	boolean isIsSignal();
+	boolean isSignal();
 
 	/**
-	 * Sets the value of the '{@link dercs.datatypes.IntegerDataTypes#isIsSignal <em>Is Signal</em>}' attribute.
+	 * Sets the value of the '{@link dercs.datatypes.IntegerDataTypes#isSignal <em>Signal</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Signal</em>' attribute.
-	 * @see #isIsSignal()
+	 * @param value the new value of the '<em>Signal</em>' attribute.
+	 * @see #isSignal()
 	 * @generated
 	 */
-	void setIsSignal(boolean value);
+	void setSignal(boolean value);
 
 	/**
 	 * <!-- begin-user-doc -->

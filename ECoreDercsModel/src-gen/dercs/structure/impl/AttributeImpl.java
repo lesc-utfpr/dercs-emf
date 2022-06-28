@@ -7,6 +7,8 @@ import dercs.structure.Attribute;
 import dercs.structure.StructurePackage;
 import dercs.structure.Visibility;
 
+import dercs.structure.runtime.RuntimeElement;
+import dercs.structure.runtime.RuntimePackage;
 import dercs.structure.runtime.impl.RuntimeElementImpl;
 import java.lang.reflect.InvocationTargetException;
 import org.eclipse.emf.common.notify.Notification;
@@ -439,6 +441,24 @@ public class AttributeImpl extends RuntimeElementImpl implements Attribute {
 			return readOnly != READ_ONLY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedOperationID(int baseOperationID, Class<?> baseClass) {
+		if (baseClass == RuntimeElement.class) {
+			switch (baseOperationID) {
+			case RuntimePackage.RUNTIME_ELEMENT___IS_OBJECT:
+				return StructurePackage.ATTRIBUTE___IS_OBJECT;
+			default:
+				return super.eDerivedOperationID(baseOperationID, baseClass);
+			}
+		}
+		return super.eDerivedOperationID(baseOperationID, baseClass);
 	}
 
 	/**

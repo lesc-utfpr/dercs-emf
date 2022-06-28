@@ -107,6 +107,7 @@ public interface Class extends BaseElement {
 
 	/**
 	 * Returns the value of the '<em><b>Abstract</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -115,7 +116,7 @@ public interface Class extends BaseElement {
 	 * @return the value of the '<em>Abstract</em>' attribute.
 	 * @see #setAbstract(boolean)
 	 * @see dercs.structure.StructurePackage#getClass_Abstract()
-	 * @model
+	 * @model default="false"
 	 * @generated
 	 */
 	boolean isAbstract();

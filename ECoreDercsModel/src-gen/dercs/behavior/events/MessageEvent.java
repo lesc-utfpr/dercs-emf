@@ -30,7 +30,7 @@ public interface MessageEvent extends Event {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * TODO: The action that caused this event
+	 * The action that caused this event
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Action</em>' reference.
 	 * @see #setAction(Action)

@@ -4,6 +4,7 @@ package dercs.structure.runtime.impl;
 
 import dercs.structure.runtime.AttributeRuntimeInformation;
 import dercs.structure.runtime.Node;
+import dercs.structure.runtime.RuntimeElement;
 import dercs.structure.runtime.RuntimePackage;
 
 import java.lang.reflect.InvocationTargetException;
@@ -311,6 +312,24 @@ public class ObjectImpl extends RuntimeElementImpl implements dercs.structure.ru
 			return runtimeInformation != null && !runtimeInformation.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedOperationID(int baseOperationID, Class<?> baseClass) {
+		if (baseClass == RuntimeElement.class) {
+			switch (baseOperationID) {
+			case RuntimePackage.RUNTIME_ELEMENT___IS_OBJECT:
+				return RuntimePackage.OBJECT___IS_OBJECT;
+			default:
+				return super.eDerivedOperationID(baseOperationID, baseClass);
+			}
+		}
+		return super.eDerivedOperationID(baseOperationID, baseClass);
 	}
 
 	/**

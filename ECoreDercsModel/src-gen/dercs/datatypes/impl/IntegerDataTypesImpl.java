@@ -25,31 +25,31 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link dercs.datatypes.impl.IntegerDataTypesImpl#isIsSignal <em>Is Signal</em>}</li>
+ *   <li>{@link dercs.datatypes.impl.IntegerDataTypesImpl#isSignal <em>Signal</em>}</li>
  * </ul>
  *
  * @generated
  */
 public abstract class IntegerDataTypesImpl extends DataTypeImpl implements IntegerDataTypes {
 	/**
-	 * The default value of the '{@link #isIsSignal() <em>Is Signal</em>}' attribute.
+	 * The default value of the '{@link #isSignal() <em>Signal</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsSignal()
+	 * @see #isSignal()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_SIGNAL_EDEFAULT = false;
+	protected static final boolean SIGNAL_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isIsSignal() <em>Is Signal</em>}' attribute.
+	 * The cached value of the '{@link #isSignal() <em>Signal</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsSignal()
+	 * @see #isSignal()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isSignal = IS_SIGNAL_EDEFAULT;
+	protected boolean signal = SIGNAL_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -76,8 +76,8 @@ public abstract class IntegerDataTypesImpl extends DataTypeImpl implements Integ
 	 * @generated
 	 */
 	@Override
-	public boolean isIsSignal() {
-		return isSignal;
+	public boolean isSignal() {
+		return signal;
 	}
 
 	/**
@@ -86,12 +86,12 @@ public abstract class IntegerDataTypesImpl extends DataTypeImpl implements Integ
 	 * @generated
 	 */
 	@Override
-	public void setIsSignal(boolean newIsSignal) {
-		boolean oldIsSignal = isSignal;
-		isSignal = newIsSignal;
+	public void setSignal(boolean newSignal) {
+		boolean oldSignal = signal;
+		signal = newSignal;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DatatypesPackage.INTEGER_DATA_TYPES__IS_SIGNAL,
-					oldIsSignal, isSignal));
+			eNotify(new ENotificationImpl(this, Notification.SET, DatatypesPackage.INTEGER_DATA_TYPES__SIGNAL,
+					oldSignal, signal));
 	}
 
 	/**
@@ -101,9 +101,7 @@ public abstract class IntegerDataTypesImpl extends DataTypeImpl implements Integ
 	 */
 	@Override
 	public boolean isSigned() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return this.signal;
 	}
 
 	/**
@@ -114,8 +112,8 @@ public abstract class IntegerDataTypesImpl extends DataTypeImpl implements Integ
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case DatatypesPackage.INTEGER_DATA_TYPES__IS_SIGNAL:
-			return isIsSignal();
+		case DatatypesPackage.INTEGER_DATA_TYPES__SIGNAL:
+			return isSignal();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -128,8 +126,8 @@ public abstract class IntegerDataTypesImpl extends DataTypeImpl implements Integ
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case DatatypesPackage.INTEGER_DATA_TYPES__IS_SIGNAL:
-			setIsSignal((Boolean) newValue);
+		case DatatypesPackage.INTEGER_DATA_TYPES__SIGNAL:
+			setSignal((Boolean) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -143,8 +141,8 @@ public abstract class IntegerDataTypesImpl extends DataTypeImpl implements Integ
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case DatatypesPackage.INTEGER_DATA_TYPES__IS_SIGNAL:
-			setIsSignal(IS_SIGNAL_EDEFAULT);
+		case DatatypesPackage.INTEGER_DATA_TYPES__SIGNAL:
+			setSignal(SIGNAL_EDEFAULT);
 			return;
 		}
 		super.eUnset(featureID);
@@ -158,8 +156,8 @@ public abstract class IntegerDataTypesImpl extends DataTypeImpl implements Integ
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case DatatypesPackage.INTEGER_DATA_TYPES__IS_SIGNAL:
-			return isSignal != IS_SIGNAL_EDEFAULT;
+		case DatatypesPackage.INTEGER_DATA_TYPES__SIGNAL:
+			return signal != SIGNAL_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -189,8 +187,8 @@ public abstract class IntegerDataTypesImpl extends DataTypeImpl implements Integ
 			return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (isSignal: ");
-		result.append(isSignal);
+		result.append(" (signal: ");
+		result.append(signal);
 		result.append(')');
 		return result.toString();
 	}

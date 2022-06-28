@@ -27,6 +27,7 @@ package dercs.structure;
 public interface BaseElement extends NamedElement {
 	/**
 	 * Returns the value of the '<em><b>Static</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -35,7 +36,7 @@ public interface BaseElement extends NamedElement {
 	 * @return the value of the '<em>Static</em>' attribute.
 	 * @see #setStatic(boolean)
 	 * @see dercs.structure.StructurePackage#getBaseElement_Static()
-	 * @model
+	 * @model default="false"
 	 * @generated
 	 */
 	boolean isStatic();

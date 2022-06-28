@@ -9,6 +9,14 @@
 *.project
 *.classpath
 
+# Eclipse copies these into the root folder when generating the model code
+build.properties
+plugin.properties
+plugin.xml
+.classpath
+.project
+META-INF/
+
 # IntelliJ Idea
 .idea/
 *.iml

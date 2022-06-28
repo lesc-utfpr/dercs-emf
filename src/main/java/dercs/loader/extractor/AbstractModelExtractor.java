@@ -52,7 +52,7 @@ public abstract class AbstractModelExtractor {
     /**
      * Forwards to {@link WrappedUmlResource#getAppliedStereotype(Element, EClassifier)}
      * <p>
-     * This is provided purely for convenience.
+     * This is provided purely for convenience, because stereotypes need to be accessed often.
      * @param element the element to check
      * @param stereotypeType the classifier of the stereotype to test for
      * @return the applied stereotype object, or {@code null} if none exists
@@ -64,7 +64,7 @@ public abstract class AbstractModelExtractor {
     /**
      * Forwards to {@link WrappedUmlResource#getAppliedStereotypes(Element)}
      * <p>
-     * This is provided purely for convenience.
+     * This is provided purely for convenience, because stereotypes need to be accessed often.
      * @param element the element to check
      * @return the list of applied stereotypes
      */

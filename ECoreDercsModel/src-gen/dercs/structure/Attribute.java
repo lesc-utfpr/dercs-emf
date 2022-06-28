@@ -137,6 +137,7 @@ public interface Attribute extends RuntimeElement {
 
 	/**
 	 * Returns the value of the '<em><b>Read Only</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -145,7 +146,7 @@ public interface Attribute extends RuntimeElement {
 	 * @return the value of the '<em>Read Only</em>' attribute.
 	 * @see #setReadOnly(boolean)
 	 * @see dercs.structure.StructurePackage#getAttribute_ReadOnly()
-	 * @model
+	 * @model default="false"
 	 * @generated
 	 */
 	boolean isReadOnly();

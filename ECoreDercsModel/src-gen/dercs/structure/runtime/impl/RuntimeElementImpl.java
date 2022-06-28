@@ -111,9 +111,7 @@ public abstract class RuntimeElementImpl extends BaseElementImpl implements Runt
 	 */
 	@Override
 	public boolean isObject() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return false;
 	}
 
 	/**
