@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Model;
+import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.UMLPackage;
 
 import java.util.*;
@@ -43,6 +44,8 @@ public class WrappedUmlResource {
         this.buildStereotypeMap();
     }
 
+    // === Helpers ===
+
     /**
      * Returns the main UML model of this resource.
      * This will fail if the resource contains zero or more than one model.
@@ -62,6 +65,30 @@ public class WrappedUmlResource {
         }
 
         return cachedMainModel;
+    }
+
+    /**
+     * Finds all children of the main model which have the given type.
+     * Recursively checks all subpackages.
+     * @param type the type of UML element to find
+     * @return a list of found elements
+     */
+    public <T> List<T> getAllModelElementsOfType(EClassifier type) {
+        Stack<Element> packagesToSearch = new Stack<>();
+        packagesToSearch.push(this.getMainModel());
+
+        ArrayList<T> foundElements = new ArrayList<>();
+
+        while (!packagesToSearch.empty()) {
+            Element currentPackage = packagesToSearch.pop();
+            Collection<Package> subPackages = EcoreUtil.getObjectsByType(currentPackage.getOwnedElements(), UMLPackage.Literals.PACKAGE);
+            subPackages.forEach(packagesToSearch::push);
+
+            Collection<T> matchingElements = EcoreUtil.getObjectsByType(currentPackage.getOwnedElements(), type);
+            foundElements.addAll(matchingElements);
+        }
+
+        return foundElements;
     }
 
     /**

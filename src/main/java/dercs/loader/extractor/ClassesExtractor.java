@@ -2,42 +2,28 @@ package dercs.loader.extractor;
 
 import AMoDERT.AspectsModeling.AspectsModelingPackage;
 import dercs.structure.StructureFactory;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.papyrus.MARTE.MARTE_Foundations.GRM.GRMPackage;
 import org.eclipse.uml2.uml.Class;
-import org.eclipse.uml2.uml.Element;
-import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.UMLPackage;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Extracts all class elements from the uml-model.
  * These may represent classes, aspects or join points in DERCS.
+ * <p>
+ * Result:
+ * <ul>
+ *     <li>every class from the UML models has a corresponding DERCS class with only name and abstract/active/passive state set</li>
+ * </ul>
  */
 public class ClassesExtractor extends AbstractModelExtractor {
     @Override
     protected void run() {
-        processOwnedClasses(this.umlResource.getMainModel());
-    }
+        List<Class> umlClasses =  this.umlResource.getAllModelElementsOfType(UMLPackage.Literals.CLASS);
 
-    /**
-     * Processes all classes contained the given container. Will also check subpackages recursively.
-     *
-     * @param owner the container object to check for classes
-     */
-    private void processOwnedClasses(Element owner) {
-        Collection<Package> packages = EcoreUtil.getObjectsByType(owner.getOwnedElements(), UMLPackage.Literals.PACKAGE);
-        for (Package subPackage : packages) {
-            processOwnedClasses(subPackage);
-        }
-
-        Collection<Class> classes = EcoreUtil.getObjectsByType(owner.getOwnedElements(), UMLPackage.Literals.CLASS);
-
-        for (Class cls : classes) {
-            //TODO: ignore JPDD classes (by name and JPDD parent diagram?)
-
-            // if the class has the "Aspect" stereotype it should be an aspect instead
+        for (Class cls :  umlClasses) {
+            // TODO: ignore JPDD classes (by name and JPDD parent diagram?)
             if (getAppliedStereotype(cls, AspectsModelingPackage.Literals.ASPECT) != null) {
                 createAspect(cls);
             } else {
