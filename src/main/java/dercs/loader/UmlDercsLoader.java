@@ -2,8 +2,11 @@ package dercs.loader;
 
 import dercs.DercsFactory;
 import dercs.Model;
+import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.extractor.AbstractModelExtractor;
+import dercs.loader.extractor.ClassHierarchyExtractor;
 import dercs.loader.extractor.ClassesExtractor;
+import dercs.loader.extractor.NodesExtractor;
 import dercs.loader.fixer.AbstractModelFixer;
 import dercs.loader.resource.UmlResourceLoader;
 import dercs.loader.resource.WrappedUmlResource;
@@ -63,7 +66,7 @@ public class UmlDercsLoader implements IDercsLoader{
      *
      * @return the loaded DERCS model
      */
-    public Model loadDercsModel() {
+    public Model loadDercsModel() throws DercsLoaderException {
         LOGGER.info("Beginning to load DERCS model.");
 
         // run extractors
@@ -95,6 +98,16 @@ public class UmlDercsLoader implements IDercsLoader{
      * Instantiate and add all the Model Extractors that will be used.
      */
     private void registerExtractors() {
+        /* Possible order:
+         * - Classes
+         * - Nodes
+         * - Class hierarchy
+         * - Class attributes & associations
+         * - Methods
+         * - Interaction / Sequence Diagrams
+         * - Join Points (+ select Elements)
+         * - Aspects, Adaptations, Pointcuts, Crosscutting Info
+         */
         Collections.addAll(this.modelExtractors,
                 new ClassesExtractor()
         );

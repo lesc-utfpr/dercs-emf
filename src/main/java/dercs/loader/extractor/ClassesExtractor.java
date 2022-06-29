@@ -5,6 +5,8 @@ import dercs.structure.StructureFactory;
 import org.eclipse.papyrus.MARTE.MARTE_Foundations.GRM.GRMPackage;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.UMLPackage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -14,10 +16,12 @@ import java.util.List;
  * <p>
  * Result:
  * <ul>
- *     <li>every class from the UML models has a corresponding DERCS class with only name and abstract/active/passive state set</li>
+ *     <li>every class from the UML model has a corresponding DERCS class with only name and abstract/active/passive state set</li>
  * </ul>
  */
 public class ClassesExtractor extends AbstractModelExtractor {
+    private static final Logger LOGGER = LoggerFactory.getLogger("ClassesExtractor");
+
     @Override
     protected void run() {
         List<Class> umlClasses =  this.umlResource.getAllModelElementsOfType(UMLPackage.Literals.CLASS);
@@ -33,6 +37,7 @@ public class ClassesExtractor extends AbstractModelExtractor {
     }
 
     private void createClass(Class umlClass) {
+        LOGGER.info("Creating class '{}'.", umlClass.getName());
         dercs.structure.Class dercsClass = StructureFactory.eINSTANCE.createClass();
         dercsClass.setName(umlClass.getName());
         dercsClass.setAbstract(umlClass.isAbstract());
@@ -44,6 +49,7 @@ public class ClassesExtractor extends AbstractModelExtractor {
         }
 
         this.dercsModel.getClasses().add(dercsClass);
+        this.umlResource.registerDercsUmlElementPair(dercsClass, umlClass);
     }
 
     private void createAspect(Class umlClass) {

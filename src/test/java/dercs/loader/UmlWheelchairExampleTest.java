@@ -1,5 +1,6 @@
 package dercs.loader;
 
+import dercs.loader.exception.DercsLoaderException;
 import dercs.structure.Class;
 import dercs.structure.NamedElement;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UmlWheelchairExampleTest extends AbstractLoaderFileTest {
-    public UmlWheelchairExampleTest() {
+    public UmlWheelchairExampleTest() throws DercsLoaderException {
         super("/uml_models/Wheelchair.uml");
     }
 
@@ -62,10 +63,6 @@ public class UmlWheelchairExampleTest extends AbstractLoaderFileTest {
 
     //TODO: more tests once these extractors exist
     // AO tests and specific interaction tests should probably be different classes so this one doesn't get too large
-
-    public void testClassHierarchy() {
-
-    }
 
     public void testAssociations() {
 

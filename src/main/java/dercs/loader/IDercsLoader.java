@@ -1,6 +1,7 @@
 package dercs.loader;
 
 import dercs.Model;
+import dercs.loader.exception.DercsLoaderException;
 
 /**
  * Common interface for DERCS model loaders.
@@ -11,5 +12,5 @@ public interface IDercsLoader {
      *
      * @return the loaded DERCS model
      */
-    Model loadDercsModel();
+    Model loadDercsModel() throws DercsLoaderException;
 }

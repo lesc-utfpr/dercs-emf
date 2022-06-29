@@ -1,6 +1,7 @@
 package dercs.loader.extractor;
 
 import dercs.Model;
+import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.resource.WrappedUmlResource;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -27,7 +28,7 @@ public abstract class AbstractModelExtractor {
      * @param umlResource the resource to extract from
      * @param dercsModel the model to modify
      */
-    public final void apply(WrappedUmlResource umlResource, Model dercsModel) {
+    public final void apply(WrappedUmlResource umlResource, Model dercsModel) throws DercsLoaderException{
         this.umlResource = umlResource;
         this.dercsModel = dercsModel;
 
@@ -41,7 +42,7 @@ public abstract class AbstractModelExtractor {
      * The resource and model can be accessed through the members
      * {@link AbstractModelExtractor#dercsModel} and {@link AbstractModelExtractor#umlResource}
      */
-    protected abstract void run();
+    protected abstract void run() throws DercsLoaderException;
 
     /**
      * Returns the name of this extractor

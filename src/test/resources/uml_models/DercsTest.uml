@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_IwqW8PfEEey4DpJf-y2Yrg" name="DercsTest">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_IyrwMPfEEey4DpJf-y2Yrg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Rm5X0PfEEey4DpJf-y2Yrg" name="ParentClass2"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_TXRJQPfEEey4DpJf-y2Yrg" name="ChildClass1">
+    <generalization xmi:type="uml:Generalization" xmi:id="_ZchokPfKEey4DpJf-y2Yrg" general="_Mrnh4PfKEey4DpJf-y2Yrg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_owV4QPfHEey4DpJf-y2Yrg" name="childclass2" type="_YTJNYPfEEey4DpJf-y2Yrg" aggregation="composite" association="_owUDEPfHEey4DpJf-y2Yrg"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_w3GEUPfEEey4DpJf-y2Yrg" name="overridingMethod">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_1BaIoPfEEey4DpJf-y2Yrg">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_2jOgsPfEEey4DpJf-y2Yrg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_YTJNYPfEEey4DpJf-y2Yrg" name="ChildClass2">
+    <generalization xmi:type="uml:Generalization" xmi:id="_cbxPoPfEEey4DpJf-y2Yrg" general="_Rm5X0PfEEey4DpJf-y2Yrg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Zlj3gPfEEey4DpJf-y2Yrg" name="ChildClass3">
+    <generalization xmi:type="uml:Generalization" xmi:id="_eUtHMPfEEey4DpJf-y2Yrg" general="_Rm5X0PfEEey4DpJf-y2Yrg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_bi6YMvfIEey4DpJf-y2Yrg" name="childclass1" type="_TXRJQPfEEey4DpJf-y2Yrg" association="_bi5xIPfIEey4DpJf-y2Yrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ec9HcPfIEey4DpJf-y2Yrg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bi6YNPfIEey4DpJf-y2Yrg" value="*"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Node" xmi:id="_5QLZsPfFEey4DpJf-y2Yrg" name="NodeA">
+    <nestedClassifier xmi:type="uml:Artifact" xmi:id="_9c5RwPfFEey4DpJf-y2Yrg" name="Java.NodeA" fileName="">
+      <manifestation xmi:type="uml:Manifestation" xmi:id="_IYt-wPfJEey4DpJf-y2Yrg" client="_9c5RwPfFEey4DpJf-y2Yrg" supplier="_junq0PfHEey4DpJf-y2Yrg" utilizedElement="_junq0PfHEey4DpJf-y2Yrg"/>
+    </nestedClassifier>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Node" xmi:id="_6OeN8PfFEey4DpJf-y2Yrg" name="NodeB">
+    <nestedClassifier xmi:type="uml:Artifact" xmi:id="_FuZ08PfGEey4DpJf-y2Yrg" name="Java.NodeB">
+      <manifestation xmi:type="uml:Manifestation" xmi:id="_H0kI0PfJEey4DpJf-y2Yrg" client="_FuZ08PfGEey4DpJf-y2Yrg" supplier="_gzDcIPfIEey4DpJf-y2Yrg" utilizedElement="_gzDcIPfIEey4DpJf-y2Yrg"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Artifact" xmi:id="_ICYpwPfGEey4DpJf-y2Yrg" name="Cpp.NodeB" fileName=""/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_IElzwPfHEey4DpJf-y2Yrg" name="Activity10"/>
+  <packagedElement xmi:type="uml:InstanceSpecification" xmi:id="_junq0PfHEey4DpJf-y2Yrg" name="child1Instance" classifier="_TXRJQPfEEey4DpJf-y2Yrg">
+    <slot xmi:type="uml:Slot" xmi:id="_x2JwwffIEey4DpJf-y2Yrg" definingFeature="_owV4QPfHEey4DpJf-y2Yrg">
+      <value xmi:type="uml:InstanceValue" xmi:id="_x2JwwvfIEey4DpJf-y2Yrg" name="InstanceValue0" type="_YTJNYPfEEey4DpJf-y2Yrg" instance="_PV6P0PfIEey4DpJf-y2Yrg"/>
+    </slot>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_owUDEPfHEey4DpJf-y2Yrg" memberEnd="_owV4QPfHEey4DpJf-y2Yrg _owdNAPfHEey4DpJf-y2Yrg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_owVRMPfHEey4DpJf-y2Yrg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_owVRMffHEey4DpJf-y2Yrg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_owdNAPfHEey4DpJf-y2Yrg" name="childclass1" type="_TXRJQPfEEey4DpJf-y2Yrg" association="_owUDEPfHEey4DpJf-y2Yrg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:InstanceSpecification" xmi:id="_PV6P0PfIEey4DpJf-y2Yrg" name="child2Instance" classifier="_YTJNYPfEEey4DpJf-y2Yrg"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_bi5xIPfIEey4DpJf-y2Yrg" memberEnd="_bi6YMvfIEey4DpJf-y2Yrg _bi6YNffIEey4DpJf-y2Yrg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_bi6YMPfIEey4DpJf-y2Yrg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bi6YMffIEey4DpJf-y2Yrg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_bi6YNffIEey4DpJf-y2Yrg" name="childclass3" type="_Zlj3gPfEEey4DpJf-y2Yrg" association="_bi5xIPfIEey4DpJf-y2Yrg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:InstanceSpecification" xmi:id="_gzDcIPfIEey4DpJf-y2Yrg" name="child3Instance" classifier="_Zlj3gPfEEey4DpJf-y2Yrg">
+    <slot xmi:type="uml:Slot" xmi:id="_vwedsffIEey4DpJf-y2Yrg" definingFeature="_bi6YMvfIEey4DpJf-y2Yrg">
+      <value xmi:type="uml:InstanceValue" xmi:id="_vwfEwPfIEey4DpJf-y2Yrg" name="InstanceValue0" type="_TXRJQPfEEey4DpJf-y2Yrg" instance="_junq0PfHEey4DpJf-y2Yrg"/>
+    </slot>
+  </packagedElement>
+  <packagedElement xmi:type="uml:InstanceSpecification" xmi:id="_t_xVEPfIEey4DpJf-y2Yrg" name="InstanceSpecification15" classifier="_bi5xIPfIEey4DpJf-y2Yrg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vwedsPfIEey4DpJf-y2Yrg" source="InstanceEnd" references="_junq0PfHEey4DpJf-y2Yrg _gzDcIPfIEey4DpJf-y2Yrg"/>
+    <slot xmi:type="uml:Slot" xmi:id="_vwfEwffIEey4DpJf-y2Yrg" definingFeature="_bi6YNffIEey4DpJf-y2Yrg">
+      <value xmi:type="uml:InstanceValue" xmi:id="_vwfEwvfIEey4DpJf-y2Yrg" name="InstanceValue0" type="_Zlj3gPfEEey4DpJf-y2Yrg" instance="_gzDcIPfIEey4DpJf-y2Yrg"/>
+    </slot>
+  </packagedElement>
+  <packagedElement xmi:type="uml:InstanceSpecification" xmi:id="_xUf1MPfIEey4DpJf-y2Yrg" name="InstanceSpecification16" classifier="_owUDEPfHEey4DpJf-y2Yrg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_x2JwwPfIEey4DpJf-y2Yrg" source="InstanceEnd" references="_PV6P0PfIEey4DpJf-y2Yrg _junq0PfHEey4DpJf-y2Yrg"/>
+    <slot xmi:type="uml:Slot" xmi:id="_x2Jww_fIEey4DpJf-y2Yrg" definingFeature="_owdNAPfHEey4DpJf-y2Yrg">
+      <value xmi:type="uml:InstanceValue" xmi:id="_x2JwxPfIEey4DpJf-y2Yrg" name="InstanceValue0" type="_TXRJQPfEEey4DpJf-y2Yrg" instance="_junq0PfHEey4DpJf-y2Yrg"/>
+    </slot>
+  </packagedElement>
+  <packagedElement xmi:type="uml:CommunicationPath" xmi:id="_G1hGoPfJEey4DpJf-y2Yrg" memberEnd="_G1htsvfJEey4DpJf-y2Yrg _G1hts_fJEey4DpJf-y2Yrg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_G1htsPfJEey4DpJf-y2Yrg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_G1htsffJEey4DpJf-y2Yrg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_G1htsvfJEey4DpJf-y2Yrg" name="nodeb" type="_6OeN8PfFEey4DpJf-y2Yrg" association="_G1hGoPfJEey4DpJf-y2Yrg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_G1hts_fJEey4DpJf-y2Yrg" name="nodea" type="_5QLZsPfFEey4DpJf-y2Yrg" association="_G1hGoPfJEey4DpJf-y2Yrg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_-jH9MPfJEey4DpJf-y2Yrg" name="ChildChildClass">
+    <generalization xmi:type="uml:Generalization" xmi:id="_AEcmAPfKEey4DpJf-y2Yrg" general="_YTJNYPfEEey4DpJf-y2Yrg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Mrnh4PfKEey4DpJf-y2Yrg" name="ParentClass1">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Oolk4PfKEey4DpJf-y2Yrg" name="baseMethod">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_RNZD8PfKEey4DpJf-y2Yrg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_SLz0APfKEey4DpJf-y2Yrg" name="overridingMethod">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_V8GOwPfKEey4DpJf-y2Yrg" name="string">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Xsbj8PfKEey4DpJf-y2Yrg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_IxxxQPfEEey4DpJf-y2Yrg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ix0NgPfEEey4DpJf-y2Yrg" source="PapyrusVersion">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ix0NgffEEey4DpJf-y2Yrg" key="Version" value="0.0.8"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ix0NgvfEEey4DpJf-y2Yrg" key="Comment" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ix0Ng_fEEey4DpJf-y2Yrg" key="Copyright" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ix0NhPfEEey4DpJf-y2Yrg" key="Date" value="2022-06-11"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ix0NhffEEey4DpJf-y2Yrg" key="Author" value=""/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_IxzmcPfEEey4DpJf-y2Yrg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="/AspectsModeling/AMoDE-RT.profile.uml#_iOzKgOmoEey34oV5mt3-_g"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="/AspectsModeling/AMoDE-RT.profile.uml#_U1-koOf6Eey1bKVmm5z5Iw"/>
+  </profileApplication>
+</uml:Model>

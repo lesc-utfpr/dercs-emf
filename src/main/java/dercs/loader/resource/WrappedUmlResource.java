@@ -10,6 +10,8 @@ import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.UMLPackage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -17,6 +19,7 @@ import java.util.*;
  * Wraps a {@link Resource} to provide easier access to aspects and other information.
  */
 public class WrappedUmlResource {
+    private final Logger LOGGER = LoggerFactory.getLogger("WrappedUmlResource");
     /**
      * The wrapped resource.
      */
@@ -32,6 +35,19 @@ public class WrappedUmlResource {
      */
     private final Map<Element, List<EObject>> elementToAppliedStereotypesMap;
 
+    // This may be somewhat inefficient compared to using a real Bimap,
+    // but since we will never remove elements and likely won't store more than a few thousand objects,
+    // I don't think we need to depend on guava just for a Bimap.
+    /**
+     * A map from UML elements to their corresponding DERCS elements.
+     */
+    private final Map<Element, EObject> elementPairsUmlToDercs;
+
+    /**
+     * A map from DERCS elements to their corresponding UML elements.
+     */
+    private final Map<EObject, Element> elementPairsDercsToUml;
+
     /**
      * Create a wrapped resource from the given UML resource.
      * @param resource the UML resource to wrap
@@ -40,6 +56,9 @@ public class WrappedUmlResource {
         this.resource = resource;
         this.cachedMainModel = null;
         this.elementToAppliedStereotypesMap = new HashMap<>();
+
+        this.elementPairsUmlToDercs = new HashMap<>();
+        this.elementPairsDercsToUml = new HashMap<>();
 
         this.buildStereotypeMap();
     }
@@ -100,6 +119,47 @@ public class WrappedUmlResource {
     public EList<EObject> getResourceContents() {
         return this.resource.getContents();
     }
+
+    // === Model pairs ===
+
+    /**
+     * Register a pairing between a DERCS element and a UML element.
+     * This can later be used to look up the corresponding element in the other model.
+     * @param dercsElement the element of the DERCS model
+     * @param umlElement the element of the UML model
+     */
+    public void registerDercsUmlElementPair(EObject dercsElement, Element umlElement) {
+        // EObject explicitly assumes that no child class will ever overwrite hashCode,
+        // so this should always use object identity as the key
+        Object prevValueDercs = this.elementPairsUmlToDercs.put(umlElement, dercsElement);
+        Object prevValueUml = this.elementPairsDercsToUml.put(dercsElement, umlElement);
+
+        if (prevValueDercs != null || prevValueUml != null) {
+            LOGGER.warn("Overwrote existing entry in element pairs map!");
+        }
+    }
+
+    /**
+     * Returns the DERCS element's corresponding UML element, if it has been registered.
+     * @param dercsElement the DERCS element
+     * @return the corresponding UML element if one was registered, otherwise {@code null}
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends Element> T getCorrespondingUmlElement(EObject dercsElement) {
+        return (T) this.elementPairsDercsToUml.get(dercsElement);
+    }
+
+    /**
+     * Returns the UML element's corresponding DERCS element, if it has been registered.
+     * @param umlElement the UML element
+     * @return the corresponding DERCS element if one was registered, otherwise {@code null}
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends EObject> T getCorrespondingDercsElement(Element umlElement) {
+        return (T) this.elementPairsUmlToDercs.get(umlElement);
+    }
+
+    // === Stereotypes ===
 
     /**
      * Tries to retrieve a stereotype of the given type applied to the given element.
