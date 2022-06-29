@@ -109,7 +109,8 @@ public class UmlDercsLoader implements IDercsLoader{
          * - Aspects, Adaptations, Pointcuts, Crosscutting Info
          */
         Collections.addAll(this.modelExtractors,
-                new ClassesExtractor()
+                new ClassesExtractor(),
+                new ClassHierarchyExtractor()
         );
     }
 
