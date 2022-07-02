@@ -57,8 +57,8 @@ public class WrappedUmlResource {
         this.cachedMainModel = null;
         this.elementToAppliedStereotypesMap = new HashMap<>();
 
-        this.elementPairsUmlToDercs = new HashMap<>();
-        this.elementPairsDercsToUml = new HashMap<>();
+        this.elementPairsUmlToDercs = new IdentityHashMap<>();
+        this.elementPairsDercsToUml = new IdentityHashMap<>();
 
         this.buildStereotypeMap();
     }
@@ -129,8 +129,6 @@ public class WrappedUmlResource {
      * @param umlElement the element of the UML model
      */
     public void registerDercsUmlElementPair(EObject dercsElement, Element umlElement) {
-        // EObject explicitly assumes that no child class will ever overwrite hashCode,
-        // so this should always use object identity as the key
         Object prevValueDercs = this.elementPairsUmlToDercs.put(umlElement, dercsElement);
         Object prevValueUml = this.elementPairsDercsToUml.put(dercsElement, umlElement);
 

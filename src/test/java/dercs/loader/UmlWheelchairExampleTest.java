@@ -61,6 +61,17 @@ public class UmlWheelchairExampleTest extends AbstractLoaderFileTest {
 
     }
 
+    @Test
+    public void testClassHierarchy() {
+        Class sensorDriverClass = findDercsNamedElement(model().getClasses(), "SensorDriver");
+        Class joystickDriverClass = findDercsNamedElement(model().getClasses(), "JoystickDriver");
+        Class wheelSpeedSensorDriverClass = findDercsNamedElement(model().getClasses(), "WheelSpeedSensorDriver");
+
+        assertSame(sensorDriverClass, joystickDriverClass.getSuperClass());
+        assertSame(sensorDriverClass, wheelSpeedSensorDriverClass.getSuperClass());
+        assertNull(sensorDriverClass.getSuperClass());
+    }
+
     //TODO: more tests once these extractors exist
     // AO tests and specific interaction tests should probably be different classes so this one doesn't get too large
 

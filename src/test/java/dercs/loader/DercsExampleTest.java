@@ -2,6 +2,7 @@ package dercs.loader;
 
 import dercs.loader.exception.DercsLoaderException;
 import dercs.structure.Class;
+import dercs.structure.runtime.Node;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,6 +46,19 @@ public class DercsExampleTest extends AbstractLoaderFileTest {
 
     @Test
     public void testNodes() {
-        //TODO
+        // we can't find nodes by name, because their names are not unique when they have multiple artifacts
+        Node nodeAJava = findDercsElementByPredicate(model().getNodes(),
+                node -> node.getName().equals("NodeA") && node.getPlatformName().equals("Java")
+        );
+        Node nodeBJava = findDercsElementByPredicate(model().getNodes(),
+                node -> node.getName().equals("NodeB") && node.getPlatformName().equals("Java")
+        );
+        Node nodeBCpp = findDercsElementByPredicate(model().getNodes(),
+                node -> node.getName().equals("NodeB") && node.getPlatformName().equals("Cpp")
+        );
+
+        assertNotNull(nodeAJava);
+        assertNotNull(nodeBJava);
+        assertNotNull(nodeBCpp);
     }
 }

@@ -110,6 +110,7 @@ public class UmlDercsLoader implements IDercsLoader{
          */
         Collections.addAll(this.modelExtractors,
                 new ClassesExtractor(),
+                new NodesExtractor(),
                 new ClassHierarchyExtractor()
         );
     }

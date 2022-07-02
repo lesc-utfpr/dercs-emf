@@ -27,15 +27,11 @@
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Node" xmi:id="_5QLZsPfFEey4DpJf-y2Yrg" name="NodeA">
-    <nestedClassifier xmi:type="uml:Artifact" xmi:id="_9c5RwPfFEey4DpJf-y2Yrg" name="Java.NodeA" fileName="">
-      <manifestation xmi:type="uml:Manifestation" xmi:id="_IYt-wPfJEey4DpJf-y2Yrg" client="_9c5RwPfFEey4DpJf-y2Yrg" supplier="_junq0PfHEey4DpJf-y2Yrg" utilizedElement="_junq0PfHEey4DpJf-y2Yrg"/>
-    </nestedClassifier>
+    <deployment xmi:type="uml:Deployment" xmi:id="_WXDJcPlLEeyikpjy90934w" client="_5QLZsPfFEey4DpJf-y2Yrg" supplier="_9c5RwPfFEey4DpJf-y2Yrg" deployedArtifact="_9c5RwPfFEey4DpJf-y2Yrg"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Node" xmi:id="_6OeN8PfFEey4DpJf-y2Yrg" name="NodeB">
-    <nestedClassifier xmi:type="uml:Artifact" xmi:id="_FuZ08PfGEey4DpJf-y2Yrg" name="Java.NodeB">
-      <manifestation xmi:type="uml:Manifestation" xmi:id="_H0kI0PfJEey4DpJf-y2Yrg" client="_FuZ08PfGEey4DpJf-y2Yrg" supplier="_gzDcIPfIEey4DpJf-y2Yrg" utilizedElement="_gzDcIPfIEey4DpJf-y2Yrg"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Artifact" xmi:id="_ICYpwPfGEey4DpJf-y2Yrg" name="Cpp.NodeB" fileName=""/>
+    <deployment xmi:type="uml:Deployment" xmi:id="_TweIwPlLEeyikpjy90934w" client="_6OeN8PfFEey4DpJf-y2Yrg" supplier="_FuZ08PfGEey4DpJf-y2Yrg" deployedArtifact="_FuZ08PfGEey4DpJf-y2Yrg"/>
+    <deployment xmi:type="uml:Deployment" xmi:id="_aEiH0PlLEeyikpjy90934w" client="_6OeN8PfFEey4DpJf-y2Yrg" supplier="_ICYpwPfGEey4DpJf-y2Yrg" deployedArtifact="_ICYpwPfGEey4DpJf-y2Yrg"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Activity" xmi:id="_IElzwPfHEey4DpJf-y2Yrg" name="Activity10"/>
   <packagedElement xmi:type="uml:InstanceSpecification" xmi:id="_junq0PfHEey4DpJf-y2Yrg" name="child1Instance" classifier="_TXRJQPfEEey4DpJf-y2Yrg">
@@ -97,6 +93,13 @@
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
       </ownedParameter>
     </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Artifact" xmi:id="_FuZ08PfGEey4DpJf-y2Yrg" name="Java.NodeB">
+    <manifestation xmi:type="uml:Manifestation" xmi:id="_H0kI0PfJEey4DpJf-y2Yrg" client="_FuZ08PfGEey4DpJf-y2Yrg" supplier="_gzDcIPfIEey4DpJf-y2Yrg" utilizedElement="_gzDcIPfIEey4DpJf-y2Yrg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Artifact" xmi:id="_ICYpwPfGEey4DpJf-y2Yrg" name="Cpp.NodeB" fileName=""/>
+  <packagedElement xmi:type="uml:Artifact" xmi:id="_9c5RwPfFEey4DpJf-y2Yrg" name="Java.NodeA" fileName="">
+    <manifestation xmi:type="uml:Manifestation" xmi:id="_IYt-wPfJEey4DpJf-y2Yrg" client="_9c5RwPfFEey4DpJf-y2Yrg" supplier="_junq0PfHEey4DpJf-y2Yrg" utilizedElement="_junq0PfHEey4DpJf-y2Yrg"/>
   </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_IxxxQPfEEey4DpJf-y2Yrg">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ix0NgPfEEey4DpJf-y2Yrg" source="PapyrusVersion">

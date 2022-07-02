@@ -9,6 +9,7 @@ import org.junit.jupiter.api.TestInstance;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
+import java.util.function.Predicate;
 
 /**
  * Abstract test class that provides an already loaded DERCS model to test.
@@ -64,12 +65,12 @@ public abstract class AbstractLoaderFileTest {
      * @param collection the collection to search in
      * @param name the name to find
      * @return the element if it exists, otherwise {@code null}
+     * @throws AssertionError if multiple matching elements are found
      */
-    @SuppressWarnings("unchecked")
-    protected <T> T findDercsNamedElement(Collection<? extends NamedElement> collection, String name) {
-        NamedElement found = null;
+    protected <T extends NamedElement> T findDercsNamedElement(Collection<T> collection, String name) {
+        T found = null;
 
-        for (NamedElement element : collection) {
+        for (T element : collection) {
             if (element.getName().equals(name)) {
                 if (found == null) {
                     found = element;
@@ -79,6 +80,29 @@ public abstract class AbstractLoaderFileTest {
             }
         }
 
-        return (T) found;
+        return found;
+    }
+
+    /**
+     * Tries to find the one element in a collection that matches the given predicate.
+     * @param collection the collection to search in
+     * @param predicate the predicate to check
+     * @return the element if it exists, otherwise {@code null}
+     * @throws AssertionError if multiple matching elements are found
+     */
+    protected <T> T findDercsElementByPredicate(Collection<T> collection, Predicate<T> predicate) {
+        T found = null;
+
+        for (T element : collection) {
+            if (predicate.test(element)) {
+                if (found == null) {
+                    found = element;
+                } else {
+                    throw new AssertionError("Found multiple elements matching predicate.");
+                }
+            }
+        }
+
+        return found;
     }
 }
