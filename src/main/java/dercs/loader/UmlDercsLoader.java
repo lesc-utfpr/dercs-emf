@@ -3,10 +3,7 @@ package dercs.loader;
 import dercs.DercsFactory;
 import dercs.Model;
 import dercs.loader.exception.DercsLoaderException;
-import dercs.loader.extractor.AbstractModelExtractor;
-import dercs.loader.extractor.ClassHierarchyExtractor;
-import dercs.loader.extractor.ClassesExtractor;
-import dercs.loader.extractor.NodesExtractor;
+import dercs.loader.extractor.*;
 import dercs.loader.fixer.AbstractModelFixer;
 import dercs.loader.resource.UmlResourceLoader;
 import dercs.loader.resource.WrappedUmlResource;
@@ -111,7 +108,8 @@ public class UmlDercsLoader implements IDercsLoader{
         Collections.addAll(this.modelExtractors,
                 new ClassesExtractor(),
                 new NodesExtractor(),
-                new ClassHierarchyExtractor()
+                new ClassHierarchyExtractor(),
+                new AttributesExtractor()
         );
     }
 

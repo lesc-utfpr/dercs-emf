@@ -1,5 +1,8 @@
 package dercs.loader.resource;
 
+import dercs.datatypes.DataType;
+import dercs.loader.exception.DercsLoaderException;
+import dercs.loader.util.DatatypeHelper;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -108,6 +111,15 @@ public class WrappedUmlResource {
         }
 
         return foundElements;
+    }
+
+    /**
+     * Gets the corresponding DERCS datatype for a given UML datatype
+     * @param umlType the UML type to convert
+     * @return the corresponding DERCS datatype
+     */
+    public DataType getDercsDatatype(org.eclipse.uml2.uml.Type umlType) throws DercsLoaderException {
+        return DatatypeHelper.getDercsDatatype(this, umlType);
     }
 
     /**

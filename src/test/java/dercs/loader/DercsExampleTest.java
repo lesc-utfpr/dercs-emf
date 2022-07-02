@@ -1,8 +1,13 @@
 package dercs.loader;
 
+import dercs.datatypes.Array;
+import dercs.datatypes.ClassDataType;
+import dercs.datatypes.DataType;
 import dercs.datatypes.Enumeration;
 import dercs.loader.exception.DercsLoaderException;
+import dercs.structure.Attribute;
 import dercs.structure.Class;
+import dercs.structure.Visibility;
 import dercs.structure.runtime.Node;
 import org.junit.jupiter.api.Test;
 
@@ -73,5 +78,22 @@ public class DercsExampleTest extends AbstractLoaderFileTest {
                 new String[]{"LITERAL_1", "LITERAL_2", "LITERAL_3"},
                 testEnum.getValues().toArray()
         );
+    }
+
+    @Test
+    public void testAttributes() {
+        Class child1 = findDercsNamedElement(model().getClasses(), "ChildClass1");
+        assertEquals(2, child1.getAttributes().size());
+        assertAttributeSignature(child1, "~enumProp:TestEnum=LITERAL_2");
+        assertAttributeSignature(child1, "+childclass2:ChildClass2");
+
+        Class childChild = findDercsNamedElement(model().getClasses(), "ChildChildClass");
+        assertEquals(2, childChild.getAttributes().size());
+        assertAttributeSignature(childChild, "+childclass1[1,-1]:ChildClass1");
+        assertAttributeSignature(childChild, "+arrayProp[0,10]:Float");
+
+        Class child3 = findDercsNamedElement(model().getClasses(), "ChildClass3");
+        assertEquals(1, child3.getAttributes().size());
+        assertAttributeSignature(child3, "-childclass1[0,-1]:ChildClass1");
     }
 }

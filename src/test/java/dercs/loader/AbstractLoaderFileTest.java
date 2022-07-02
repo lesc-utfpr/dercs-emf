@@ -1,15 +1,26 @@
 package dercs.loader;
 
 import dercs.Model;
+import dercs.datatypes.Array;
+import dercs.datatypes.ClassDataType;
+import dercs.datatypes.DataType;
+import dercs.datatypes.Enumeration;
 import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.resource.WrappedUmlResource;
+import dercs.structure.Attribute;
+import dercs.structure.Class;
 import dercs.structure.NamedElement;
+import dercs.structure.Visibility;
 import org.junit.jupiter.api.TestInstance;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Abstract test class that provides an already loaded DERCS model to test.
@@ -19,9 +30,9 @@ import java.util.function.Predicate;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class AbstractLoaderFileTest {
-
     protected WrappedUmlResource umlResource;
     protected Model dercsModel;
+    private final Pattern attributeSignaturePattern = Pattern.compile("(?<vis>[+\\-~])(?<name>[a-zA-Z_][\\d\\w-]*)(?:\\[(?<lower>-?\\d+),(?<upper>-?\\d+)])?:(?<type>[a-zA-Z][\\da-zA-Z_-]*)(?:=(?<default>[\\d\\w-]+))?");
 
     /**
      * Loads the specified UML file and stores the created model in the {@link AbstractLoaderFileTest#dercsModel} field.
@@ -104,5 +115,73 @@ public abstract class AbstractLoaderFileTest {
         }
 
         return found;
+    }
+
+    /**
+     * Checks for the existence and properties of an attribute described by the signature.
+     * The structure of the signature is <p>
+     * <code>(VIS)NAME[LBOUND,UBOUND]:TYPE=(DEF)</code>
+     * <table>
+     *  <tr>(VIS) - one of '+' (public), '-' (private), '~' (protected)</tr>
+     *  <tr>NAME - attribute name</tr>
+     *  <tr>LBOUND - upper bound</tr>
+     *  <tr>UBOUND - lower bound</tr>
+     *  <tr>TYPE - datatype name</tr>
+     *  <tr>(DEF) - default value</tr>
+     * </table>
+     * where [LBOUND,UBOUND] and =(DEF) are both optional
+     * @param cls the class in which to check the attribute
+     * @param signature signature of the attribute to check for
+     */
+    protected void assertAttributeSignature(Class cls, String signature) {
+        Matcher match = attributeSignaturePattern.matcher(signature);
+        if (!match.matches()) {
+            throw new AssertionError();
+        }
+        String visibility = match.group("vis");
+        String name = match.group("name");
+        String lowerBound = match.group("lower");
+        String upperBound = match.group("upper");
+        String type = match.group("type");
+        String defaultValue = match.group("default");
+
+        // find attribute
+        Attribute attrib = cls.getAttribute(name);
+        assertNotNull(attrib);
+        assertSame(cls, attrib.getOwnerClass());
+
+        // array checks
+        if (lowerBound != null && upperBound != null) {
+            int lower = Integer.parseInt(lowerBound);
+            int upper = Integer.parseInt(upperBound);
+
+            assertInstanceOf(Array.class, attrib.getDataType());
+            Array attributeArray = (Array) attrib.getDataType();
+            assertEquals(lower, attributeArray.getLowerValue());
+            assertEquals(upper, attributeArray.getUpperValue());
+        }
+
+        // type and visibility
+        assertEquals(type, getDatatypeName(attrib.getDataType()));
+        Visibility expectedVis = visibility.equals("+") ? Visibility.PUBLIC : (visibility.equals("-") ? Visibility.PRIVATE : (visibility.equals("~") ? Visibility.PROTECTED : null));
+        assertEquals(expectedVis, attrib.getVisibility());
+
+        // default value
+        if (defaultValue != null) {
+            assertEquals(defaultValue, attrib.getDefaultValue());
+        }
+    }
+
+    private String getDatatypeName(DataType type) {
+        if (type instanceof ClassDataType) {
+            return ((ClassDataType)type).getRepresents().getName();
+        } else if (type instanceof Array) {
+            return getDatatypeName(((Array)type).getDataType());
+        } else if (type instanceof Enumeration) {
+            return ((Enumeration)type).getName();
+        } else {
+            String className = type.getClass().getSimpleName();
+            return className.substring(0, className.indexOf("Impl"));
+        }
     }
 }

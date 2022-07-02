@@ -11,7 +11,9 @@
   <packagedElement xmi:type="uml:Class" xmi:id="_TXRJQPfEEey4DpJf-y2Yrg" name="ChildClass1">
     <generalization xmi:type="uml:Generalization" xmi:id="_ZchokPfKEey4DpJf-y2Yrg" general="_Mrnh4PfKEey4DpJf-y2Yrg"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_owV4QPfHEey4DpJf-y2Yrg" name="childclass2" type="_YTJNYPfEEey4DpJf-y2Yrg" aggregation="composite" association="_owUDEPfHEey4DpJf-y2Yrg"/>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_-AKKIPomEeyL8rw92PZKMw" name="enumProp" type="_6DXPUPokEeyL8rw92PZKMw"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_-AKKIPomEeyL8rw92PZKMw" name="enumProp" visibility="protected" type="_6DXPUPokEeyL8rw92PZKMw">
+      <defaultValue xmi:type="uml:InstanceValue" xmi:id="_QWtb8PotEeyL8rw92PZKMw" instance="_8K2gQPokEeyL8rw92PZKMw"/>
+    </ownedAttribute>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_w3GEUPfEEey4DpJf-y2Yrg" name="overridingMethod">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_1BaIoPfEEey4DpJf-y2Yrg">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
@@ -26,7 +28,7 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_Zlj3gPfEEey4DpJf-y2Yrg" name="ChildClass3">
     <generalization xmi:type="uml:Generalization" xmi:id="_eUtHMPfEEey4DpJf-y2Yrg" general="_Rm5X0PfEEey4DpJf-y2Yrg"/>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_bi6YMvfIEey4DpJf-y2Yrg" name="childclass1" type="_TXRJQPfEEey4DpJf-y2Yrg" association="_bi5xIPfIEey4DpJf-y2Yrg">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_bi6YMvfIEey4DpJf-y2Yrg" name="childclass1" visibility="private" type="_TXRJQPfEEey4DpJf-y2Yrg" association="_bi5xIPfIEey4DpJf-y2Yrg">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ec9HcPfIEey4DpJf-y2Yrg"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_T7gckPomEeyL8rw92PZKMw" value="*"/>
     </ownedAttribute>
@@ -51,7 +53,7 @@
     <ownedEnd xmi:type="uml:Property" xmi:id="_owdNAPfHEey4DpJf-y2Yrg" name="childclass1" type="_TXRJQPfEEey4DpJf-y2Yrg" association="_owUDEPfHEey4DpJf-y2Yrg"/>
   </packagedElement>
   <packagedElement xmi:type="uml:InstanceSpecification" xmi:id="_PV6P0PfIEey4DpJf-y2Yrg" name="child2Instance" classifier="_YTJNYPfEEey4DpJf-y2Yrg"/>
-  <packagedElement xmi:type="uml:Association" xmi:id="_bi5xIPfIEey4DpJf-y2Yrg" memberEnd="_bi6YMvfIEey4DpJf-y2Yrg _bi6YNffIEey4DpJf-y2Yrg">
+  <packagedElement xmi:type="uml:Association" xmi:id="_bi5xIPfIEey4DpJf-y2Yrg" visibility="private" memberEnd="_bi6YMvfIEey4DpJf-y2Yrg _bi6YNffIEey4DpJf-y2Yrg">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_bi6YMPfIEey4DpJf-y2Yrg" source="org.eclipse.papyrus">
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bi6YMffIEey4DpJf-y2Yrg" key="nature" value="UML_Nature"/>
     </eAnnotations>
