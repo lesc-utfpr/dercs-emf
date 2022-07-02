@@ -147,28 +147,28 @@ public abstract class AbstractLoaderFileTest {
 
         // find attribute
         Attribute attrib = cls.getAttribute(name);
-        assertNotNull(attrib);
-        assertSame(cls, attrib.getOwnerClass());
+        assertNotNull(attrib, "Could not find attribute: " + name);
+        assertSame(cls, attrib.getOwnerClass(), "Attribute has incorrect owner class.");
 
         // array checks
         if (lowerBound != null && upperBound != null) {
             int lower = Integer.parseInt(lowerBound);
             int upper = Integer.parseInt(upperBound);
 
-            assertInstanceOf(Array.class, attrib.getDataType());
+            assertInstanceOf(Array.class, attrib.getDataType(), "Attribute should be an array.");
             Array attributeArray = (Array) attrib.getDataType();
-            assertEquals(lower, attributeArray.getLowerValue());
-            assertEquals(upper, attributeArray.getUpperValue());
+            assertEquals(lower, attributeArray.getLowerValue(), "Attribute has incorrect lower bound.");
+            assertEquals(upper, attributeArray.getUpperValue(), "Attribute has incorrect upper bound.");
         }
 
         // type and visibility
-        assertEquals(type, getDatatypeName(attrib.getDataType()));
+        assertEquals(type, getDatatypeName(attrib.getDataType()), "Attribute has incorrect type.");
         Visibility expectedVis = visibility.equals("+") ? Visibility.PUBLIC : (visibility.equals("-") ? Visibility.PRIVATE : (visibility.equals("~") ? Visibility.PROTECTED : null));
-        assertEquals(expectedVis, attrib.getVisibility());
+        assertEquals(expectedVis, attrib.getVisibility(), "Attribute has incorrect visibility.");
 
         // default value
         if (defaultValue != null) {
-            assertEquals(defaultValue, attrib.getDefaultValue());
+            assertEquals(defaultValue, attrib.getDefaultValue(), "Attribute has incorrect default value.");
         }
     }
 

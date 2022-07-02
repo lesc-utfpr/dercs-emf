@@ -75,12 +75,44 @@ public class UmlWheelchairExampleTest extends AbstractLoaderFileTest {
     //TODO: more tests once these extractors exist
     // AO tests and specific interaction tests should probably be different classes so this one doesn't get too large
 
-    public void testAssociations() {
-
-    }
-
+    @Test
     public void testAttributes() {
+        Class movementInformation = findDercsNamedElement(model().getClasses(), "MovementInformation");
+        assertAttributeSignature(movementInformation, "-speed:Float");
+        assertAttributeSignature(movementInformation, "-angle:Float");
 
+        Class movementActuator = findDercsNamedElement(model().getClasses(), "MovementActuator");
+        assertAttributeSignature(movementActuator, "-leftWheel:WheelActuator");
+        assertAttributeSignature(movementActuator, "-rightWheel:WheelActuator");
+
+        Class movementController = findDercsNamedElement(model().getClasses(), "MovementController");
+        assertAttributeSignature(movementController, "-newSpeed:Float");
+        assertAttributeSignature(movementController, "-newAngle:Float");
+        assertAttributeSignature(movementController, "-movInfo:MovementInformation");
+        assertAttributeSignature(movementController, "-wcAct:MovementActuator");
+        assertAttributeSignature(movementController, "-alarm:Alarm");
+        assertAttributeSignature(movementController, "-jstkInfo:JoystickInformation");
+
+        Class movementEncoder = findDercsNamedElement(model().getClasses(), "MovementEncoder");
+        assertAttributeSignature(movementEncoder, "-movInfo:MovementInformation");
+        assertAttributeSignature(movementEncoder, "-alarm:Alarm");
+        assertAttributeSignature(movementEncoder, "-leftWheelSensor:WheelSpeedSensorDriver");
+        assertAttributeSignature(movementEncoder, "-rightWheelSensor:WheelSpeedSensorDriver");
+
+        Class joystickDriver = findDercsNamedElement(model().getClasses(), "JoystickDriver");
+        assertAttributeSignature(joystickDriver, "-jstkInfo:JoystickInformation");
+
+        Class controlSubSystem = findDercsNamedElement(model().getClasses(), "ControlSubSystem");
+        assertAttributeSignature(controlSubSystem, "-alarm:Alarm");
+        assertAttributeSignature(controlSubSystem, "-movCtrl:MovementController");
+
+        Class sensoringSubSystem = findDercsNamedElement(model().getClasses(), "SensoringSubSystem");
+        assertAttributeSignature(sensoringSubSystem, "-movInfo:MovementInformation");
+        assertAttributeSignature(sensoringSubSystem, "-movEnc:MovementEncoder");
+        assertAttributeSignature(sensoringSubSystem, "-leftWheelSensor:WheelSpeedSensorDriver");
+        assertAttributeSignature(sensoringSubSystem, "-rightWheelSensor:WheelSpeedSensorDriver");
+        assertAttributeSignature(sensoringSubSystem, "-jstkSensor:JoystickDriver");
+        assertAttributeSignature(sensoringSubSystem, "-jstkInfo:JoystickInformation");
     }
 
     public void testMethods() {
