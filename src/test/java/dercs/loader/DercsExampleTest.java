@@ -1,5 +1,6 @@
 package dercs.loader;
 
+import dercs.datatypes.Enumeration;
 import dercs.loader.exception.DercsLoaderException;
 import dercs.structure.Class;
 import dercs.structure.runtime.Node;
@@ -32,6 +33,7 @@ public class DercsExampleTest extends AbstractLoaderFileTest {
 
         assertNull(parent1.getSuperClass());
         assertNull(parent2.getSuperClass());
+        assertTrue(parent1.isAbstract());
 
         assertSame(parent1, child1.getSuperClass());
         assertSame(parent2, child2.getSuperClass());
@@ -60,5 +62,16 @@ public class DercsExampleTest extends AbstractLoaderFileTest {
         assertNotNull(nodeAJava);
         assertNotNull(nodeBJava);
         assertNotNull(nodeBCpp);
+    }
+
+    @Test
+    public void testEnum() {
+        // we can't find enums by name the easy way, because they do not derive from NamedElement
+        Enumeration testEnum = findDercsElementByPredicate(model().getEnumerations(), e -> e.getName().equals("TestEnum"));
+
+        assertArrayEquals(
+                new String[]{"LITERAL_1", "LITERAL_2", "LITERAL_3"},
+                testEnum.getValues().toArray()
+        );
     }
 }

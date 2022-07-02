@@ -3,10 +3,15 @@
   <packageImport xmi:type="uml:PackageImport" xmi:id="_IyrwMPfEEey4DpJf-y2Yrg">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
-  <packagedElement xmi:type="uml:Class" xmi:id="_Rm5X0PfEEey4DpJf-y2Yrg" name="ParentClass2"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Rm5X0PfEEey4DpJf-y2Yrg" name="ParentClass2">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Us1oUPolEeyL8rw92PZKMw" name="voidMethod">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_6xwUcPomEeyL8rw92PZKMw" name="enumParam" type="_6DXPUPokEeyL8rw92PZKMw"/>
+    </ownedOperation>
+  </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_TXRJQPfEEey4DpJf-y2Yrg" name="ChildClass1">
     <generalization xmi:type="uml:Generalization" xmi:id="_ZchokPfKEey4DpJf-y2Yrg" general="_Mrnh4PfKEey4DpJf-y2Yrg"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_owV4QPfHEey4DpJf-y2Yrg" name="childclass2" type="_YTJNYPfEEey4DpJf-y2Yrg" aggregation="composite" association="_owUDEPfHEey4DpJf-y2Yrg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_-AKKIPomEeyL8rw92PZKMw" name="enumProp" type="_6DXPUPokEeyL8rw92PZKMw"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_w3GEUPfEEey4DpJf-y2Yrg" name="overridingMethod">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_1BaIoPfEEey4DpJf-y2Yrg">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
@@ -23,7 +28,7 @@
     <generalization xmi:type="uml:Generalization" xmi:id="_eUtHMPfEEey4DpJf-y2Yrg" general="_Rm5X0PfEEey4DpJf-y2Yrg"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_bi6YMvfIEey4DpJf-y2Yrg" name="childclass1" type="_TXRJQPfEEey4DpJf-y2Yrg" association="_bi5xIPfIEey4DpJf-y2Yrg">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ec9HcPfIEey4DpJf-y2Yrg"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bi6YNPfIEey4DpJf-y2Yrg" value="*"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_T7gckPomEeyL8rw92PZKMw" value="*"/>
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Node" xmi:id="_5QLZsPfFEey4DpJf-y2Yrg" name="NodeA">
@@ -76,10 +81,18 @@
     <ownedEnd xmi:type="uml:Property" xmi:id="_G1htsvfJEey4DpJf-y2Yrg" name="nodeb" type="_6OeN8PfFEey4DpJf-y2Yrg" association="_G1hGoPfJEey4DpJf-y2Yrg"/>
     <ownedEnd xmi:type="uml:Property" xmi:id="_G1hts_fJEey4DpJf-y2Yrg" name="nodea" type="_5QLZsPfFEey4DpJf-y2Yrg" association="_G1hGoPfJEey4DpJf-y2Yrg"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_-jH9MPfJEey4DpJf-y2Yrg" name="ChildChildClass">
+  <packagedElement xmi:type="uml:Class" xmi:id="_-jH9MPfJEey4DpJf-y2Yrg" name="ChildChildClass" visibility="private">
     <generalization xmi:type="uml:Generalization" xmi:id="_AEcmAPfKEey4DpJf-y2Yrg" general="_YTJNYPfEEey4DpJf-y2Yrg"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_YSBw4_omEeyL8rw92PZKMw" name="childclass1" type="_TXRJQPfEEey4DpJf-y2Yrg" association="_YSBw4PomEeyL8rw92PZKMw">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZuoRwPomEeyL8rw92PZKMw" value="*"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_s4EAwPomEeyL8rw92PZKMw" name="arrayProp">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wAOrkPomEeyL8rw92PZKMw"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wAkp0PomEeyL8rw92PZKMw" value="10"/>
+    </ownedAttribute>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_Mrnh4PfKEey4DpJf-y2Yrg" name="ParentClass1">
+  <packagedElement xmi:type="uml:Class" xmi:id="_Mrnh4PfKEey4DpJf-y2Yrg" name="ParentClass1" isAbstract="true">
     <ownedOperation xmi:type="uml:Operation" xmi:id="_Oolk4PfKEey4DpJf-y2Yrg" name="baseMethod">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_RNZD8PfKEey4DpJf-y2Yrg" direction="return">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
@@ -100,6 +113,17 @@
   <packagedElement xmi:type="uml:Artifact" xmi:id="_ICYpwPfGEey4DpJf-y2Yrg" name="Cpp.NodeB" fileName=""/>
   <packagedElement xmi:type="uml:Artifact" xmi:id="_9c5RwPfFEey4DpJf-y2Yrg" name="Java.NodeA" fileName="">
     <manifestation xmi:type="uml:Manifestation" xmi:id="_IYt-wPfJEey4DpJf-y2Yrg" client="_9c5RwPfFEey4DpJf-y2Yrg" supplier="_junq0PfHEey4DpJf-y2Yrg" utilizedElement="_junq0PfHEey4DpJf-y2Yrg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Enumeration" xmi:id="_6DXPUPokEeyL8rw92PZKMw" name="TestEnum">
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_7WDmQPokEeyL8rw92PZKMw" name="LITERAL_1"/>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_8K2gQPokEeyL8rw92PZKMw" name="LITERAL_2"/>
+    <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_9GawoPokEeyL8rw92PZKMw" name="LITERAL_3"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_YSBw4PomEeyL8rw92PZKMw" memberEnd="_YSBw4_omEeyL8rw92PZKMw _YSCX8vomEeyL8rw92PZKMw">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_YSBw4fomEeyL8rw92PZKMw" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YSBw4vomEeyL8rw92PZKMw" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_YSCX8vomEeyL8rw92PZKMw" name="childchildclass" type="_-jH9MPfJEey4DpJf-y2Yrg" association="_YSBw4PomEeyL8rw92PZKMw"/>
   </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_IxxxQPfEEey4DpJf-y2Yrg">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ix0NgPfEEey4DpJf-y2Yrg" source="PapyrusVersion">
