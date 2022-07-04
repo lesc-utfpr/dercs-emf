@@ -6,7 +6,8 @@ import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.extractor.*;
 import dercs.loader.fixer.AbstractModelFixer;
 import dercs.loader.resource.UmlResourceLoader;
-import dercs.loader.resource.WrappedUmlResource;
+import dercs.loader.wrapper.WrappedUmlResource;
+import dercs.loader.wrapper.InProgressDercsModel;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ public class UmlDercsLoader implements IDercsLoader{
     /**
      * The DERCS model that will be filled.
      */
-    private final Model dercsModel;
+    private final InProgressDercsModel dercsModel;
 
     /**
      * The list of extractors that will be run on the resource.
@@ -52,7 +53,7 @@ public class UmlDercsLoader implements IDercsLoader{
         Resource loadedResource = UmlResourceLoader.loadResourceFromFile(emfUri);
         this.umlResource = new WrappedUmlResource(loadedResource);
 
-        this.dercsModel = DercsFactory.eINSTANCE.createModel();
+        this.dercsModel = new InProgressDercsModel(DercsFactory.eINSTANCE.createModel(), this.umlResource);
 
         registerExtractors();
         registerFixers();
@@ -67,20 +68,20 @@ public class UmlDercsLoader implements IDercsLoader{
         LOGGER.info("Beginning to load DERCS model.");
 
         // run extractors
-        for (AbstractModelExtractor extractor : modelExtractors) {
+        for (AbstractModelExtractor extractor : this.modelExtractors) {
             LOGGER.info("Running extractor: '{}'", extractor.getName());
-            extractor.apply(umlResource, dercsModel);
+            extractor.apply(this.umlResource, this.dercsModel);
         }
 
         // run fixers
-        for (AbstractModelFixer fixer: modelFixers) {
+        for (AbstractModelFixer fixer : this.modelFixers) {
             LOGGER.info("Running fixer: '{}'", fixer.getName());
-            fixer.apply(dercsModel);
+            fixer.apply(this.dercsModel);
         }
 
         LOGGER.info("DERCS model loading completed.");
 
-        return dercsModel;
+        return this.dercsModel.getModel();
     }
 
     /**
@@ -117,6 +118,7 @@ public class UmlDercsLoader implements IDercsLoader{
      * Instantiate and add all the Model Fixers that will be used.
      */
     private void registerFixers() {
+        //TODO: gather method overrides
         //modelFixers.add()
     }
 }

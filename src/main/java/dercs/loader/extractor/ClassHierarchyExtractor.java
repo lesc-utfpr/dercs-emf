@@ -20,13 +20,13 @@ public class ClassHierarchyExtractor extends AbstractModelExtractor {
 
     @Override
     protected void run() throws DercsLoaderException{
-        for (Class cls : this.dercsModel.getClasses()) {
+        for (Class cls : model().getClasses()) {
             handleClass(cls);
         }
     }
 
     private void handleClass(Class cls) throws DercsLoaderException {
-        org.eclipse.uml2.uml.Class umlClass = this.umlResource.getCorrespondingUmlElement(cls);
+        org.eclipse.uml2.uml.Class umlClass = resource().getCorrespondingUmlElement(cls);
         if (umlClass.getSuperClasses().isEmpty()) {
             return;
         }
@@ -35,7 +35,7 @@ public class ClassHierarchyExtractor extends AbstractModelExtractor {
             throw new MultiInheritanceException(cls);
         }
 
-        Class superClass = this.umlResource.getCorrespondingDercsElement(umlClass.getSuperClasses().get(0));
+        Class superClass = resource().getCorrespondingDercsElement(umlClass.getSuperClasses().get(0));
         if (superClass == null) {
             throw new ClassNotFoundException(umlClass.getSuperClasses().get(0).getName());
         }

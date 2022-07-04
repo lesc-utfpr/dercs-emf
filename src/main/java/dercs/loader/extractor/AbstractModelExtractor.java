@@ -2,7 +2,8 @@ package dercs.loader.extractor;
 
 import dercs.Model;
 import dercs.loader.exception.DercsLoaderException;
-import dercs.loader.resource.WrappedUmlResource;
+import dercs.loader.wrapper.WrappedUmlResource;
+import dercs.loader.wrapper.InProgressDercsModel;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.uml2.uml.Element;
@@ -16,11 +17,35 @@ import java.util.List;
  * Each Extractor should handle a separate kind of element if possible.
  */
 public abstract class AbstractModelExtractor {
-    protected Model dercsModel;
-    protected WrappedUmlResource umlResource;
+    private InProgressDercsModel dercsModel;
+    private WrappedUmlResource umlResource;
 
     public AbstractModelExtractor() {
 
+    }
+
+    /**
+     * Gets the DERCS model to modify.
+     * @return the DERCS model
+     */
+    protected Model model() {
+        return dercsModel.getModel();
+    }
+
+    /**
+     * Gets the {@link InProgressDercsModel} wrapper around the DERCS model.
+     * @return the {@link InProgressDercsModel} wrapper
+     */
+    protected InProgressDercsModel inProgressModel() {
+        return dercsModel;
+    }
+
+    /**
+     * Gets the UML resource the model is based on.
+     * @return the UML resource
+     */
+    protected WrappedUmlResource resource() {
+        return this.umlResource;
     }
 
     /**
@@ -28,7 +53,7 @@ public abstract class AbstractModelExtractor {
      * @param umlResource the resource to extract from
      * @param dercsModel the model to modify
      */
-    public final void apply(WrappedUmlResource umlResource, Model dercsModel) throws DercsLoaderException{
+    public final void apply(WrappedUmlResource umlResource, InProgressDercsModel dercsModel) throws DercsLoaderException{
         this.umlResource = umlResource;
         this.dercsModel = dercsModel;
 

@@ -1,4 +1,4 @@
-package dercs.loader.resource;
+package dercs.loader.wrapper;
 
 import dercs.datatypes.DataType;
 import dercs.loader.exception.DercsLoaderException;

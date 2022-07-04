@@ -5,7 +5,7 @@ import dercs.datatypes.String;
 import dercs.loader.exception.ClassNotFoundException;
 import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.exception.InvalidDataTypeException;
-import dercs.loader.resource.WrappedUmlResource;
+import dercs.loader.wrapper.WrappedUmlResource;
 import dercs.structure.Class;
 import dercs.structure.Visibility;
 import org.eclipse.uml2.uml.PrimitiveType;

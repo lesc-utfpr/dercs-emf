@@ -1,13 +1,14 @@
 package dercs.loader.fixer;
 
 import dercs.Model;
+import dercs.loader.wrapper.InProgressDercsModel;
 
 /**
  * A Model Fixer is responsible for fixing possible inconsistencies in the model
  * after all elements have been extracted from the resource.
  */
 public abstract class AbstractModelFixer {
-    protected Model dercsModel;
+    protected InProgressDercsModel dercsModel;
 
     public AbstractModelFixer() {
 
@@ -17,7 +18,7 @@ public abstract class AbstractModelFixer {
      * Run the fixer on the model.
      * @param dercsModel the model to modify
      */
-    public void apply(Model dercsModel) {
+    public void apply(InProgressDercsModel dercsModel) {
         this.dercsModel = dercsModel;
 
         run();

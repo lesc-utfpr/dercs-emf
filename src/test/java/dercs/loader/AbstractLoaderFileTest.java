@@ -6,7 +6,7 @@ import dercs.datatypes.ClassDataType;
 import dercs.datatypes.DataType;
 import dercs.datatypes.Enumeration;
 import dercs.loader.exception.DercsLoaderException;
-import dercs.loader.resource.WrappedUmlResource;
+import dercs.loader.wrapper.WrappedUmlResource;
 import dercs.structure.Attribute;
 import dercs.structure.Class;
 import dercs.structure.NamedElement;

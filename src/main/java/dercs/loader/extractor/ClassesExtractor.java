@@ -1,6 +1,9 @@
 package dercs.loader.extractor;
 
 import AMoDERT.AspectsModeling.AspectsModelingPackage;
+import dercs.behavior.Behavior;
+import dercs.behavior.BehaviorFactory;
+import dercs.behavior.BehaviorPackage;
 import dercs.datatypes.DatatypesFactory;
 import dercs.structure.StructureFactory;
 import org.eclipse.papyrus.MARTE.MARTE_Foundations.GRM.GRMPackage;
@@ -27,7 +30,7 @@ public class ClassesExtractor extends AbstractModelExtractor {
     @Override
     protected void run() {
         // Classes
-        List<Class> umlClasses =  this.umlResource.getAllModelElementsOfType(UMLPackage.Literals.CLASS);
+        List<Class> umlClasses =  resource().getAllModelElementsOfType(UMLPackage.Literals.CLASS);
 
         for (Class cls :  umlClasses) {
             if (cls.eClass().getEAllSuperTypes().contains(UMLPackage.Literals.CLASS)) {
@@ -44,7 +47,7 @@ public class ClassesExtractor extends AbstractModelExtractor {
         }
 
         // Enums
-        List<Enumeration> umlEnums =  this.umlResource.getAllModelElementsOfType(UMLPackage.Literals.ENUMERATION);
+        List<Enumeration> umlEnums =  resource().getAllModelElementsOfType(UMLPackage.Literals.ENUMERATION);
         for (Enumeration umlEnum :  umlEnums) {
             createEnum(umlEnum);
         }
@@ -62,8 +65,15 @@ public class ClassesExtractor extends AbstractModelExtractor {
             dercsClass.setPassiveClass(getAppliedStereotype(umlClass, GRMPackage.Literals.RESOURCE) != null);
         }
 
-        this.dercsModel.getClasses().add(dercsClass);
-        this.umlResource.registerDercsUmlElementPair(dercsClass, umlClass);
+        model().getClasses().add(dercsClass);
+        resource().registerDercsUmlElementPair(dercsClass, umlClass);
+
+        // create constructor
+        Behavior newConstructor = BehaviorFactory.eINSTANCE.createBehavior();
+        newConstructor.setName("Behavior");
+        newConstructor.setNumberOfRepetitions(0);
+        //the overwritten flag should be set later once all classes have had their methods added
+        dercsClass.addConstructor(dercsClass.getName(), false, newConstructor);
     }
 
     private void createEnum(Enumeration umlEnum) {
@@ -74,12 +84,13 @@ public class ClassesExtractor extends AbstractModelExtractor {
             dercsEnum.getValues().add(literal.getName());
         }
 
-        this.dercsModel.getEnumerations().add(dercsEnum);
-        this.umlResource.registerDercsUmlElementPair(dercsEnum, umlEnum);
+        model().getEnumerations().add(dercsEnum);
+        resource().registerDercsUmlElementPair(dercsEnum, umlEnum);
     }
 
     private void createAspect(Class umlClass) {
         //TODO: Aspects
+        throw new RuntimeException("Not implemented");
     }
 
     @Override

@@ -1,13 +1,8 @@
 package dercs.loader;
 
-import dercs.datatypes.Array;
-import dercs.datatypes.ClassDataType;
-import dercs.datatypes.DataType;
 import dercs.datatypes.Enumeration;
 import dercs.loader.exception.DercsLoaderException;
-import dercs.structure.Attribute;
 import dercs.structure.Class;
-import dercs.structure.Visibility;
 import dercs.structure.runtime.Node;
 import org.junit.jupiter.api.Test;
 
