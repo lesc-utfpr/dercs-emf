@@ -65,21 +65,21 @@ public class UmlDercsLoader implements IDercsLoader{
      * @return the loaded DERCS model
      */
     public Model loadDercsModel() throws DercsLoaderException {
-        LOGGER.info("Beginning to load DERCS model.");
+        LOGGER.info("===== Beginning to load DERCS model. =====");
 
         // run extractors
         for (AbstractModelExtractor extractor : this.modelExtractors) {
-            LOGGER.info("Running extractor: '{}'", extractor.getName());
+            LOGGER.info("===== Running extractor: '{}' =====", extractor.getName());
             extractor.apply(this.umlResource, this.dercsModel);
         }
 
         // run fixers
         for (AbstractModelFixer fixer : this.modelFixers) {
-            LOGGER.info("Running fixer: '{}'", fixer.getName());
+            LOGGER.info("===== Running fixer: '{}' =====", fixer.getName());
             fixer.apply(this.dercsModel);
         }
 
-        LOGGER.info("DERCS model loading completed.");
+        LOGGER.info("===== DERCS model loading completed. =====");
 
         return this.dercsModel.getModel();
     }

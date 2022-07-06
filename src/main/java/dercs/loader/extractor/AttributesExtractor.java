@@ -87,7 +87,7 @@ public class AttributesExtractor extends AbstractModelExtractor {
      *     </ul>
      *     <li>Associations:</li>
      *     <ul>
-     *         <li>Always: setter/getter (if multiplicity is higher than 1, these are for the array, not it's contents)</li>
+     *         <li>Always: setter/getter (if multiplicity is higher than 1, these have an index parameter for the array)</li>
      *         <li>For 1-1: constructor parameter and assignment</li>
      *     </ul>
      * </ul>
@@ -103,9 +103,15 @@ public class AttributesExtractor extends AbstractModelExtractor {
             int minObjects = umlAttribute.getLower();
             // create required number of objects
             addCompositionObjectCreation(dercsClass, dercsAttribute, minObjects);
-            // if array is unbounded: create adder method
-            if (((Array)dercsAttribute.getDataType()).getUpperValue() == 0) {
-                addUnboundedArrayAdderMethod(dercsClass, dercsAttribute);
+
+            if (dercsAttribute.getDataType() instanceof Array) {
+                if (umlAttribute.getUpper() == -1) {
+                    // if array is unbounded: create adder method
+                    addUnboundedArrayAdderMethod(dercsClass, dercsAttribute);
+                } else if (umlAttribute.getUpper() > 1 && umlAttribute.getLower() < umlAttribute.getUpper()) {
+                    // if array is bounded and not full: create added method with limit
+                    addBoundedArrayAdderMethod(dercsClass, dercsAttribute);
+                }
             }
 
         } else {
@@ -113,11 +119,11 @@ public class AttributesExtractor extends AbstractModelExtractor {
             if (!(dercsAttribute.getDataType() instanceof Array)) {
                 // 1-1 association
                 //add constructor parameter and assignment action
-                LOGGER.info("Adding parameter for attribute '{}' to constructor.", dercsAttribute.getName());
+                LOGGER.info(" - Adding constructor parameter for attribute '{}'.", dercsAttribute.getName());
                 DercsCreationHelper.addConstructorParameterForAttribute(dercsClass, dercsAttribute);
             }
 
-            LOGGER.info("Creating getter and setter for attribute '{}'.", dercsAttribute.getName());
+            LOGGER.info(" - Creating getter and setter for attribute '{}'.", dercsAttribute.getName());
             DercsCreationHelper.addGetter(dercsClass, dercsAttribute, true);
             DercsCreationHelper.addSetter(dercsClass, dercsAttribute, true);
 
@@ -125,7 +131,7 @@ public class AttributesExtractor extends AbstractModelExtractor {
     }
 
     private void addCompositionObjectCreation(Class dercsClass, Attribute dercsAttribute, int minObjects) throws DercsLoaderException {
-        LOGGER.info("Adding actions for creation of {} elements in attribute '{}' to constructor.", minObjects, dercsAttribute);
+        LOGGER.info(" - Adding constructor actions for creation of {} elements in attribute '{}'.", minObjects, dercsAttribute.getName());
         Constructor constructor = DercsAccessHelper.getConstructor(dercsClass);
         Behavior constructBehavior = constructor.getTriggeredBehavior();
 
@@ -159,7 +165,7 @@ public class AttributesExtractor extends AbstractModelExtractor {
     }
 
     private void addUnboundedArrayAdderMethod(Class cls, Attribute attribute) {
-        LOGGER.info("Adding method '{}' for unbounded array attribute '{}'.", "add" + attribute.getName(), attribute.getName());
+        LOGGER.info(" - Adding method '{}' for unbounded array attribute '{}'.", "add" + attribute.getName(), attribute.getName());
         // create method and behavior
         Behavior addAttrBehavior = DercsConstructors.newBehavior(null, null, null, 0);
         Method addAttrMethod = cls.addMethod("add" + attribute.getName(), ((Array)attribute.getDataType()).getDataType(), Visibility.PUBLIC,
@@ -170,6 +176,30 @@ public class AttributesExtractor extends AbstractModelExtractor {
         // the new inserted element must be returned by the "addAttributeName()" method
         ReturnAction returnAction = DercsConstructors.newReturnAction(addAttrMethod, insertArrayAction);
         addAttrBehavior.getBehavioralElements().add(returnAction);
+    }
+
+    private void addBoundedArrayAdderMethod(Class cls, Attribute attribute) {
+        // FIXME: hardcoded java fragments "(%s.size() < %s)" and "null" should be replaced with a more general solution
+        LOGGER.info(" - Adding method '{}' for bounded array attribute '{}'.", "add" + attribute.getName(), attribute.getName());
+        String enterCondition = String.format("(%s.size() < %s)", attribute.getName(), ((Array)attribute.getDataType()).getUpperValue());
+
+        // this behavior is executed only if the limit of elements is not reached.
+        Behavior addAttrBehavior = DercsConstructors.newBehavior(null, enterCondition, null, 0);
+        Method addAttrMethod = cls.addMethod("add" + attribute.getName(), ((Array)attribute.getDataType()).getDataType(), Visibility.PUBLIC,
+                false, false, addAttrBehavior);
+
+        // create the action that inserts a new element in the array attribute
+        InsertArrayElementAction insertArrayAction = DercsConstructors.newInsertArrayElementAction(null, attribute, null, "");
+        // the new inserted element must be returned by the "addAttributeName()" method
+        ReturnAction returnAction = DercsConstructors.newReturnAction(addAttrMethod, insertArrayAction);
+        addAttrBehavior.getBehavioralElements().add(returnAction);
+
+        // alternative behavior that must be executed if the elements limit was reached.
+        Behavior elseBehavior = DercsConstructors.newBehavior(addAttrBehavior, null, null, 0);
+        returnAction = DercsConstructors.newReturnAction(addAttrMethod, "null");
+        elseBehavior.getBehavioralElements().add(returnAction);
+        // setting alternative behavior
+        addAttrBehavior.setAlternateBehavior(elseBehavior);
     }
 
     @Override

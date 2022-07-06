@@ -7,6 +7,7 @@ import dercs.structure.runtime.Node;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static dercs.loader.DercsAssertions.*;
 
 public class DercsExampleTest extends AbstractLoaderFileTest {
     public DercsExampleTest() throws DercsLoaderException {
@@ -84,11 +85,23 @@ public class DercsExampleTest extends AbstractLoaderFileTest {
 
         Class childChild = findDercsNamedElement(model().getClasses(), "ChildChildClass");
         assertEquals(2, childChild.getAttributes().size());
-        assertAttributeSignature(childChild, "+childclass1[1,-1]:ChildClass1");
+        assertAttributeSignature(childChild, "+childclass1[1,0]:ChildClass1");
         assertAttributeSignature(childChild, "+arrayProp[0,10]:Float");
 
         Class child3 = findDercsNamedElement(model().getClasses(), "ChildClass3");
         assertEquals(1, child3.getAttributes().size());
-        assertAttributeSignature(child3, "-childclass1[0,-1]:ChildClass1");
+        assertAttributeSignature(child3, "-childclass1[0,0]:ChildClass1");
+    }
+
+    @Test
+    public void testAssociationMethods() {
+        Class child1 = findDercsNamedElement(model().getClasses(), "ChildClass1");
+        assertCompositionMethodsExist(child1, "childclass2");
+
+        Class childChild = findDercsNamedElement(model().getClasses(), "ChildChildClass");
+        assertAssociationGettersSettersExist(childChild, "childclass1");
+
+        Class child3 = findDercsNamedElement(model().getClasses(), "ChildClass3");
+        assertAssociationGettersSettersExist(child3, "childclass1");
     }
 }

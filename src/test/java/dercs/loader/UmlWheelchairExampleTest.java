@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static dercs.loader.DercsAssertions.*;
 
 public class UmlWheelchairExampleTest extends AbstractLoaderFileTest {
     public UmlWheelchairExampleTest() throws DercsLoaderException {
@@ -113,6 +114,25 @@ public class UmlWheelchairExampleTest extends AbstractLoaderFileTest {
         assertAttributeSignature(sensoringSubSystem, "-rightWheelSensor:WheelSpeedSensorDriver");
         assertAttributeSignature(sensoringSubSystem, "-jstkSensor:JoystickDriver");
         assertAttributeSignature(sensoringSubSystem, "-jstkInfo:JoystickInformation");
+    }
+
+    @Test
+    public void testAssociationMethods() {
+        Class movementEncoder = findDercsNamedElement(model().getClasses(), "MovementEncoder");
+        assertAssociationGettersSettersExist(movementEncoder, "movInfo");
+        assertAssociationGettersSettersExist(movementEncoder, "alarm");
+        assertAssociationGettersSettersExist(movementEncoder, "leftWheelSensor");
+        assertAssociationGettersSettersExist(movementEncoder, "rightWheelSensor");
+
+        Class movementController = findDercsNamedElement(model().getClasses(), "MovementController");
+        assertAssociationGettersSettersExist(movementController, "movInfo");
+        assertAssociationGettersSettersExist(movementController, "alarm");
+        assertAssociationGettersSettersExist(movementController, "jstkInfo");
+        assertCompositionMethodsExist(movementController, "wcAct");
+
+        Class controlSubSystem = findDercsNamedElement(model().getClasses(), "ControlSubSystem");
+        assertCompositionMethodsExist(controlSubSystem, "alarm");
+        assertCompositionMethodsExist(controlSubSystem, "movCtrl");
     }
 
     public void testMethods() {
