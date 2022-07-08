@@ -54,6 +54,20 @@ public class DatatypeHelper {
     }
 
     /**
+     * Returns the base datatype, i.e. the type of the actual stored elements.
+     * This only has an effect if the given type is an array.
+     * @param type the datatype
+     * @return the base datatype of stored elements
+     */
+    public static DataType getBaseDataType(DataType type) {
+        if (type instanceof Array) {
+            return getBaseDataType(((Array) type).getDataType());
+        } else {
+            return type;
+        }
+    }
+
+    /**
      * Converts a UML visibility into a DERCS visibility
      * @param umlVisibility the UML visibility
      * @return the DERCS visibility
@@ -116,7 +130,7 @@ public class DatatypeHelper {
                 newType = DatatypesFactory.eINSTANCE.createDateTime();
                 break;
             default:
-                throw new InvalidDataTypeException(((PrimitiveType) umlType).getName());
+                throw new InvalidDataTypeException(umlType.getName());
         }
 
         return newType;

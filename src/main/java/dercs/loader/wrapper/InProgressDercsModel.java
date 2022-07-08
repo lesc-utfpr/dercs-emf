@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Wraps a {@link dercs.Model} that is still being created to provide helper functions.
@@ -102,6 +103,7 @@ public class InProgressDercsModel {
      */
     @SuppressWarnings("unchecked")
     public <T extends Element> T getCorrespondingUmlElement(EObject dercsElement) {
+        Objects.requireNonNull(dercsElement, "Tried to get element pair of null DERCS element!");
         return (T) this.elementPairsDercsToUml.get(dercsElement);
     }
 
@@ -112,6 +114,7 @@ public class InProgressDercsModel {
      */
     @SuppressWarnings("unchecked")
     public <T extends EObject> T getCorrespondingDercsElement(Element umlElement) {
+        Objects.requireNonNull(umlElement, "Tried to get element pair of null UML element!");
         return (T) this.elementPairsUmlToDercs.get(umlElement);
     }
 

@@ -110,7 +110,8 @@ public class UmlDercsLoader implements IDercsLoader{
                 new ClassesExtractor(),
                 new NodesExtractor(),
                 new ClassHierarchyExtractor(),
-                new AttributesExtractor()
+                new AttributesExtractor(),
+                new AssociationRelatedMethodsExtractor()
         );
     }
 
