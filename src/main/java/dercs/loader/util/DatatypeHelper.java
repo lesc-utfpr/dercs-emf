@@ -1,11 +1,11 @@
 package dercs.loader.util;
 
-import dercs.datatypes.*;
 import dercs.datatypes.String;
+import dercs.datatypes.*;
 import dercs.loader.exception.ClassNotFoundException;
 import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.exception.InvalidDataTypeException;
-import dercs.loader.wrapper.WrappedUmlResource;
+import dercs.loader.wrapper.InProgressDercsModel;
 import dercs.structure.Class;
 import dercs.structure.Visibility;
 import org.eclipse.uml2.uml.PrimitiveType;
@@ -22,7 +22,7 @@ public class DatatypeHelper {
      * @param umlType the UML datatype to convert
      * @return the corresponding DERCS datatype
      */
-    public static DataType getDercsDatatype(WrappedUmlResource umlResource, org.eclipse.uml2.uml.Type umlType) throws DercsLoaderException {
+    public static DataType getDercsDatatype(InProgressDercsModel dercsModel, org.eclipse.uml2.uml.Type umlType) throws DercsLoaderException {
         // Ecore does not have an explicit void datatype
         if (umlType == null) {
             return DatatypesFactory.eINSTANCE.createVoid();
@@ -33,7 +33,7 @@ public class DatatypeHelper {
         }
 
         if (umlType instanceof org.eclipse.uml2.uml.Class) {
-            Class dercsClass = umlResource.getCorrespondingDercsElement(umlType);
+            Class dercsClass = dercsModel.getCorrespondingDercsElement(umlType);
             if (dercsClass == null) {
                 throw new ClassNotFoundException(umlType.getName());
             }
@@ -43,7 +43,7 @@ public class DatatypeHelper {
         }
 
         if (umlType instanceof org.eclipse.uml2.uml.Enumeration) {
-            dercs.datatypes.Enumeration dercsEnum = umlResource.getCorrespondingDercsElement(umlType);
+            dercs.datatypes.Enumeration dercsEnum = dercsModel.getCorrespondingDercsElement(umlType);
             if (dercsEnum == null) {
                 throw new ClassNotFoundException(umlType.getName());
             }

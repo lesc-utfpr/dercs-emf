@@ -62,7 +62,7 @@ public class NodesExtractor extends AbstractModelExtractor {
         newNode.setPlatformName(name[0]);
 
         model().getNodes().add(newNode);
-        resource().registerDercsUmlElementPair(newNode, artifact);
+        inProgressModel().registerDercsUmlElementPair(newNode, artifact);
     }
 
     @Override

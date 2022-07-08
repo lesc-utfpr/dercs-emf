@@ -35,14 +35,14 @@ public class AttributesExtractor extends AbstractModelExtractor {
     @Override
     protected void run() throws DercsLoaderException {
         for (Class cls : model().getClasses()) {
-            org.eclipse.uml2.uml.Class umlClass = resource().getCorrespondingUmlElement(cls);
+            org.eclipse.uml2.uml.Class umlClass = inProgressModel().getCorrespondingUmlElement(cls);
             handleClass(cls, umlClass);
         }
     }
 
     private void handleClass(Class dercsClass, org.eclipse.uml2.uml.Class umlClass) throws DercsLoaderException {
         for (Property attribute : umlClass.getAttributes()) {
-            DataType dercsType = resource().getDercsDatatype(attribute.getType());
+            DataType dercsType = inProgressModel().getDercsDatatype(attribute.getType());
             boolean isAssociation = dercsType instanceof ClassDataType;
 
             //an upper bound of -1 means "unlimited" in UML
@@ -67,7 +67,7 @@ public class AttributesExtractor extends AbstractModelExtractor {
                     attribute.isReadOnly()
             );
 
-            resource().registerDercsUmlElementPair(newAttribute, attribute);
+            inProgressModel().registerDercsUmlElementPair(newAttribute, attribute);
 
             if (isAssociation) {
                 addAdditionalClassElements(dercsClass, newAttribute, attribute);

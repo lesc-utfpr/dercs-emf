@@ -34,7 +34,9 @@
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Node" xmi:id="_5QLZsPfFEey4DpJf-y2Yrg" name="NodeA">
-    <deployment xmi:type="uml:Deployment" xmi:id="_WXDJcPlLEeyikpjy90934w" client="_5QLZsPfFEey4DpJf-y2Yrg" supplier="_9c5RwPfFEey4DpJf-y2Yrg" deployedArtifact="_9c5RwPfFEey4DpJf-y2Yrg"/>
+    <nestedClassifier xmi:type="uml:Artifact" xmi:id="_9c5RwPfFEey4DpJf-y2Yrg" name="Java.NodeA" fileName="">
+      <manifestation xmi:type="uml:Manifestation" xmi:id="_IYt-wPfJEey4DpJf-y2Yrg" client="_9c5RwPfFEey4DpJf-y2Yrg" supplier="_junq0PfHEey4DpJf-y2Yrg" utilizedElement="_junq0PfHEey4DpJf-y2Yrg"/>
+    </nestedClassifier>
   </packagedElement>
   <packagedElement xmi:type="uml:Node" xmi:id="_6OeN8PfFEey4DpJf-y2Yrg" name="NodeB">
     <deployment xmi:type="uml:Deployment" xmi:id="_TweIwPlLEeyikpjy90934w" client="_6OeN8PfFEey4DpJf-y2Yrg" supplier="_FuZ08PfGEey4DpJf-y2Yrg" deployedArtifact="_FuZ08PfGEey4DpJf-y2Yrg"/>
@@ -113,9 +115,6 @@
     <manifestation xmi:type="uml:Manifestation" xmi:id="_H0kI0PfJEey4DpJf-y2Yrg" client="_FuZ08PfGEey4DpJf-y2Yrg" supplier="_gzDcIPfIEey4DpJf-y2Yrg" utilizedElement="_gzDcIPfIEey4DpJf-y2Yrg"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Artifact" xmi:id="_ICYpwPfGEey4DpJf-y2Yrg" name="Cpp.NodeB" fileName=""/>
-  <packagedElement xmi:type="uml:Artifact" xmi:id="_9c5RwPfFEey4DpJf-y2Yrg" name="Java.NodeA" fileName="">
-    <manifestation xmi:type="uml:Manifestation" xmi:id="_IYt-wPfJEey4DpJf-y2Yrg" client="_9c5RwPfFEey4DpJf-y2Yrg" supplier="_junq0PfHEey4DpJf-y2Yrg" utilizedElement="_junq0PfHEey4DpJf-y2Yrg"/>
-  </packagedElement>
   <packagedElement xmi:type="uml:Enumeration" xmi:id="_6DXPUPokEeyL8rw92PZKMw" name="TestEnum">
     <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_7WDmQPokEeyL8rw92PZKMw" name="LITERAL_1"/>
     <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_8K2gQPokEeyL8rw92PZKMw" name="LITERAL_2"/>

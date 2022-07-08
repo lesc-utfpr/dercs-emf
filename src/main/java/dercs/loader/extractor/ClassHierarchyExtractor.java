@@ -26,7 +26,7 @@ public class ClassHierarchyExtractor extends AbstractModelExtractor {
     }
 
     private void handleClass(Class cls) throws DercsLoaderException {
-        org.eclipse.uml2.uml.Class umlClass = resource().getCorrespondingUmlElement(cls);
+        org.eclipse.uml2.uml.Class umlClass = inProgressModel().getCorrespondingUmlElement(cls);
         if (umlClass.getSuperClasses().isEmpty()) {
             return;
         }
@@ -35,7 +35,7 @@ public class ClassHierarchyExtractor extends AbstractModelExtractor {
             throw new MultiInheritanceException(cls);
         }
 
-        Class superClass = resource().getCorrespondingDercsElement(umlClass.getSuperClasses().get(0));
+        Class superClass = inProgressModel().getCorrespondingDercsElement(umlClass.getSuperClasses().get(0));
         if (superClass == null) {
             throw new ClassNotFoundException(umlClass.getSuperClasses().get(0).getName());
         }

@@ -3,12 +3,13 @@ package dercs.loader.extractor;
 import AMoDERT.AspectsModeling.AspectsModelingPackage;
 import dercs.behavior.Behavior;
 import dercs.behavior.BehaviorFactory;
-import dercs.behavior.BehaviorPackage;
 import dercs.datatypes.DatatypesFactory;
 import dercs.structure.StructureFactory;
 import org.eclipse.papyrus.MARTE.MARTE_Foundations.GRM.GRMPackage;
-import org.eclipse.uml2.uml.*;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Enumeration;
+import org.eclipse.uml2.uml.EnumerationLiteral;
+import org.eclipse.uml2.uml.UMLPackage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,7 +67,7 @@ public class ClassesExtractor extends AbstractModelExtractor {
         }
 
         model().getClasses().add(dercsClass);
-        resource().registerDercsUmlElementPair(dercsClass, umlClass);
+        inProgressModel().registerDercsUmlElementPair(dercsClass, umlClass);
 
         // create constructor
         Behavior newConstructor = BehaviorFactory.eINSTANCE.createBehavior();
@@ -85,7 +86,7 @@ public class ClassesExtractor extends AbstractModelExtractor {
         }
 
         model().getEnumerations().add(dercsEnum);
-        resource().registerDercsUmlElementPair(dercsEnum, umlEnum);
+        inProgressModel().registerDercsUmlElementPair(dercsEnum, umlEnum);
     }
 
     private void createAspect(Class umlClass) {
