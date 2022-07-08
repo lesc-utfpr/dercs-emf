@@ -1,4 +1,4 @@
-package dercs.loader.extractor;
+package dercs.loader.processor.base;
 
 import dercs.Model;
 import dercs.loader.exception.DercsLoaderException;
@@ -11,16 +11,16 @@ import org.eclipse.uml2.uml.Element;
 import java.util.List;
 
 /**
- * A Model Extractor is responsible for extracting certain elements
- * from the UML resource and adding them to the model.
+ * A Model Processor is responsible for creating or modifying elements
+ * in the model, possibly based on the UML resource.
  *
- * Each Extractor should handle a separate kind of element if possible.
+ * Each Processor should handle a separate kind of element if possible.
  */
-public abstract class AbstractModelExtractor {
+public abstract class AbstractModelProcessor implements IModelProcessor {
     private InProgressDercsModel dercsModel;
     private WrappedUmlResource umlResource;
 
-    public AbstractModelExtractor() {
+    public AbstractModelProcessor() {
 
     }
 
@@ -48,32 +48,25 @@ public abstract class AbstractModelExtractor {
         return this.umlResource;
     }
 
-    /**
-     * Perform the extraction on the resource and modify the model.
-     * @param umlResource the resource to extract from
-     * @param dercsModel the model to modify
-     */
-    public final void apply(WrappedUmlResource umlResource, InProgressDercsModel dercsModel) throws DercsLoaderException{
+    @Override
+    public final void apply(InProgressDercsModel dercsModel, WrappedUmlResource umlResource) throws DercsLoaderException {
         this.umlResource = umlResource;
         this.dercsModel = dercsModel;
 
         run();
     }
 
-    /**
-     * Run the actual extraction logic.
-     * This needs to be overwritten by subclasses.
-     *
-     * The resource and model can be accessed through the members
-     * {@link AbstractModelExtractor#dercsModel} and {@link AbstractModelExtractor#umlResource}
-     */
-    protected abstract void run() throws DercsLoaderException;
+    @Override
+    public abstract String getName();
 
     /**
-     * Returns the name of this extractor
-     * @return the name of this extractor
+     * Run the actual processing logic.
+     * This needs to be overwritten by subclasses.
+     *
+     * The resource and model can be accessed through the helper methods
+     * {@link AbstractModelProcessor#model()}, {@link AbstractModelProcessor#resource()} and {@link AbstractModelProcessor#inProgressModel()}
      */
-    public abstract String getName();
+    protected abstract void run() throws DercsLoaderException;
 
     /**
      * Forwards to {@link WrappedUmlResource#getAppliedStereotype(Element, EClassifier)}

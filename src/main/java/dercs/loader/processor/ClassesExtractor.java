@@ -1,9 +1,10 @@
-package dercs.loader.extractor;
+package dercs.loader.processor;
 
 import AMoDERT.AspectsModeling.AspectsModelingPackage;
 import dercs.behavior.Behavior;
 import dercs.behavior.BehaviorFactory;
 import dercs.datatypes.DatatypesFactory;
+import dercs.loader.processor.base.AbstractModelProcessor;
 import dercs.structure.StructureFactory;
 import org.eclipse.papyrus.MARTE.MARTE_Foundations.GRM.GRMPackage;
 import org.eclipse.uml2.uml.Class;
@@ -25,7 +26,7 @@ import java.util.List;
  *     <li>every enum from the UML model has a corresponding DERCS enum</li>
  * </ul>
  */
-public class ClassesExtractor extends AbstractModelExtractor {
+public class ClassesExtractor extends AbstractModelProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger("ClassesExtractor");
 
     @Override

@@ -1,8 +1,9 @@
-package dercs.loader.extractor;
+package dercs.loader.processor;
 
 import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.exception.InvalidDeployedElementException;
 import dercs.loader.exception.InvalidNodenameException;
+import dercs.loader.processor.base.AbstractModelProcessor;
 import dercs.structure.runtime.RuntimeFactory;
 import org.eclipse.uml2.uml.*;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ import java.util.List;
  *     <li>every DERCS class has the correct superClass</li>
  * </ul>
  */
-public class NodesExtractor extends AbstractModelExtractor {
+public class NodesExtractor extends AbstractModelProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger("NodesExtractor");
 
     @Override

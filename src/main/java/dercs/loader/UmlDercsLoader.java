@@ -3,8 +3,8 @@ package dercs.loader;
 import dercs.DercsFactory;
 import dercs.Model;
 import dercs.loader.exception.DercsLoaderException;
-import dercs.loader.extractor.*;
-import dercs.loader.fixer.AbstractModelFixer;
+import dercs.loader.processor.*;
+import dercs.loader.processor.base.IModelProcessor;
 import dercs.loader.resource.UmlResourceLoader;
 import dercs.loader.wrapper.WrappedUmlResource;
 import dercs.loader.wrapper.InProgressDercsModel;
@@ -34,14 +34,9 @@ public class UmlDercsLoader implements IDercsLoader{
     private final InProgressDercsModel dercsModel;
 
     /**
-     * The list of extractors that will be run on the resource.
+     * The list of processors that will be run on the model.
      */
-    private final List<AbstractModelExtractor> modelExtractors = new ArrayList<>();
-
-    /**
-     * The list of fixers that will be run on the model.
-     */
-    private final List<AbstractModelFixer> modelFixers = new ArrayList<>();
+    private final List<IModelProcessor> modelProcessors = new ArrayList<>();
 
     /**
      * Create an instance of the loader based on the given UML2 file.
@@ -55,8 +50,7 @@ public class UmlDercsLoader implements IDercsLoader{
 
         this.dercsModel = new InProgressDercsModel(DercsFactory.eINSTANCE.createModel(), this.umlResource);
 
-        registerExtractors();
-        registerFixers();
+        registerProcessors();
     }
 
     /**
@@ -67,16 +61,10 @@ public class UmlDercsLoader implements IDercsLoader{
     public Model loadDercsModel() throws DercsLoaderException {
         LOGGER.info("===== Beginning to load DERCS model. =====");
 
-        // run extractors
-        for (AbstractModelExtractor extractor : this.modelExtractors) {
-            LOGGER.info("===== Running extractor: '{}' =====", extractor.getName());
-            extractor.apply(this.umlResource, this.dercsModel);
-        }
-
-        // run fixers
-        for (AbstractModelFixer fixer : this.modelFixers) {
-            LOGGER.info("===== Running fixer: '{}' =====", fixer.getName());
-            fixer.apply(this.dercsModel);
+        // run processors
+        for (IModelProcessor extractor : this.modelProcessors) {
+            LOGGER.info("===== Running processor: '{}' =====", extractor.getName());
+            extractor.apply(this.dercsModel, this.umlResource);
         }
 
         LOGGER.info("===== DERCS model loading completed. =====");
@@ -93,9 +81,9 @@ public class UmlDercsLoader implements IDercsLoader{
     }
 
     /**
-     * Instantiate and add all the Model Extractors that will be used.
+     * Instantiate and add all the Model Processors that will be used.
      */
-    private void registerExtractors() {
+    private void registerProcessors() {
         /* Possible order:
          * - Classes
          * - Nodes
@@ -106,20 +94,12 @@ public class UmlDercsLoader implements IDercsLoader{
          * - Join Points (+ select Elements)
          * - Aspects, Adaptations, Pointcuts, Crosscutting Info
          */
-        Collections.addAll(this.modelExtractors,
+        Collections.addAll(this.modelProcessors,
                 new ClassesExtractor(),
                 new NodesExtractor(),
                 new ClassHierarchyExtractor(),
                 new AttributesExtractor(),
                 new AssociationRelatedMethodsExtractor()
         );
-    }
-
-    /**
-     * Instantiate and add all the Model Fixers that will be used.
-     */
-    private void registerFixers() {
-        //TODO: gather method overrides
-        //modelFixers.add()
     }
 }

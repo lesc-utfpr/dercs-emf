@@ -1,9 +1,10 @@
-package dercs.loader.extractor;
+package dercs.loader.processor;
 
 import dercs.datatypes.Array;
 import dercs.datatypes.DataType;
 import dercs.datatypes.DatatypesFactory;
 import dercs.loader.exception.DercsLoaderException;
+import dercs.loader.processor.base.AbstractModelProcessor;
 import dercs.loader.util.DatatypeHelper;
 import dercs.structure.Attribute;
 import dercs.structure.Class;
@@ -21,7 +22,7 @@ import org.slf4j.LoggerFactory;
  *     <li>getters and setters are not yet generated</li>
  * </ul>
  */
-public class AttributesExtractor extends AbstractModelExtractor {
+public class AttributesExtractor extends AbstractModelProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger("AttributesExtractor");
 
     @Override

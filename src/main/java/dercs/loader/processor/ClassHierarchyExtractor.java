@@ -1,8 +1,9 @@
-package dercs.loader.extractor;
+package dercs.loader.processor;
 
 import dercs.loader.exception.ClassNotFoundException;
 import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.exception.MultiInheritanceException;
+import dercs.loader.processor.base.AbstractModelProcessor;
 import dercs.structure.Class;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ import org.slf4j.LoggerFactory;
  *     <li>every DERCS class has the correct superClass</li>
  * </ul>
  */
-public class ClassHierarchyExtractor extends AbstractModelExtractor {
+public class ClassHierarchyExtractor extends AbstractModelProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger("ClassHierarchyExtractor");
 
     @Override

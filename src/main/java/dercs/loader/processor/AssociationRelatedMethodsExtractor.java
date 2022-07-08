@@ -1,4 +1,4 @@
-package dercs.loader.extractor;
+package dercs.loader.processor;
 
 import dercs.behavior.Behavior;
 import dercs.behavior.actions.AssignmentAction;
@@ -9,6 +9,7 @@ import dercs.datatypes.Array;
 import dercs.datatypes.ClassDataType;
 import dercs.datatypes.DataType;
 import dercs.loader.exception.DercsLoaderException;
+import dercs.loader.processor.base.AbstractModelProcessor;
 import dercs.loader.util.DatatypeHelper;
 import dercs.loader.util.DercsAccessHelper;
 import dercs.loader.util.DercsCreationHelper;
@@ -34,7 +35,7 @@ import org.slf4j.LoggerFactory;
  *     <li>if a composition has unbounded multiplicity, a method to add a new object is created.</li>
  * </ul>
  */
-public class AssociationRelatedMethodsExtractor extends AbstractModelExtractor {
+public class AssociationRelatedMethodsExtractor extends AbstractModelProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger("AssociationRelatedMethodsExtractor");
 
     @Override
