@@ -104,4 +104,17 @@ public class DercsExampleTest extends AbstractLoaderFileTest {
         Class child3 = findDercsNamedElement(model().getClasses(), "ChildClass3");
         assertAssociationGettersSettersExist(child3, "childclass1");
     }
+
+    @Test
+    public void testMethods() {
+        Class child1 = findDercsNamedElement(model().getClasses(), "ChildClass1");
+        assertTrue(child1.getMethod("overridingMethod").isOverwritingMethod());
+
+        Class parent1 = findDercsNamedElement(model().getClasses(), "ParentClass1");
+        assertMethodSignature(parent1, "+ baseMethod(): Boolean");
+        assertMethodSignature(parent1, "+ overridingMethod(string: String): Integer");
+
+        Class parent2 = findDercsNamedElement(model().getClasses(), "ParentClass2");
+        assertMethodSignature(parent2, "+ voidMethod(enumParam: TestEnum)");
+    }
 }

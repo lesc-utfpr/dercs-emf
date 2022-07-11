@@ -7,7 +7,9 @@ import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.exception.InvalidDataTypeException;
 import dercs.loader.wrapper.InProgressDercsModel;
 import dercs.structure.Class;
+import dercs.structure.ParameterKind;
 import dercs.structure.Visibility;
+import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.VisibilityKind;
 import org.eclipse.uml2.uml.internal.impl.PrimitiveTypeImpl;
@@ -83,6 +85,45 @@ public class DatatypeHelper {
             case PACKAGE_LITERAL:
             default:
                 throw new InvalidDataTypeException(umlVisibility.name());
+        }
+    }
+
+    /**
+     * Converts a UML parameter direction into a DERCS parameter direction
+     * @param direction the UML parameter direction
+     * @return the DERCS parameter direction
+     */
+    public static ParameterKind convertParameterDirection(ParameterDirectionKind direction) throws InvalidDataTypeException {
+        switch (direction) {
+            case IN_LITERAL:
+                return ParameterKind.IN;
+            case INOUT_LITERAL:
+                return ParameterKind.INOUT;
+            case OUT_LITERAL:
+            case RETURN_LITERAL:
+                return ParameterKind.OUT;
+            default:
+                throw new InvalidDataTypeException(direction.name());
+        }
+    }
+
+    /**
+     * Returns the human-readable name of a DERCS datatype.
+     * @param type the datatype to convert
+     * @return the name of the datatype
+     */
+    public static java.lang.String getDatatypeName(DataType type) {
+        if (type instanceof ClassDataType) {
+            return ((ClassDataType)type).getRepresents().getName();
+        } else if (type instanceof Array) {
+            return getDatatypeName(((Array)type).getDataType()) + "[]";
+        } else if (type instanceof Enumeration) {
+            return ((Enumeration)type).getName();
+        } else if (type instanceof dercs.datatypes.Void) {
+            return "Void";
+        } else {
+            java.lang.String className = type.getClass().getSimpleName();
+            return className.substring(0, className.indexOf("Impl"));
         }
     }
 

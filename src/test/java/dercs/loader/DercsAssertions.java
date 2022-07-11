@@ -1,10 +1,9 @@
 package dercs.loader;
 
 import dercs.behavior.actions.AssignmentAction;
+import dercs.behavior.actions.ReturnAction;
 import dercs.datatypes.Array;
-import dercs.datatypes.ClassDataType;
-import dercs.datatypes.DataType;
-import dercs.datatypes.Enumeration;
+import dercs.loader.util.DatatypeHelper;
 import dercs.loader.util.DercsAccessHelper;
 import dercs.structure.Attribute;
 import dercs.structure.Class;
@@ -18,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DercsAssertions {
     private static final Pattern attributeSignaturePattern = Pattern.compile("(?<vis>[+\\-~])(?<name>[a-zA-Z_][\\d\\w-]*)(?:\\[(?<lower>-?\\d+),(?<upper>-?\\d+)])?:(?<type>[a-zA-Z][\\da-zA-Z_-]*)(?:=(?<default>[\\d\\w-]+))?");
+    private static final Pattern methodSignaturePattern = Pattern.compile("(?<vis>[+\\-~])\\s*(?<name>[a-zA-Z_][\\d\\w-]*)\\((?<parameterList>[\\d\\w-,: ]*)\\)(?::\\s*(?<returnType>[a-zA-Z][\\da-zA-Z_-]*))?");
 
     /**
      * Checks for the existence and properties of an attribute described by the signature.
@@ -64,9 +64,8 @@ public class DercsAssertions {
         }
 
         // type and visibility
-        assertEquals(type, getDatatypeName(attrib.getDataType()), "Attribute has incorrect type.");
-        Visibility expectedVis = visibility.equals("+") ? Visibility.PUBLIC : (visibility.equals("-") ? Visibility.PRIVATE : (visibility.equals("~") ? Visibility.PROTECTED : null));
-        assertEquals(expectedVis, attrib.getVisibility(), "Attribute has incorrect visibility.");
+        assertEquals(type, DatatypeHelper.getDatatypeName(DatatypeHelper.getBaseDataType(attrib.getDataType())), "Attribute has incorrect type.");
+        assertEquals(visibilityFromString(visibility), attrib.getVisibility(), "Attribute has incorrect visibility.");
 
         // default value
         if (defaultValue != null) {
@@ -105,8 +104,8 @@ public class DercsAssertions {
     /**
      * Checks for the creation of the lower bound of composition element in the constructor.
      * If the composition is unbounded, it must also have an "add[attribute-name]()" method.
-     * @param cls
-     * @param attributeName
+     * @param cls the DERCS class containing the attribute
+     * @param attributeName the name of the composition attribute to check
      */
     public static void assertCompositionMethodsExist(Class cls, String attributeName) {
         Attribute attribute = cls.getAttribute(attributeName);
@@ -138,16 +137,104 @@ public class DercsAssertions {
         }
     }
 
-    private static String getDatatypeName(DataType type) {
-        if (type instanceof ClassDataType) {
-            return ((ClassDataType)type).getRepresents().getName();
-        } else if (type instanceof Array) {
-            return getDatatypeName(((Array)type).getDataType());
-        } else if (type instanceof Enumeration) {
-            return ((Enumeration)type).getName();
+    /**
+     * Checks for the existence and properties of a method described by the signature.
+     * The structure of the signature is <p>
+     * <code>VIS NAME(PARAM_NAME: PARAM_TYPE, ...): RET_TYPE</code>
+     * <table>
+     *  <tr>VIS - one of '+' (public), '-' (private), '~' (protected)</tr>
+     *  <tr>NAME - method name</tr>
+     *  <tr>PARAM_NAME - parameter name</tr>
+     *  <tr>PARAM_TYPE - parameter datatype name</tr>
+     *  <tr>RET_TYPE - return datatype name</tr>
+     * </table>
+     * where a missing RET_TYPE means void and the number of parameters can be zero or more
+     * @param cls the class in which to check the method
+     * @param signature signature of the method to check for
+     */
+    public static void assertMethodSignature(Class cls, String signature) {
+        Matcher match = methodSignaturePattern.matcher(signature);
+        if (!match.matches()) {
+            throw new AssertionError();
+        }
+
+        String visibility = match.group("vis");
+        String name = match.group("name");
+        String parameterList = match.group("parameterList");
+        String returnType = match.group("returnType");
+
+        Method method = cls.getMethod(name);
+        assertNotNull(method, "Method not found.");
+
+        assertEquals(visibilityFromString(visibility), method.getVisibility(), "Method has incorrect visibility.");
+        if (returnType != null) {
+            assertEquals(returnType, DatatypeHelper.getDatatypeName(method.getReturnType()), "Method has incorrect return type.");
         } else {
-            String className = type.getClass().getSimpleName();
-            return className.substring(0, className.indexOf("Impl"));
+            assertEquals("Void", DatatypeHelper.getDatatypeName(method.getReturnType()), "Method has incorrect return type.");
+        }
+
+        if (parameterList.length() > 0) {
+            String[] parameters = parameterList.split(",");
+            for (int i = 0; i < parameters.length; i++) {
+                String[] parts = parameters[i].split(":");
+                assertEquals(parts[0].trim(), method.getParameters().get(i).getName(), "Method parameter at index " + i + " has incorrect name.");
+                assertEquals(parts[1].trim(), DatatypeHelper.getDatatypeName(method.getParameters().get(i).getDataType()), "Method parameter at index " + i + " has incorrect type.");
+            }
+        }
+    }
+
+    /**
+     * Checks for the existence of a getter method with the given name.
+     * The method must have no parameters and must execute a ReturnAction.
+     * @param cls the class in which to check the method
+     * @param name the name of the method to look for
+     */
+    public static void assertGetterExists(Class cls, String name) {
+        Method method = cls.getMethod(name);
+        assertNotNull(method, "Method not found.");
+
+        assertEquals(0, method.getParameters().size(), "Getter method should take no parameters.");
+        boolean hasReturnAction = method
+                .getTriggeredBehavior()
+                .getBehavioralElements()
+                .stream()
+                .anyMatch(elem -> elem instanceof ReturnAction);
+
+        assertTrue(hasReturnAction, "Getter behavior should contain a ReturnAction");
+    }
+
+    /**
+     * Checks for the existence of a setter method with the given name.
+     * The method must have one parameter and must execute an AssignmentAction.
+     * @param cls the class in which to check the method
+     * @param name the name of the method to look for
+     */
+    public static void assertSetterExists(Class cls, String name) {
+        Method method = cls.getMethod(name);
+        assertNotNull(method, "Method not found.");
+
+        assertEquals(1, method.getParameters().size(), "Setter method should take one parameter.");
+        assertEquals("Void", DatatypeHelper.getDatatypeName(method.getReturnType()), "Setter method should return void.");
+        boolean hasAssignmentAction = method
+                .getTriggeredBehavior()
+                .getBehavioralElements()
+                .stream()
+                .anyMatch(elem -> elem instanceof AssignmentAction);
+
+        assertTrue(hasAssignmentAction, "Setter behavior should contain an AssignmentAction");
+    }
+
+
+    private static Visibility visibilityFromString(String visString) {
+        switch (visString) {
+            case "+":
+                return Visibility.PUBLIC;
+            case "-":
+                return Visibility.PRIVATE;
+            case "~":
+                return Visibility.PROTECTED;
+            default:
+                return null;
         }
     }
 }

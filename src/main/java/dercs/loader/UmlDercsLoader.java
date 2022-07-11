@@ -99,7 +99,9 @@ public class UmlDercsLoader implements IDercsLoader{
                 new NodesExtractor(),
                 new ClassHierarchyExtractor(),
                 new AttributesExtractor(),
-                new AssociationRelatedMethodsExtractor()
+                new AssociationRelatedMethodsExtractor(),
+                new MethodStubExtractor(),
+                new MethodOverwriteFixer()
         );
     }
 }

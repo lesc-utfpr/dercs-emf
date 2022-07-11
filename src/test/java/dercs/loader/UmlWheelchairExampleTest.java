@@ -135,8 +135,30 @@ public class UmlWheelchairExampleTest extends AbstractLoaderFileTest {
         assertCompositionMethodsExist(controlSubSystem, "movCtrl");
     }
 
+    @Test
     public void testMethods() {
+        Class movementController = findDercsNamedElement(model().getClasses(), "MovementController");
+        assertMethodSignature(movementController, "+ run()");
+        assertMethodSignature(movementController, "+ processMovementInformation(speed: Float, angle: Float, x: Integer, y: Integer)");
+        assertMethodSignature(movementController, "+ exceptionPart()");
+        assertMethodSignature(movementController, "+ getLastValidControlComputation()");
 
+        Class movementActuator = findDercsNamedElement(model().getClasses(), "MovementActuator");
+        assertMethodSignature(movementActuator, "+ changeMovement(angle: Float, speed: Float)");
+        assertMethodSignature(movementActuator, "+ stopWheelChair()");
+
+        Class joystickInformation = findDercsNamedElement(model().getClasses(), "JoystickInformation");
+        assertGetterExists(joystickInformation, "getXPosition");
+        assertGetterExists(joystickInformation, "getYPosition");
+        assertSetterExists(joystickInformation, "setXPosition");
+        assertSetterExists(joystickInformation, "setYPosition");
+
+        Class sensorDriver = findDercsNamedElement(model().getClasses(), "SensorDriver");
+        assertGetterExists(sensorDriver, "getValue");
+        assertFalse(sensorDriver.getMethod("getValue").isOverwritingMethod());
+
+        Class joystickDriver = findDercsNamedElement(model().getClasses(), "JoystickDriver");
+        assertFalse(joystickDriver.getMethod("run").isOverwritingMethod());
     }
 
     public void testEvents() {

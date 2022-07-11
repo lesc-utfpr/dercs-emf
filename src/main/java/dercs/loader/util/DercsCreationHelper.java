@@ -20,14 +20,15 @@ public class DercsCreationHelper {
      * @param attribute the attribute of this class to create the getter for
      * @param arrayIndexed if true and the attribute is an array, create the getter with an index parameter
      */
-    public static void addGetter(Class cls, Attribute attribute, boolean arrayIndexed) {
+    public static Method addGetter(Class cls, Attribute attribute, boolean arrayIndexed) {
         // create the behavior
         Behavior methodBehavior = DercsConstructors.newBehavior(null, null, null, 0);
+        Method newMethod;
 
         if (arrayIndexed && (attribute.getDataType() instanceof Array)) {
             // we want an indexed getter for an array
             // create the method with the array's datatype as return type
-            Method newMethod = cls.addMethod("get" + attribute.getName(), ((Array)attribute.getDataType()).getDataType(), Visibility.PUBLIC, false, false, methodBehavior);
+            newMethod = cls.addMethod("get" + attribute.getName(), ((Array)attribute.getDataType()).getDataType(), Visibility.PUBLIC, false, false, methodBehavior);
             newMethod.setAssociatedAttribute(attribute);
             // add parameter representing the index of the array element
             dercs.datatypes.Integer newInt = DercsConstructors.newInteger(true);
@@ -40,13 +41,15 @@ public class DercsCreationHelper {
         } else {
             // we want a normal getter
             // create the method with the attribute's datatype as return type
-            Method newMethod = cls.addMethod("get" + attribute.getName(), attribute.getDataType(), Visibility.PUBLIC, false, false, methodBehavior);
+            newMethod = cls.addMethod("get" + attribute.getName(), attribute.getDataType(), Visibility.PUBLIC, false, false, methodBehavior);
             newMethod.setAssociatedAttribute(attribute);
             // get attribute and return
             ExpressionAction expressionAction = DercsConstructors.newExpressionAction(attribute.getName());
             ReturnAction returnAction = DercsConstructors.newReturnAction(newMethod, expressionAction);
             methodBehavior.getBehavioralElements().add(returnAction);
         }
+
+        return newMethod;
     }
 
     /**
@@ -55,7 +58,7 @@ public class DercsCreationHelper {
      * @param attribute the attribute of this class to create the setter
      * @param arrayIndexed if true and the attribute is an array, create the setter with an index parameter
      */
-    public static void addSetter(Class cls, Attribute attribute, boolean arrayIndexed) {
+    public static Method addSetter(Class cls, Attribute attribute, boolean arrayIndexed) {
         // create the method and its behavior
         Behavior methodBehavior = DercsConstructors.newBehavior(null, null, null, 0);
         Method newMethod = cls.addMethod("set" + attribute.getName(), DercsConstructors.newVoid(), Visibility.PUBLIC, false, false, methodBehavior);
@@ -83,6 +86,8 @@ public class DercsCreationHelper {
             AssignmentAction aa = DercsConstructors.newAssignmentAction(null, attribute, ea);
             methodBehavior.getBehavioralElements().add(aa);
         }
+
+        return newMethod;
     }
 
     /**
