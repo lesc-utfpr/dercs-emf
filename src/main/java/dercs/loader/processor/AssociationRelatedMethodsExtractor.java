@@ -12,6 +12,7 @@ import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.processor.base.AbstractModelProcessor;
 import dercs.loader.util.DatatypeHelper;
 import dercs.loader.util.DercsAccessHelper;
+import dercs.loader.util.DercsBuilders;
 import dercs.loader.util.DercsCreationHelper;
 import dercs.structure.*;
 import dercs.structure.Class;
@@ -149,9 +150,11 @@ public class AssociationRelatedMethodsExtractor extends AbstractModelProcessor {
     private void addUnboundedArrayAdderMethod(Class cls, Attribute attribute) {
         LOGGER.info(" - Adding method '{}' for unbounded array attribute '{}'.", "add" + attribute.getName(), attribute.getName());
         // create method and behavior
-        Behavior addAttrBehavior = DercsConstructors.newBehavior(null, null, null, 0);
-        Method addAttrMethod = cls.addMethod("add" + attribute.getName(), ((Array)attribute.getDataType()).getDataType(), Visibility.PUBLIC,
-                false, false, addAttrBehavior);
+        Behavior addAttrBehavior = DercsBuilders.Behavior.create().build();
+        Method addAttrMethod = DercsBuilders.Method.create("add" + attribute.getName())
+                .returnType(((Array)attribute.getDataType()).getDataType())
+                .triggeredBehavior(addAttrBehavior)
+                .addToClass(cls);
 
         // create the action that inserts a new element in the array attribute
         InsertArrayElementAction insertArrayAction = DercsConstructors.newInsertArrayElementAction(null, attribute, null, "");
@@ -166,9 +169,11 @@ public class AssociationRelatedMethodsExtractor extends AbstractModelProcessor {
         String enterCondition = String.format("(%s.size() < %s)", attribute.getName(), ((Array)attribute.getDataType()).getUpperValue());
 
         // this behavior is executed only if the limit of elements is not reached.
-        Behavior addAttrBehavior = DercsConstructors.newBehavior(null, enterCondition, null, 0);
-        Method addAttrMethod = cls.addMethod("add" + attribute.getName(), ((Array)attribute.getDataType()).getDataType(), Visibility.PUBLIC,
-                false, false, addAttrBehavior);
+        Behavior addAttrBehavior = DercsBuilders.Behavior.create().build();
+        Method addAttrMethod = DercsBuilders.Method.create("add" + attribute.getName())
+                .returnType(((Array)attribute.getDataType()).getDataType())
+                .triggeredBehavior(addAttrBehavior)
+                .addToClass(cls);
 
         // create the action that inserts a new element in the array attribute
         InsertArrayElementAction insertArrayAction = DercsConstructors.newInsertArrayElementAction(null, attribute, null, "");
@@ -177,7 +182,7 @@ public class AssociationRelatedMethodsExtractor extends AbstractModelProcessor {
         addAttrBehavior.getBehavioralElements().add(returnAction);
 
         // alternative behavior that must be executed if the elements limit was reached.
-        Behavior elseBehavior = DercsConstructors.newBehavior(addAttrBehavior, null, null, 0);
+        Behavior elseBehavior = DercsBuilders.Behavior.create().build();
         returnAction = DercsConstructors.newReturnAction(addAttrMethod, "null");
         elseBehavior.getBehavioralElements().add(returnAction);
         // setting alternative behavior

@@ -8,6 +8,7 @@ import dercs.loader.exception.AttributeNotFoundException;
 import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.processor.base.AbstractModelProcessor;
 import dercs.loader.util.DatatypeHelper;
+import dercs.loader.util.DercsBuilders;
 import dercs.loader.util.DercsCreationHelper;
 import dercs.structure.*;
 import dercs.structure.Class;
@@ -67,8 +68,12 @@ public class MethodStubExtractor extends AbstractModelProcessor {
         boolean isAbstract = operation.isAbstract();
 
         LOGGER.info("Creating method '{}() -> {}' in class '{}'.", operation.getName(), DatatypeHelper.getDatatypeName(returnType), dercsClass.getName());
-        Method newMethod = dercsClass.addMethod(operation.getName(), returnType, visibility, false, isAbstract, null);
-        newMethod.setStatic(operation.isStatic());
+        Method newMethod = DercsBuilders.Method.create(operation.getName())
+                .returnType(returnType)
+                .visibility(visibility)
+                .setAbstract(isAbstract)
+                .setStatic(operation.isStatic())
+                .addToClass(dercsClass);
 
         // add parameters
         for (Parameter parameter : operation.getOwnedParameters()) {
@@ -86,6 +91,7 @@ public class MethodStubExtractor extends AbstractModelProcessor {
         //TODO: interruption events
 
         // handle TimedEvent aka active methods
+        // TODO: this has changed in new MARTE
         TimedEvent timedEventStereotype = getAppliedStereotype(operation, TimePackage.Literals.TIMED_EVENT);
         if (timedEventStereotype != null) {
             newMethod.setActive(true);

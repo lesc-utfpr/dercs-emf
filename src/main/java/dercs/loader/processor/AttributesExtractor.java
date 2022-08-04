@@ -6,6 +6,7 @@ import dercs.datatypes.DatatypesFactory;
 import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.processor.base.AbstractModelProcessor;
 import dercs.loader.util.DatatypeHelper;
+import dercs.loader.util.DercsBuilders;
 import dercs.structure.Attribute;
 import dercs.structure.Class;
 import org.eclipse.uml2.uml.Property;
@@ -50,14 +51,13 @@ public class AttributesExtractor extends AbstractModelProcessor {
             }
 
             LOGGER.info("Adding attribute '{}' to class '{}'.", attribute.getName(), dercsClass.getName());
-            Attribute newAttribute = dercsClass.addAttribute(
-                    attribute.getName(),
-                    dercsType,
-                    DatatypeHelper.convertVisibility(attribute.getVisibility()),
-                    attribute.isStatic(),
-                    attribute.getDefault(),
-                    attribute.isReadOnly()
-            );
+            Attribute newAttribute = DercsBuilders.Attribute.create(attribute.getName())
+                    .dataType(dercsType)
+                    .visibility(DatatypeHelper.convertVisibility(attribute.getVisibility()))
+                    .setStatic(attribute.isStatic())
+                    .defaultValue(attribute.getDefault())
+                    .readonly(attribute.isReadOnly())
+                    .addToClass(dercsClass);
 
             inProgressModel().registerDercsUmlElementPair(newAttribute, attribute);
         }

@@ -22,14 +22,18 @@ public class DercsCreationHelper {
      */
     public static Method addGetter(Class cls, Attribute attribute, boolean arrayIndexed) {
         // create the behavior
-        Behavior methodBehavior = DercsConstructors.newBehavior(null, null, null, 0);
+        Behavior methodBehavior = DercsBuilders.Behavior.create().build();
         Method newMethod;
 
         if (arrayIndexed && (attribute.getDataType() instanceof Array)) {
             // we want an indexed getter for an array
             // create the method with the array's datatype as return type
-            newMethod = cls.addMethod("get" + attribute.getName(), ((Array)attribute.getDataType()).getDataType(), Visibility.PUBLIC, false, false, methodBehavior);
-            newMethod.setAssociatedAttribute(attribute);
+            newMethod = DercsBuilders.Method.create("get" + attribute.getName())
+                    .returnType(((Array)attribute.getDataType()).getDataType())
+                    .triggeredBehavior(methodBehavior)
+                    .associatedAttribute(attribute)
+                    .addToClass(cls);
+
             // add parameter representing the index of the array element
             dercs.datatypes.Integer newInt = DercsConstructors.newInteger(true);
             Parameter parameter = newMethod.addParameter("index", newInt, ParameterKind.IN);
@@ -41,8 +45,13 @@ public class DercsCreationHelper {
         } else {
             // we want a normal getter
             // create the method with the attribute's datatype as return type
-            newMethod = cls.addMethod("get" + attribute.getName(), attribute.getDataType(), Visibility.PUBLIC, false, false, methodBehavior);
-            newMethod.setAssociatedAttribute(attribute);
+            newMethod = DercsBuilders.Method.create("get" + attribute.getName())
+                    .returnType(attribute.getDataType())
+                    .visibility(Visibility.PUBLIC)
+                    .triggeredBehavior(methodBehavior)
+                    .associatedAttribute(attribute)
+                    .addToClass(cls);
+
             // get attribute and return
             ExpressionAction expressionAction = DercsConstructors.newExpressionAction(attribute.getName());
             ReturnAction returnAction = DercsConstructors.newReturnAction(newMethod, expressionAction);
@@ -60,7 +69,7 @@ public class DercsCreationHelper {
      */
     public static Method addSetter(Class cls, Attribute attribute, boolean arrayIndexed) {
         // create the method and its behavior
-        Behavior methodBehavior = DercsConstructors.newBehavior(null, null, null, 0);
+        Behavior methodBehavior = DercsBuilders.Behavior.create().build();
         Method newMethod = cls.addMethod("set" + attribute.getName(), DercsConstructors.newVoid(), Visibility.PUBLIC, false, false, methodBehavior);
         newMethod.setAssociatedAttribute(attribute);
 

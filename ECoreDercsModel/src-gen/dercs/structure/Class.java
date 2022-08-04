@@ -289,6 +289,18 @@ public interface Class extends BaseElement {
 	}
 
 	/**
+	 * Add an attribute to this class.
+	 * @param attribute the new attribute to be added
+	 * @return the newly added attribute
+	 * @generated NOT
+	 */
+	default Attribute addAttribute(Attribute attribute) {
+		this.getAttributes().add(attribute);
+		checkDataTypeInReferenceList(attribute.getDataType());
+		return attribute;
+	}
+
+	/**
 	 * Return the attribute with the specified name.
 	 * @param name Attribute's name.
 	 * @return The indicated attribute, NULL if it could not be found. 
@@ -315,7 +327,7 @@ public interface Class extends BaseElement {
 	 * @param visibility Visibility of the method
 	 * @param overwroteMethod Indicates whether the method overwrites some 
 	 * inherited method
-	 * @param isAbstracts Indicates whether the method is abstract or not
+	 * @param isAbstract Indicates whether the method is abstract or not
 	 * @param triggeredBehavior Behavior which is triggered by the method
 	 * @return the newly added method
 	 * @generated NOT
@@ -333,6 +345,18 @@ public interface Class extends BaseElement {
 		this.getMethods().add(result);
 		checkDataTypeInReferenceList(returnType);
 		return result;
+	}
+
+	/**
+	 * Add a method to the class.
+	 * @param method the new method to be added
+	 * @return the newly added method
+	 * @generated NOT
+	 */
+	default Method addMethod(Method method) {
+		this.getMethods().add(method);
+		checkDataTypeInReferenceList(method.getReturnType());
+		return method;
 	}
 
 	/**
@@ -422,7 +446,7 @@ public interface Class extends BaseElement {
 
 	/**
 	 * Get the method that has the same signature as the one passed as parameter.
-	 * @param mth Method to be looked for.
+	 * @param methodToFind Method to be looked for.
 	 * @return The method found, or NULL if there is no method with the same 
 	 * characteristics.
 	 * @generated NOT
