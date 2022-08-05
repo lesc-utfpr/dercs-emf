@@ -101,7 +101,12 @@ public class UmlDercsLoader implements IDercsLoader{
                 new AttributesExtractor(),
                 new AssociationRelatedMethodsExtractor(),
                 new MethodStubExtractor(),
-                new MethodOverwriteFixer()
+                new MethodOverwriteFixer(),
+                new AspectAdaptationsExtractor(),
+                new JoinPointsExtractor(),
+                new PointcutsExtractor(),
+                new CrosscuttingExtractor(),
+                new JoinPointAffectedElementSelector()
         );
     }
 }
