@@ -2,6 +2,8 @@ package dercs.loader.wrapper;
 
 import dercs.Model;
 import dercs.datatypes.DataType;
+import dercs.loader.ao.JoinPointFinder;
+import dercs.loader.ao.JoinPointMatcher;
 import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.exception.InvalidDeployedElementException;
 import dercs.loader.util.DatatypeHelper;
@@ -77,6 +79,24 @@ public class InProgressDercsModel {
      */
     public WrappedUmlResource getSourceResource() {
         return this.resource;
+    }
+
+    /**
+     * Get an instance of {@link JoinPointFinder} bound to this model.
+     * (This is necessary because the finder needs to access the stereotypes from this model's resource.)
+     * @return an instance of {@link JoinPointFinder}
+     */
+    public JoinPointFinder getJoinPointFinder() {
+        return new JoinPointFinder(this.resource);
+    }
+
+    /**
+     * Get an instance of {@link JoinPointMatcher} bound to this model.
+     * (This is necessary because the matcher needs to access the model to search it.)
+     * @return an instance of {@link JoinPointMatcher}
+     */
+    public JoinPointMatcher getJoinPointMatcher() {
+        return new JoinPointMatcher(this);
     }
 
     // === Model pairs ===

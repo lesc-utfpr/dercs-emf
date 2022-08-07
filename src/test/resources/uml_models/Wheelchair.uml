@@ -1116,9 +1116,9 @@
   <AMoDERT.AspectsModeling:JoinPoint xmi:id="_-qjFcBGUEe2S89iiM9m_3Q" base_Class="_8m5LoBGUEe2S89iiM9m_3Q"/>
   <GRM:MutualExclusionResource xmi:id="_-qolABGUEe2S89iiM9m_3Q" base_Classifier="_8m5LoBGUEe2S89iiM9m_3Q"/>
   <AMoDERT.AspectsModeling:JoinPoint xmi:id="_UJaawBGVEe2S89iiM9m_3Q" base_Property="_LrxgEBGVEe2S89iiM9m_3Q"/>
-  <AMoDERT.AspectsModeling:JoinPoint xmi:id="_sm1y8BGVEe2S89iiM9m_3Q" base_Operation="_nOyJIBGVEe2S89iiM9m_3Q"/>
+  <AMoDERT.AspectsModeling:JoinPoint xmi:id="_sm1y8BGVEe2S89iiM9m_3Q" base_Operation="_nOyJIBGVEe2S89iiM9m_3Q" Behavior="true"/>
   <AMoDERT.AspectsModeling:JoinPoint xmi:id="_z46SYBGVEe2S89iiM9m_3Q" base_Class="_xCh7IBGVEe2S89iiM9m_3Q"/>
-  <AMoDERT.AspectsModeling:JoinPoint xmi:id="_9G4d0BGVEe2S89iiM9m_3Q" base_Operation="_7MTngBGVEe2S89iiM9m_3Q"/>
+  <AMoDERT.AspectsModeling:JoinPoint xmi:id="_9G4d0BGVEe2S89iiM9m_3Q" base_Operation="_7MTngBGVEe2S89iiM9m_3Q" Behavior="true"/>
   <GRM:SchedulableResource xmi:id="_2FhecBGWEe2S89iiM9m_3Q" base_Lifeline="_0TC0MBGWEe2S89iiM9m_3Q"/>
   <AMoDERT.AspectsModeling:JoinPoint xmi:id="_5eiosBGWEe2S89iiM9m_3Q" base_Message="_3hY_gBGWEe2S89iiM9m_3Q" Behavior="true"/>
   <GRM:SchedulableResource xmi:id="_cGn3ABGXEe2S89iiM9m_3Q" base_Lifeline="_YZuugBGXEe2S89iiM9m_3Q"/>
@@ -1162,4 +1162,5 @@
   <AMoDERT.AspectsModeling:JPDD xmi:id="_Fa4P8BPpEe2DgdmO0TrBQw" base_Interaction="_TjhbQBGcEe2S89iiM9m_3Q"/>
   <AMoDERT.AspectsModeling:JPDD xmi:id="_GK27YBPpEe2DgdmO0TrBQw" base_Interaction="_d9Cz0BGcEe2S89iiM9m_3Q"/>
   <AMoDERT.AspectsModeling:Aspect xmi:id="_lsnnEBPrEe2DgdmO0TrBQw" base_Class="_6mYkIBDeEe2TWOXscLXHQA"/>
+  <AMoDERT.AspectsModeling:JoinPoint xmi:id="_DcjasBZdEe2IPojCvHPA1w" base_Message="_w0RVUBGYEe2S89iiM9m_3Q" Behavior="true"/>
 </xmi:XMI>

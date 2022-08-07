@@ -4,6 +4,7 @@ import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.exception.InvalidDeployedElementException;
 import dercs.loader.exception.InvalidNodenameException;
 import dercs.loader.processor.base.AbstractModelProcessor;
+import dercs.loader.util.UmlAccessHelper;
 import dercs.structure.runtime.RuntimeFactory;
 import org.eclipse.uml2.uml.*;
 import org.slf4j.Logger;
@@ -29,18 +30,8 @@ public class NodesExtractor extends AbstractModelProcessor {
         List<Node> umlNodes =  resource().getAllModelElementsOfType(UMLPackage.Literals.NODE);
 
         for (Node node : umlNodes) {
-            // handle explicit "deployment" edges
-            for (Deployment deployment : node.getDeployments()) {
-                for (DeployedArtifact artifact : deployment.getDeployedArtifacts()) {
-                    createNode(artifact, node);
-                }
-            }
-
-            // handle nested artifacts
-            for (Classifier nested : node.getNestedClassifiers()) {
-                if (nested instanceof DeployedArtifact) {
-                    createNode((DeployedArtifact) nested, node);
-                }
+            for (DeployedArtifact artifact : UmlAccessHelper.getAllNodeArtifacts(node)) {
+                createNode(artifact, node);
             }
         }
     }
