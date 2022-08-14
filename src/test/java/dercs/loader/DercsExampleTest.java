@@ -2,12 +2,13 @@ package dercs.loader;
 
 import dercs.datatypes.Enumeration;
 import dercs.loader.exception.DercsLoaderException;
+import dercs.loader.util.AbstractLoaderFileTest;
 import dercs.structure.Class;
 import dercs.structure.runtime.Node;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static dercs.loader.DercsAssertions.*;
+import static dercs.loader.util.DercsAssertions.*;
 
 public class DercsExampleTest extends AbstractLoaderFileTest {
     public DercsExampleTest() throws DercsLoaderException {

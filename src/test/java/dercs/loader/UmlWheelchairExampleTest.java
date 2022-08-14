@@ -1,6 +1,7 @@
 package dercs.loader;
 
 import dercs.loader.exception.DercsLoaderException;
+import dercs.loader.util.AbstractLoaderFileTest;
 import dercs.structure.Class;
 import dercs.structure.NamedElement;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static dercs.loader.DercsAssertions.*;
+import static dercs.loader.util.DercsAssertions.*;
 
 public class UmlWheelchairExampleTest extends AbstractLoaderFileTest {
     public UmlWheelchairExampleTest() throws DercsLoaderException {
@@ -72,9 +73,6 @@ public class UmlWheelchairExampleTest extends AbstractLoaderFileTest {
         assertSame(sensorDriverClass, wheelSpeedSensorDriverClass.getSuperClass());
         assertNull(sensorDriverClass.getSuperClass());
     }
-
-    //TODO: more tests once these extractors exist
-    // AO tests and specific interaction tests should probably be different classes so this one doesn't get too large
 
     @Test
     public void testAttributes() {

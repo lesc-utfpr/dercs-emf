@@ -1,6 +1,7 @@
-package dercs.loader;
+package dercs.loader.util;
 
 import dercs.Model;
+import dercs.loader.UmlDercsLoader;
 import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.wrapper.WrappedUmlResource;
 import dercs.structure.NamedElement;
@@ -10,7 +11,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.function.Predicate;
-import java.util.regex.Pattern;
 
 /**
  * Abstract test class that provides an already loaded DERCS model to test.

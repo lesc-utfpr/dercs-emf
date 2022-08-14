@@ -1,4 +1,4 @@
-package dercs.loader;
+package dercs.loader.util;
 
 import dercs.behavior.actions.AssignmentAction;
 import dercs.behavior.actions.ReturnAction;

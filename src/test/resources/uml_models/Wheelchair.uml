@@ -333,30 +333,32 @@
       <packagedElement xmi:type="uml:Interaction" xmi:id="_DKsscBAMEe2Fw_mX9-u05w" name="Joystick Sensoring">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_cbzkUBAMEe2Fw_mX9-u05w" type="_e9NxIBAMEe2Fw_mX9-u05w"/>
         <lifeline xmi:type="uml:Lifeline" xmi:id="_M_oKMBAMEe2Fw_mX9-u05w" name="Lifeline1" represents="_cbzkUBAMEe2Fw_mX9-u05w" coveredBy="_1bswYBAMEe2Fw_mX9-u05w _1b-dMRAMEe2Fw_mX9-u05w _p8ce0BAMEe2Fw_mX9-u05w"/>
-        <lifeline xmi:type="uml:Lifeline" xmi:id="_sg2VQBAMEe2Fw_mX9-u05w" name="Lifeline6" represents="_JWYaYugyEey1bKVmm5z5Iw" coveredBy="_1btXcBAMEe2Fw_mX9-u05w _RJURgRAOEe2Fw_mX9-u05w _RJU4kBAOEe2Fw_mX9-u05w _cPy2sBAOEe2Fw_mX9-u05w _iPWlYRAOEe2Fw_mX9-u05w _1b-dMBAMEe2Fw_mX9-u05w _1b8A8BAMEe2Fw_mX9-u05w"/>
-        <lifeline xmi:type="uml:Lifeline" xmi:id="_wmLL4BAMEe2Fw_mX9-u05w" name="Lifeline7" represents="_DeD8IugyEey1bKVmm5z5Iw" coveredBy="_cPy2sRAOEe2Fw_mX9-u05w _iPXMcBAOEe2Fw_mX9-u05w _cQDVYBAOEe2Fw_mX9-u05w _cQCuUBAOEe2Fw_mX9-u05w"/>
+        <lifeline xmi:type="uml:Lifeline" xmi:id="_sg2VQBAMEe2Fw_mX9-u05w" name="Lifeline6" represents="_JWYaYugyEey1bKVmm5z5Iw" coveredBy="_1btXcBAMEe2Fw_mX9-u05w _EVMvUBcgEe2b0Kdnx9rECQ _EVMvURcgEe2b0Kdnx9rECQ _cPy2sBAOEe2Fw_mX9-u05w _iPWlYRAOEe2Fw_mX9-u05w _1b-dMBAMEe2Fw_mX9-u05w _1b8A8BAMEe2Fw_mX9-u05w"/>
+        <lifeline xmi:type="uml:Lifeline" xmi:id="_wmLL4BAMEe2Fw_mX9-u05w" name="Lifeline7" represents="_DeD8IugyEey1bKVmm5z5Iw" coveredBy="_cPy2sRAOEe2Fw_mX9-u05w _cQDVYBAOEe2Fw_mX9-u05w _cQCuUBAOEe2Fw_mX9-u05w _iPXMcBAOEe2Fw_mX9-u05w _H6hQMBcgEe2b0Kdnx9rECQ _H6gCEBcgEe2b0Kdnx9rECQ"/>
         <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_1bswYBAMEe2Fw_mX9-u05w" name="Message8SendEvent" covered="_M_oKMBAMEe2Fw_mX9-u05w" message="_1bsJUBAMEe2Fw_mX9-u05w"/>
         <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_p8ce0BAMEe2Fw_mX9-u05w" name="ActionExecutionSpecification3" covered="_M_oKMBAMEe2Fw_mX9-u05w" finish="_1b-dMRAMEe2Fw_mX9-u05w" start="_1bswYBAMEe2Fw_mX9-u05w"/>
         <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_1btXcBAMEe2Fw_mX9-u05w" name="Message8ReceiveEvent" covered="_sg2VQBAMEe2Fw_mX9-u05w" message="_1bsJUBAMEe2Fw_mX9-u05w"/>
         <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_1b8A8BAMEe2Fw_mX9-u05w" name="BehaviorExecutionSpecification10" covered="_sg2VQBAMEe2Fw_mX9-u05w" finish="_1b-dMBAMEe2Fw_mX9-u05w" start="_1btXcBAMEe2Fw_mX9-u05w"/>
-        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_RJURgRAOEe2Fw_mX9-u05w" name="Message12SendEvent" covered="_sg2VQBAMEe2Fw_mX9-u05w" message="_RJURgBAOEe2Fw_mX9-u05w"/>
-        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_RJU4kBAOEe2Fw_mX9-u05w" name="Message12ReceiveEvent" covered="_sg2VQBAMEe2Fw_mX9-u05w" message="_RJURgBAOEe2Fw_mX9-u05w"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_EVMvUBcgEe2b0Kdnx9rECQ" name="Message20SendEvent" covered="_sg2VQBAMEe2Fw_mX9-u05w" message="_EU5NUBcgEe2b0Kdnx9rECQ"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_EVMvURcgEe2b0Kdnx9rECQ" name="Message20ReceiveEvent" covered="_sg2VQBAMEe2Fw_mX9-u05w" message="_EU5NUBcgEe2b0Kdnx9rECQ"/>
         <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_cPy2sBAOEe2Fw_mX9-u05w" name="Message15SendEvent" covered="_sg2VQBAMEe2Fw_mX9-u05w" message="_cPyPoBAOEe2Fw_mX9-u05w"/>
         <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_cPy2sRAOEe2Fw_mX9-u05w" name="Message15ReceiveEvent" covered="_wmLL4BAMEe2Fw_mX9-u05w" message="_cPyPoBAOEe2Fw_mX9-u05w"/>
         <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_cQCuUBAOEe2Fw_mX9-u05w" name="BehaviorExecutionSpecification18" covered="_wmLL4BAMEe2Fw_mX9-u05w" finish="_cQDVYBAOEe2Fw_mX9-u05w" start="_cPy2sRAOEe2Fw_mX9-u05w"/>
+        <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_cQDVYBAOEe2Fw_mX9-u05w" name="BehaviorExecutionSpecification18Finish" covered="_wmLL4BAMEe2Fw_mX9-u05w" execution="_cQCuUBAOEe2Fw_mX9-u05w"/>
         <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_iPWlYRAOEe2Fw_mX9-u05w" name="Message20SendEvent" covered="_sg2VQBAMEe2Fw_mX9-u05w" message="_iPWlYBAOEe2Fw_mX9-u05w"/>
         <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_iPXMcBAOEe2Fw_mX9-u05w" name="Message20ReceiveEvent" covered="_wmLL4BAMEe2Fw_mX9-u05w" message="_iPWlYBAOEe2Fw_mX9-u05w"/>
-        <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_cQDVYBAOEe2Fw_mX9-u05w" name="BehaviorExecutionSpecification18Finish" covered="_wmLL4BAMEe2Fw_mX9-u05w" execution="_cQCuUBAOEe2Fw_mX9-u05w"/>
-        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_1b-dMBAMEe2Fw_mX9-u05w" name="Message12SendEvent" covered="_sg2VQBAMEe2Fw_mX9-u05w"/>
+        <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_H6gCEBcgEe2b0Kdnx9rECQ" name="ActionExecutionSpecification23" covered="_wmLL4BAMEe2Fw_mX9-u05w" finish="_H6hQMBcgEe2b0Kdnx9rECQ" start="_iPXMcBAOEe2Fw_mX9-u05w"/>
         <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_1b-dMRAMEe2Fw_mX9-u05w" name="Message12ReceiveEvent" covered="_M_oKMBAMEe2Fw_mX9-u05w"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_1b-dMBAMEe2Fw_mX9-u05w" name="Message12SendEvent" covered="_sg2VQBAMEe2Fw_mX9-u05w"/>
+        <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_H6hQMBcgEe2b0Kdnx9rECQ" name="ActionExecutionSpecification23Finish" covered="_wmLL4BAMEe2Fw_mX9-u05w" execution="_H6gCEBcgEe2b0Kdnx9rECQ"/>
         <message xmi:type="uml:Message" xmi:id="_1bsJUBAMEe2Fw_mX9-u05w" receiveEvent="_1btXcBAMEe2Fw_mX9-u05w" sendEvent="_1bswYBAMEe2Fw_mX9-u05w" signature="_iInFQOgvEey1bKVmm5z5Iw"/>
-        <message xmi:type="uml:Message" xmi:id="_RJURgBAOEe2Fw_mX9-u05w" name="ASSIGN(int j, getValue())" receiveEvent="_RJU4kBAOEe2Fw_mX9-u05w" sendEvent="_RJURgRAOEe2Fw_mX9-u05w"/>
         <message xmi:type="uml:Message" xmi:id="_cPyPoBAOEe2Fw_mX9-u05w" name="Message15" receiveEvent="_cPy2sRAOEe2Fw_mX9-u05w" sendEvent="_cPy2sBAOEe2Fw_mX9-u05w" signature="_DHc6UOgvEey1bKVmm5z5Iw">
           <argument xmi:type="uml:LiteralString" xmi:id="_gtd74BAOEe2Fw_mX9-u05w" name="value" value="j &amp; 8"/>
         </message>
         <message xmi:type="uml:Message" xmi:id="_iPWlYBAOEe2Fw_mX9-u05w" name="Message20" receiveEvent="_iPXMcBAOEe2Fw_mX9-u05w" sendEvent="_iPWlYRAOEe2Fw_mX9-u05w" signature="_KEWbAOgvEey1bKVmm5z5Iw">
           <argument xmi:type="uml:LiteralString" xmi:id="_mVLLQBAOEe2Fw_mX9-u05w" name="value" value="j >> 8"/>
         </message>
+        <message xmi:type="uml:Message" xmi:id="_EU5NUBcgEe2b0Kdnx9rECQ" name="ASSIGN(int j, getValue())" receiveEvent="_EVMvURcgEe2b0Kdnx9rECQ" sendEvent="_EVMvUBcgEe2b0Kdnx9rECQ"/>
       </packagedElement>
       <packagedElement xmi:type="uml:TimeEvent" xmi:id="_yE_y8BAPEe2Fw_mX9-u05w" name="every10ms"/>
       <packagedElement xmi:type="uml:Interaction" xmi:id="_l7CiEBAQEe2Fw_mX9-u05w" name="Movement Control Malfunction Corrective Action">
