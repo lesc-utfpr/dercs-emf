@@ -1,12 +1,13 @@
 package dercs.loader.util;
 
+import dercs.Model;
+import dercs.behavior.LocalVariable;
 import dercs.loader.exception.DuplicateElementNameException;
+import dercs.structure.*;
 import dercs.structure.Class;
-import dercs.structure.Constructor;
-import dercs.structure.Method;
-import dercs.structure.NamedElement;
 
 import java.util.Collection;
+import java.util.function.Predicate;
 
 /**
  * Contains helper functions for accessing commonly needed DERCS elements.
@@ -21,6 +22,21 @@ public class DercsAccessHelper {
         for (Method method : dercsClass.getMethods()) {
             if (method instanceof Constructor) {
                 return (Constructor) method;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Finds the first destructor of the class.
+     * @param dercsClass the DERCS class
+     * @return the first Destructor that is found
+     */
+    public static Destructor getDestructor(Class dercsClass) {
+        for (Method method : dercsClass.getMethods()) {
+            if (method instanceof Destructor) {
+                return (Destructor) method;
             }
         }
 
@@ -47,5 +63,49 @@ public class DercsAccessHelper {
         }
 
         return found;
+    }
+
+    /**
+     * Tries to find an element matching the given predicate in the collection.
+     * @param collection the collection to search
+     * @param predicate the predicate to match with
+     * @return the element matching the given predicate if it was found, {@code null} otherwise
+     * @throws DuplicateElementNameException if multiple elements matching the given predicate are found
+     */
+    public static <T> T findElementByPredicate(Collection<T> collection, Predicate<T> predicate) throws DuplicateElementNameException {
+        T found = null;
+        for (T element : collection) {
+            if (predicate.test(element)) {
+                if (found == null) {
+                    found = element;
+                } else {
+                    throw new DuplicateElementNameException("__PREDICATE__", element.getClass());
+                }
+            }
+        }
+
+        return found;
+    }
+
+    /**
+     * Get the object that is associated with a given attribute.
+     * @param attr Attribute which is associated with an object
+     * @param model DERCS model that owns the objects
+     * @return The found object, or {@code null} when there is no object associated with the attribute
+     */
+    public static dercs.structure.runtime.Object getObjectRelatedTo(Attribute attr, Model model) {
+        String objName = attr.getOwnerClass().getName() + "~" + attr.getName();
+        return model.getObjects().stream().filter(o -> o.getName().equals(objName)).findAny().orElse(null);
+    }
+
+    /**
+     * Get the object that is associated with a given local variable.
+     * @param var Local variable which is associated with an object
+     * @param model DERCS model that owns the objects
+     * @return The found object, or {@code null} when there is no object associated with the variable.
+     */
+    public static dercs.structure.runtime.Object getObjectRelatedTo(LocalVariable var, Model model) {
+        String objName = "VAR~" + var.getName();
+        return model.getObjects().stream().filter(o -> o.getName().equals(objName)).findAny().orElse(null);
     }
 }

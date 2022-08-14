@@ -4,11 +4,13 @@ import dercs.datatypes.String;
 import dercs.datatypes.*;
 import dercs.loader.exception.ClassNotFoundException;
 import dercs.loader.exception.DercsLoaderException;
+import dercs.loader.exception.DuplicateElementNameException;
 import dercs.loader.exception.InvalidDataTypeException;
 import dercs.loader.wrapper.InProgressDercsModel;
 import dercs.structure.Class;
 import dercs.structure.ParameterKind;
 import dercs.structure.Visibility;
+import dercs.util.DercsConstructors;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.VisibilityKind;
@@ -124,6 +126,51 @@ public class DatatypeHelper {
         } else {
             java.lang.String className = type.getClass().getSimpleName();
             return className.substring(0, className.indexOf("Impl"));
+        }
+    }
+
+    /**
+     * Get an instance of DERCS data type from a UML data type.
+     * @param name String representing a UML data type.
+     * @param model the DERCS model
+     * @return DERCS data type
+     */
+    public static DataType getDercsTypeFromName(InProgressDercsModel model, java.lang.String name) throws InvalidDataTypeException, DuplicateElementNameException {
+        if ((name == null) || (name.equals("void"))) {
+            return DercsConstructors.newVoid();
+        } else if ((name.equals("int")) || (name.equals("Integer"))) {
+            return DercsConstructors.newInteger(true);
+        } else if (name.equals("long")) {
+            return DercsConstructors.newLong(true);
+        } else if (name.equals("short")) {
+            return DercsConstructors.newShort(true);
+        } else if (name.equals("byte")) {
+            return DercsConstructors.newByte(true);
+        } else if (name.equals("String")) {
+            return DercsConstructors.newString(0);
+        } else if (name.equals("double")) {
+            return DercsConstructors.newDouble();
+        } else if (name.equals("float")) {
+            return DercsConstructors.newFloat();
+        } else if ((name.equals("boolean")) || (name.equals("Boolean"))) {
+            return DercsConstructors.newBoolean();
+        } else if (name.equals("char")) {
+            return DercsConstructors.newChar();
+        } else if (name.equals("date")) {
+            return DercsConstructors.newDateTime();
+        } else {
+            // Try to find the class
+            Class foundClass = DercsAccessHelper.findNamedElement(model.getModel().getClasses(), name);
+            if (foundClass != null) {
+                // Class found, the data type can be returned
+                return DercsConstructors.newClassDataType(foundClass);
+            } else {
+                Enumeration foundEnum = DercsAccessHelper.findElementByPredicate(model.getModel().getEnumerations(), e -> e.getName().equals(name));
+                if (foundEnum != null)
+                    return foundEnum;
+                else
+                    throw new InvalidDataTypeException(name);
+            }
         }
     }
 

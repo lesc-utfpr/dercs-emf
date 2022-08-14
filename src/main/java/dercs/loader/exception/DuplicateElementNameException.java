@@ -6,6 +6,6 @@ public class DuplicateElementNameException extends DercsLoaderException {
     }
 
     public DuplicateElementNameException(String name, String in) {
-        super("Found multiple elements with name '" + name + "' in '" + in + "'.");
+        super("Found multiple elements matching '" + name + "' in '" + in + "'.");
     }
 }

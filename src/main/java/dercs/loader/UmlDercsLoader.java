@@ -94,6 +94,7 @@ public class UmlDercsLoader implements IDercsLoader{
          * - Join Points (+ select Elements)
          * - Aspects, Adaptations, Pointcuts, Crosscutting Info
          */
+        //TODO: possibly handle object deployments according to node diagram at the end?
         Collections.addAll(this.modelProcessors,
                 new ClassesExtractor(),
                 new NodesExtractor(),
@@ -102,6 +103,7 @@ public class UmlDercsLoader implements IDercsLoader{
                 new AssociationRelatedMethodsExtractor(),
                 new MethodStubExtractor(),
                 new MethodOverwriteFixer(),
+                new BehaviorExtractor(),
                 new AspectAdaptationsExtractor(),
                 new JoinPointsExtractor(),
                 new PointcutsExtractor(),
