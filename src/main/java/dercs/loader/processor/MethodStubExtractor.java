@@ -75,6 +75,8 @@ public class MethodStubExtractor extends AbstractModelProcessor {
                 .setStatic(operation.isStatic())
                 .addToClass(dercsClass);
 
+        inProgressModel().registerDercsUmlElementPair(newMethod, operation);
+
         // add parameters
         for (Parameter parameter : operation.getOwnedParameters()) {
             // ignore the return parameter
@@ -115,6 +117,7 @@ public class MethodStubExtractor extends AbstractModelProcessor {
         Method getter = DercsCreationHelper.addGetter(dercsClass, forAttribute, false);
         getter.setName(operation.getName());
         getter.setStatic(operation.isStatic());
+        inProgressModel().registerDercsUmlElementPair(getter, operation);
     }
 
     private void createSetter(Class dercsClass, Operation operation, Setter setterAspect) throws AttributeNotFoundException {
@@ -128,6 +131,7 @@ public class MethodStubExtractor extends AbstractModelProcessor {
         Method setter = DercsCreationHelper.addSetter(dercsClass, forAttribute, false);
         setter.setName(operation.getName());
         setter.setStatic(operation.isStatic());
+        inProgressModel().registerDercsUmlElementPair(setter, operation);
     }
 
     @Override

@@ -169,7 +169,9 @@ public class AssociationRelatedMethodsExtractor extends AbstractModelProcessor {
         String enterCondition = String.format("(%s.size() < %s)", attribute.getName(), ((Array)attribute.getDataType()).getUpperValue());
 
         // this behavior is executed only if the limit of elements is not reached.
-        Behavior addAttrBehavior = DercsBuilders.Behavior.create().build();
+        Behavior addAttrBehavior = DercsBuilders.Behavior.create()
+                .enterCondition(enterCondition)
+                .build();
         Method addAttrMethod = DercsBuilders.Method.create("add" + attribute.getName())
                 .returnType(((Array)attribute.getDataType()).getDataType())
                 .triggeredBehavior(addAttrBehavior)
