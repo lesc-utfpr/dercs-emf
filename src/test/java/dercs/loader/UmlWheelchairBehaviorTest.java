@@ -1,13 +1,8 @@
 package dercs.loader;
 
-import dercs.behavior.Behavior;
 import dercs.loader.exception.DercsLoaderException;
-import dercs.loader.exception.DuplicateElementNameException;
 import dercs.loader.util.AbstractLoaderFileTest;
 import dercs.loader.util.BehaviorTester;
-import dercs.loader.util.DercsAccessHelper;
-import dercs.structure.Class;
-import dercs.structure.Method;
 import org.junit.jupiter.api.Test;
 
 public class UmlWheelchairBehaviorTest extends AbstractLoaderFileTest {
@@ -15,19 +10,9 @@ public class UmlWheelchairBehaviorTest extends AbstractLoaderFileTest {
         super("/uml_models/Wheelchair.uml");
     }
 
-    private Behavior getMethodBehavior(String className, String methodName) {
-        try {
-            Class cls = DercsAccessHelper.findNamedElement(model().getClasses(), className);
-            Method method = cls.getMethod(methodName);
-            return method.getTriggeredBehavior();
-        } catch (DuplicateElementNameException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
     @Test
     public void testGeneralBehavior() {
-        BehaviorTester.of(getMethodBehavior("MovementController", "processMovementInformation"))
+        BehaviorTester.of(BehaviorTester.getMethodBehavior(model(), "MovementController", "processMovementInformation"))
                 .assignmentFromValue("newAngle", "angle + (x/y)*360")
                 .assignmentFromValue("newSpeed", "speed + (x/y)*10/66")
                 .end();
@@ -35,7 +20,7 @@ public class UmlWheelchairBehaviorTest extends AbstractLoaderFileTest {
 
     @Test
     public void testGeneralBehavior2() {
-        BehaviorTester.of(getMethodBehavior("MovementActuator", "changeMovement"))
+        BehaviorTester.of(BehaviorTester.getMethodBehavior(model(), "MovementActuator", "changeMovement"))
                 .methodCall("leftWheel", "setSpeed", "newSpeed")
                 .methodCall("rightWheel", "setSpeed", "newSpeed")
                 .end();
@@ -43,7 +28,7 @@ public class UmlWheelchairBehaviorTest extends AbstractLoaderFileTest {
 
     @Test
     public void testMovementControlMalfunctionCorrectiveAction() {
-        BehaviorTester.of(getMethodBehavior("MovementController", "exceptionPart"))
+        BehaviorTester.of(BehaviorTester.getMethodBehavior(model(), "MovementController", "exceptionPart"))
                 .withLocalVariable("Integer", "mode")
                 .assignmentFromMethodCall("mode", "movInfo", "getMode")
                 .subBehavior(b -> b

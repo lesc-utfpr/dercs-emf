@@ -12,6 +12,7 @@ import org.eclipse.uml2.uml.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -50,7 +51,8 @@ public class InteractionCompiler {
     public void compile() throws DercsLoaderException {
         MessageProcessor messageProcessor = new MessageProcessor(model, this);
 
-        for (InteractionFragment fragment : BehaviorHelper.getAllFragmentsOrdered(this.interaction)) {
+        List<InteractionFragment> allFragments = BehaviorHelper.getAllFragmentsOrdered(this.interaction);
+        for (InteractionFragment fragment : allFragments) {
             // handle uninteresting receptions and null messages
             if (fragment instanceof MessageOccurrenceSpecification) {
                 if (((MessageOccurrenceSpecification) fragment).getMessage() == null) {
@@ -80,15 +82,6 @@ public class InteractionCompiler {
                 this.fragmentStack.pop();
             }
 
-            // push fragment info if entering fragment
-            if (fragment instanceof CombinedFragment) {
-                CombinedFragmentInfo newCombinedFragment = new CombinedFragmentInfo((CombinedFragment) fragment);
-                this.fragmentStack.push(newCombinedFragment);
-                this.methodCallstack.peek().getBehavior().getBehavioralElements().add(newCombinedFragment.getBehavior());
-                this.methodCallstack.peek().markModified();
-                continue;
-            }
-
             if (!this.fragmentStack.isEmpty() && !this.fragmentStack.peek().isInOperand(fragment)) {
                 // left current operand, push next operand if it exists
                 CombinedFragmentInfo nextOperand = this.fragmentStack.pop().createNextOperandInfo();
@@ -96,6 +89,17 @@ public class InteractionCompiler {
                     this.fragmentStack.push(nextOperand);
                 }
             }
+
+            // push fragment info if entering fragment
+            if (fragment instanceof CombinedFragment) {
+                this.methodCallstack.peek().markModified();
+                CombinedFragmentInfo newCombinedFragment = new CombinedFragmentInfo((CombinedFragment) fragment);
+                getCurrentTopmostBehavior().getBehavioralElements().add(newCombinedFragment.getBehavior());
+                newCombinedFragment.getBehavior().setOwner(getCurrentTopmostBehavior());
+                this.fragmentStack.push(newCombinedFragment);
+                continue;
+            }
+
 
             // at this point we should only encounter normal messages
             if (!(fragment instanceof MessageOccurrenceSpecification)) {
@@ -123,7 +127,7 @@ public class InteractionCompiler {
             Lifeline source = ((MessageOccurrenceSpecification) messageFragment.getMessage().getSendEvent()).getCovered();
             Lifeline target = ((MessageOccurrenceSpecification) messageFragment.getMessage().getReceiveEvent()).getCovered();
             // if the action calls another method
-            if ((newAction instanceof SendMessageAction && source != target))/* || false*//*message is recursive*/ {
+            if ((newAction instanceof SendMessageAction && source != target)) {
                 this.methodCallstack.push(new MethodInfo(messageFragment.getMessage()));
             } else if (messageFragment.getMessage().getMessageSort() == MessageSort.REPLY_LITERAL) {
                 // returned from method
@@ -150,6 +154,9 @@ public class InteractionCompiler {
     }
 
     public Behavior getCallingBehavior() {
+        if (this.methodCallstack.size() <= 1) {
+            return null;
+        }
         MethodInfo callingMethod = getCallingMethod();
         for (int i = this.fragmentStack.size() - 1; i >= 0; i--) {
             if (this.fragmentStack.get(i).getForMethod() == callingMethod) {
@@ -183,6 +190,7 @@ public class InteractionCompiler {
             this.sourceLifeline = ((MessageOccurrenceSpecification) message.getSendEvent()).getCovered();
             this.targetLifeline = ((MessageOccurrenceSpecification) message.getReceiveEvent()).getCovered();
 
+            //TODO: this needs to select the subclass-version of a method if we are on a subclass overriding another method
             this.method = BehaviorHelper.getMethodFromMessage(InteractionCompiler.this.model, message);
             this.modificationState = MethodModificationState.NEWLY_CREATED_BEHAVIOR;
 

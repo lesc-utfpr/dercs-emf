@@ -1,4 +1,4 @@
-package dercs.loader.behavior.message;
+package dercs.loader.behavior.action;
 
 import dercs.behavior.Behavior;
 import dercs.behavior.actions.Action;
@@ -11,7 +11,7 @@ import org.eclipse.uml2.uml.Message;
 /**
  * Creates a new {@link Action} from the given message and adds it to the given behavior.
  */
-public abstract class BaseMessageCreator {
+public abstract class BaseActionCreator {
     private MessageProcessor parent;
 
     /**
@@ -51,6 +51,9 @@ public abstract class BaseMessageCreator {
      * @param behavior the behavior to add to
      */
     protected void customAddAction(InProgressDercsModel model, Action newAction, Behavior behavior) throws DercsLoaderException {
+        if (newAction == null) {
+            return;
+        }
         behavior.getBehavioralElements().add(newAction);
         //TODO: is this correct in all cases? it should be correct that we are always modifying the top method, even if we are in a fragment
         getCompiler().getMethodCallstack().peek().markModified();

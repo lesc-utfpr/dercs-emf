@@ -1,7 +1,6 @@
-package dercs.loader.behavior.message;
+package dercs.loader.behavior.action;
 
 import dercs.behavior.Behavior;
-import dercs.behavior.MessageSort;
 import dercs.behavior.actions.Action;
 import dercs.loader.behavior.BehaviorHelper;
 import dercs.loader.exception.DercsLoaderException;
@@ -11,8 +10,9 @@ import dercs.util.DercsConstructors;
 import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
+import org.eclipse.uml2.uml.MessageSort;
 
-public class SendMessageCreator extends BaseMessageCreator {
+public class SendMessageActionCreator extends BaseActionCreator {
     @Override
     protected Action createAction(InProgressDercsModel model, Message message, Behavior behavior) throws DercsLoaderException {
         //TODO: test if this correctly finds methods in superclasses
@@ -36,11 +36,19 @@ public class SendMessageCreator extends BaseMessageCreator {
         // deploy source and target objects
 
         // dummy for now
-        return DercsConstructors.newSendMessageAction(method, null, null, MessageSort.SYNCHCALL);
+        return DercsConstructors.newSendMessageAction(method, null, null, dercs.behavior.MessageSort.SYNCHCALL);
     }
 
     @Override
     public boolean canHandleMessage(Message message) {
-        return true;
+        if (message.getSignature() != null) {
+            return true;
+        }
+
+        if (message.getMessageSort() == MessageSort.CREATE_MESSAGE_LITERAL || message.getMessageSort() == MessageSort.DELETE_MESSAGE_LITERAL) {
+            return true;
+        }
+
+        return false;
     }
 }

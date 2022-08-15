@@ -36,7 +36,19 @@ public class BehaviorHelper {
                     .filter(frag -> frag instanceof MessageOccurrenceSpecification && ((MessageOccurrenceSpecification) frag).isReceive())
                     .collect(Collectors.toList());
 
-            if (recvs.size() != 0 || sends.size() != 1) {
+            if (recvs.size() > 1 || sends.size() != 1) {
+                continue;
+            }
+
+            List<InteractionFragment> replySends = sends.stream()
+                    .filter(frag -> ((MessageOccurrenceSpecification)frag).getMessage().getMessageSort() == MessageSort.REPLY_LITERAL)
+                    .collect(Collectors.toList());
+
+            List<InteractionFragment> nonReplyRecvs = recvs.stream()
+                    .filter(frag -> ((MessageOccurrenceSpecification)frag).getMessage().getMessageSort() != MessageSort.REPLY_LITERAL)
+                    .collect(Collectors.toList());
+
+            if (replySends.size() != 0 || nonReplyRecvs.size() > 0) {
                 continue;
             }
 
@@ -88,13 +100,16 @@ public class BehaviorHelper {
                 if (occurrence.isSend() && occurrence.getMessage().getMessageSort() == MessageSort.REPLY_LITERAL) {
                     // is reply -> return to previous lifeline
                     lifelineCallstack.pop();
-                } else if (occurrence.isSend()) {
+                } else if (occurrence.isSend() && occurrence.getMessage() != null) {
+                    if (occurrence.getMessage().getReceiveEvent() == null) {
+                        throw new RuntimeException("Invalid diagram. MessageOccurrence '" + occurrence.getName() + "' has no receive event.");
+                    }
+
                     // is send -> goto other lifeline
                     Lifeline receiverLifeline = ((MessageOccurrenceSpecification) occurrence.getMessage().getReceiveEvent()).getCovered();
                     lifelineCallstack.push(receiverLifeline);
                 }
             }
-
         }
 
         return allFragments;
@@ -230,7 +245,7 @@ public class BehaviorHelper {
      */
     public static void populateBehaviorConditions(Behavior behavior, InteractionOperand operand, InteractionOperatorKind operatorKind) {
         ValueSpecification guardSpec = operand.getGuard().getSpecification();
-        String guardString = guardSpec.stringValue() == null ? null : guardSpec.stringValue().trim();;
+        String guardString = guardSpec == null ? "else" : guardSpec.stringValue() == null ? null : guardSpec.stringValue().trim();;
         if (operatorKind == InteractionOperatorKind.OPT_LITERAL) {
             behavior.setEnterCondition(guardString);
 
@@ -251,11 +266,10 @@ public class BehaviorHelper {
                 String[] parts = guardString.split(";");
                 // for loop of form: "var = init_value; var < limit"
                 behavior.setEnterCondition(parts[0].trim());
-                behavior.setEnterCondition(parts[1].trim());
+                behavior.setExitCondition(String.format("!(%s)", parts[1].trim())); //FIXME: hardcoded negation
             } else {
                 // while loop with condition in guard
-                // TODO: shouldn't this be inverted?
-                behavior.setExitCondition(guardString);
+                behavior.setExitCondition(String.format("!(%s)", guardString));
             }
 
         } else if (operatorKind == InteractionOperatorKind.ALT_LITERAL) {

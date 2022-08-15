@@ -55,10 +55,10 @@ public class DercsExampleTest extends AbstractLoaderFileTest {
                 node -> node.getName().equals("NodeA") && node.getPlatformName().equals("Java")
         );
         Node nodeBJava = findDercsElementByPredicate(model().getNodes(),
-                node -> node.getName().equals("NodeB") && node.getPlatformName().equals("Java")
+                node -> node.getName().equals("NodeB_Something") && node.getPlatformName().equals("Java")
         );
         Node nodeBCpp = findDercsElementByPredicate(model().getNodes(),
-                node -> node.getName().equals("NodeB") && node.getPlatformName().equals("Cpp")
+                node -> node.getName().equals("NodeB_Something") && node.getPlatformName().equals("Cpp")
         );
 
         assertNotNull(nodeAJava);

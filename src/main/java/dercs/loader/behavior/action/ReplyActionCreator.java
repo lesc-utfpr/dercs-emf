@@ -1,4 +1,4 @@
-package dercs.loader.behavior.message;
+package dercs.loader.behavior.action;
 
 import dercs.behavior.Behavior;
 import dercs.behavior.LocalVariable;
@@ -12,11 +12,20 @@ import dercs.util.DercsConstructors;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageSort;
 
-public class ReplyMessageCreator extends BaseMessageCreator {
+public class ReplyActionCreator extends BaseActionCreator {
     @Override
     protected Action createAction(InProgressDercsModel model, Message message, Behavior behavior) {
         Behavior callingBehavior = getCompiler().getCallingBehavior();
+        // if we were the first called method, then don't try to create anything in the parent
+        if (callingBehavior == null) {
+            return null;
+        }
+
         SendMessageAction sendMessageAction = (SendMessageAction) callingBehavior.getBehavioralElements().get(callingBehavior.getBehavioralElements().size() - 1);
+
+        if (message.getName() == null || message.getName().isEmpty()) {
+            return null;
+        }
 
         Attribute targetAttribute = BehaviorHelper.getMessageTargetClass(model, message).getAttribute(message.getName());
         if (targetAttribute == null) {
@@ -31,6 +40,10 @@ public class ReplyMessageCreator extends BaseMessageCreator {
 
     @Override
     protected void customAddAction(InProgressDercsModel model, Action newAction, Behavior behavior) throws DuplicatedBehaviorException {
+        if (newAction == null) {
+            return;
+        }
+
         // replace last element
         Behavior callingBehavior = getCompiler().getCallingBehavior();
         callingBehavior.getBehavioralElements().remove(callingBehavior.getBehavioralElements().size() - 1);

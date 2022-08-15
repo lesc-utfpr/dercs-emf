@@ -2,7 +2,7 @@ package dercs.loader.behavior;
 
 import dercs.behavior.Behavior;
 import dercs.behavior.actions.Action;
-import dercs.loader.behavior.message.*;
+import dercs.loader.behavior.action.*;
 import dercs.loader.exception.ClassNotFoundException;
 import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.wrapper.InProgressDercsModel;
@@ -18,21 +18,23 @@ import java.util.List;
 public class MessageProcessor {
     private final InProgressDercsModel model;
     private InteractionCompiler compiler;
-    private final List<BaseMessageCreator> messageCreators;
+    private final List<BaseActionCreator> actionCreators;
 
     public MessageProcessor(InProgressDercsModel model, InteractionCompiler compiler) {
         this.model = model;
         this.compiler = compiler;
-        this.messageCreators = new ArrayList<>();
-        Collections.addAll(this.messageCreators,
-                new ReplyMessageCreator(),
-                new AssignMessageCreator(),
-                //new ReturnMessageCreator(),
+        this.actionCreators = new ArrayList<>();
+        Collections.addAll(this.actionCreators,
+                new ReplyActionCreator(),
+                new AssignActionCreator(),
+                new ReturnActionCreator(),
+                new SetArrayElementCreator(),
+                new RemoveArrayElementActionCreator(),
                 //TODO: expression, array element, and state actions
-                new SendMessageCreator()
+                new SendMessageActionCreator()
         );
 
-        this.messageCreators.forEach(creator -> creator.setParent(this));
+        this.actionCreators.forEach(creator -> creator.setParent(this));
     }
 
     public Action addActionFromMessage(Message message, Behavior currentBehavior) throws DercsLoaderException {
@@ -43,13 +45,13 @@ public class MessageProcessor {
         }
 
         // dispatch on action type
-        for (BaseMessageCreator creator : this.messageCreators) {
+        for (BaseActionCreator creator : this.actionCreators) {
             if (creator.canHandleMessage(message)) {
                 return creator.addAction(model, message, currentBehavior);
             }
         }
 
-        throw new RuntimeException();
+        throw new RuntimeException("No ActionCreator found for message '" + message.getName() + "'.");
     }
 
     public InteractionCompiler getCompiler() {

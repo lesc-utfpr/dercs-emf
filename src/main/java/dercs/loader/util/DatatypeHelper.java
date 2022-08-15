@@ -123,6 +123,8 @@ public class DatatypeHelper {
             return ((Enumeration)type).getName();
         } else if (type instanceof dercs.datatypes.Void) {
             return "Void";
+        } else if (type == null) {
+            return null;
         } else {
             java.lang.String className = type.getClass().getSimpleName();
             return className.substring(0, className.indexOf("Impl"));
