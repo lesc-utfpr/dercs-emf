@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MessageProcessor {
     private final InProgressDercsModel model;
-    private InteractionCompiler compiler;
+    private final InteractionCompiler compiler;
     private final List<BaseActionCreator> actionCreators;
 
     public MessageProcessor(InProgressDercsModel model, InteractionCompiler compiler) {
@@ -31,6 +31,8 @@ public class MessageProcessor {
                 new SetArrayElementCreator(),
                 new RemoveArrayElementActionCreator(),
                 //TODO: expression, array element, and state actions
+                new CreateObjectActionCreator(),
+                new DestroyObjectActionCreator(),
                 new SendMessageActionCreator()
         );
 

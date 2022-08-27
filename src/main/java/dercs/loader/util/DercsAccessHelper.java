@@ -1,10 +1,10 @@
 package dercs.loader.util;
 
-import dercs.Model;
 import dercs.behavior.LocalVariable;
 import dercs.loader.exception.DuplicateElementNameException;
-import dercs.structure.*;
+import dercs.loader.wrapper.InProgressDercsModel;
 import dercs.structure.Class;
+import dercs.structure.*;
 
 import java.util.Collection;
 import java.util.function.Predicate;
@@ -93,9 +93,9 @@ public class DercsAccessHelper {
      * @param model DERCS model that owns the objects
      * @return The found object, or {@code null} when there is no object associated with the attribute
      */
-    public static dercs.structure.runtime.Object getObjectRelatedTo(Attribute attr, Model model) {
+    public static dercs.structure.runtime.Object getObjectRelatedTo(Attribute attr, InProgressDercsModel model) throws DuplicateElementNameException {
         String objName = attr.getOwnerClass().getName() + "~" + attr.getName();
-        return model.getObjects().stream().filter(o -> o.getName().equals(objName)).findAny().orElse(null);
+        return findNamedElement(model.getModel().getObjects(), objName);
     }
 
     /**
@@ -104,8 +104,8 @@ public class DercsAccessHelper {
      * @param model DERCS model that owns the objects
      * @return The found object, or {@code null} when there is no object associated with the variable.
      */
-    public static dercs.structure.runtime.Object getObjectRelatedTo(LocalVariable var, Model model) {
+    public static dercs.structure.runtime.Object getObjectRelatedTo(LocalVariable var, InProgressDercsModel model) throws DuplicateElementNameException {
         String objName = "VAR~" + var.getName();
-        return model.getObjects().stream().filter(o -> o.getName().equals(objName)).findAny().orElse(null);
+        return findNamedElement(model.getModel().getObjects(), objName);
     }
 }

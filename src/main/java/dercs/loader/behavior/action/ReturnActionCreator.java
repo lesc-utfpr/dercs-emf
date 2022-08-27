@@ -45,13 +45,13 @@ public class ReturnActionCreator extends BaseActionCreator {
         if (attribute != null) {
             // attribute
             // now try to check if there is an object that refers to this attribute
-            Object obj = DercsAccessHelper.getObjectRelatedTo(attribute, model.getModel());
+            Object obj = DercsAccessHelper.getObjectRelatedTo(attribute, model);
             if ((obj == null) && (attribute.getDataType() instanceof ClassDataType)) {
                 throw new InvalidAttributeReferenceException(params[0]);
             }
         } else {
             // local variable
-            LocalVariable localVar = BehaviorHelper.getOrCreateLocalVariable(model, behavior, params[0], null);
+            LocalVariable localVar = BehaviorHelper.getOrCreateLocalVariableRecursive(model, behavior, params[0], null);
         }
 
         // TEMPORARY: there is no information on the method associated to the return action

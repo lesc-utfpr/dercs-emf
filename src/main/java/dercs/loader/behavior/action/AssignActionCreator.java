@@ -47,7 +47,7 @@ public class AssignActionCreator extends BaseActionCreator {
 
         if (attribute != null) {
             // attribute
-            Object obj = DercsAccessHelper.getObjectRelatedTo(attribute, model.getModel());
+            Object obj = DercsAccessHelper.getObjectRelatedTo(attribute, model);
             if ((obj == null) && (attribute.getDataType() instanceof ClassDataType)) {
                 throw new InvalidAttributeReferenceException(params[0]);
             }
@@ -67,9 +67,9 @@ public class AssignActionCreator extends BaseActionCreator {
 
             LocalVariable localVar;
             if (type != null) {
-                localVar = BehaviorHelper.getOrCreateLocalVariable(model, behavior, name, DatatypeHelper.getDercsTypeFromName(model, type));
+                localVar = BehaviorHelper.getOrCreateLocalVariableRecursive(model, behavior, name, DatatypeHelper.getDercsTypeFromName(model, type));
             } else {
-                localVar = BehaviorHelper.getOrCreateLocalVariable(model, behavior, name, null);
+                localVar = BehaviorHelper.getOrCreateLocalVariableRecursive(model, behavior, name, null);
             }
 
             //TODO: actually parse right side of assignment

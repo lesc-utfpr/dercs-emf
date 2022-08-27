@@ -21,8 +21,8 @@ public class UmlWheelchairBehaviorTest extends AbstractLoaderFileTest {
     @Test
     public void testGeneralBehavior2() {
         BehaviorTester.of(BehaviorTester.getMethodBehavior(model(), "MovementActuator", "changeMovement"))
-                .methodCall("leftWheel", "setSpeed", "newSpeed")
-                .methodCall("rightWheel", "setSpeed", "newSpeed")
+                .methodCall("leftWheel", "setSpeed", "speed + angle/360*0.45")
+                .methodCall("rightWheel", "setSpeed", "speed + angle/360*0.35")
                 .end();
     }
 
@@ -34,7 +34,7 @@ public class UmlWheelchairBehaviorTest extends AbstractLoaderFileTest {
                 .subBehavior(b -> b
                         .withEnterCondition("mode == RETAIN_VALUES_ON_ERROR")
                         .selfCall("getLastValidControlComputation")
-                        .methodCall("wcAct", "changeMovement", "angle", "speed")
+                        .methodCall("wcAct", "changeMovement", "newAngle", "newSpeed")
                         .withAlternateBehavior(b2 -> b2
                                 .withEnterCondition("mode == STOP_ON_ERROR")
                                 .methodCall("wcAct", "stopWheelChair")
@@ -43,6 +43,34 @@ public class UmlWheelchairBehaviorTest extends AbstractLoaderFileTest {
                         .end()
                 )
                 .methodCall("alarm", "startSignal")
+                .end();
+    }
+
+    @Test
+    public void testMovementSensoring() {
+        BehaviorTester.of(BehaviorTester.getMethodBehavior(model(), "MovementEncoder", "run"))
+                .withLocalVariable("Integer", "lWheel")
+                .withLocalVariable("Integer", "rWheel")
+                .withLocalVariable("Float", "speed")
+                .withLocalVariable("Float", "angle")
+                .assignmentFromMethodCall("lWheel", "leftWheelSensor", "getValue")
+                .assignmentFromMethodCall("rWheel", "rightWheelSensor", "getValue")
+                .assignmentFromValue("speed", "(lWheel + rWheel)/2")
+                .assignmentFromValue("angle", "((lWheel - rWheel)/360)*1000")
+                .methodCall("movInfo", "setSpeed", "speed")
+                .methodCall("movInfo", "setAngle", "angle")
+                .end();
+    }
+
+    @Test
+    public void testSensingSubSystemInit() {
+        BehaviorTester.of(BehaviorTester.getConstructorBehavior(model(), "SensoringSubSystem"))
+                .ignore() // movInfo
+                .ignore() // jstkInfo
+                .assignmentFromObjectCreation("jstkSensor", "JoystickDriver", "jstkInfo")
+                .assignmentFromObjectCreation("movEnc", "MovementEncoder", "movInfo", "alarm", "leftWheelSensor", "rightWheelSensor")
+                .ignore()
+                .ignore()
                 .end();
     }
 }

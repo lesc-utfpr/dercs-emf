@@ -2,11 +2,15 @@ package dercs.loader.behavior;
 
 import dercs.behavior.Behavior;
 import dercs.behavior.LocalVariable;
+import dercs.behavior.actions.*;
+import dercs.behavior.actions.CreateObjectAction;
 import dercs.datatypes.ClassDataType;
 import dercs.loader.exception.ClassNotFoundException;
+import dercs.loader.exception.DuplicateElementNameException;
 import dercs.loader.util.DercsAccessHelper;
 import dercs.loader.util.DercsCreationHelper;
 import dercs.loader.wrapper.InProgressDercsModel;
+import dercs.structure.Attribute;
 import dercs.structure.Method;
 import dercs.structure.runtime.Object;
 import org.eclipse.uml2.uml.*;
@@ -121,7 +125,7 @@ public class BehaviorHelper {
      * @param message the message to process
      * @return the method/constructor/destructor represented by the message, or {@code null} if it does not represent any method
      */
-    public static Method getMethodFromMessage(InProgressDercsModel model, Message message) throws ClassNotFoundException {
+    public static Method getMethodFromMessage(InProgressDercsModel model, Message message) {
         NamedElement signature = message.getSignature();
 
         // normal methods
@@ -197,13 +201,13 @@ public class BehaviorHelper {
     }
 
     /**
-     * Gets the local variable with the given name or creates it if it does not exist.
-     * @param model the DERCS model
+     * Gets the local variable, while also searching parent behaviors.
+     *
      * @param behavior the behavior whose local variable to get
-     * @param name the name of the variable
+     * @param name     the name of the variable
      * @return the variable with the given name or a new one if it did not exist
      */
-    public static LocalVariable getOrCreateLocalVariable(InProgressDercsModel model, Behavior behavior, String name, dercs.datatypes.DataType type) {
+    public static LocalVariable getLocalVariableRecursive(Behavior behavior, String name) {
         // also search all parent behaviors for the variable
         LocalVariable var = null;
         Behavior currentBehavior = behavior;
@@ -219,6 +223,20 @@ public class BehaviorHelper {
                 currentBehavior = null;
             }
         }
+
+        return var;
+    }
+
+    /**
+     * Gets the local variable with the given name, while also searching parent behaviors or creates it if it does not exist.
+     * @param model the DERCS model
+     * @param behavior the behavior whose local variable to get
+     * @param name the name of the variable
+     * @param type the datatype of the variable
+     * @return the variable with the given name or a new one if it did not exist
+     */
+    public static LocalVariable getOrCreateLocalVariableRecursive(InProgressDercsModel model, Behavior behavior, String name, dercs.datatypes.DataType type) {
+        LocalVariable var = getLocalVariableRecursive(behavior, name);
 
         if (var == null) {
             // new variable
@@ -245,7 +263,7 @@ public class BehaviorHelper {
      */
     public static void populateBehaviorConditions(Behavior behavior, InteractionOperand operand, InteractionOperatorKind operatorKind) {
         ValueSpecification guardSpec = operand.getGuard().getSpecification();
-        String guardString = guardSpec == null ? "else" : guardSpec.stringValue() == null ? null : guardSpec.stringValue().trim();;
+        String guardString = guardSpec == null ? "else" : guardSpec.stringValue() == null ? null : guardSpec.stringValue().trim();
         if (operatorKind == InteractionOperatorKind.OPT_LITERAL) {
             behavior.setEnterCondition(guardString);
 
@@ -279,5 +297,108 @@ public class BehaviorHelper {
                 behavior.setEnterCondition(guardString);
             }
         }
+    }
+
+    /**
+     * Tries to find the DERCS object represented by a UML lifeline.
+     * @param model the DERCS model
+     * @param lifeline the UML lifeline
+     * @return the DERCS object, or {@code null} if none could be found
+     */
+    public static Object getObjectFromLifeline(InProgressDercsModel model, Lifeline lifeline) throws DuplicateElementNameException {
+        if (lifeline.getRepresents() == null) {
+            return null;
+        }
+
+        if (lifeline.getRepresents() instanceof Property) {
+            Property prop = (Property) lifeline.getRepresents();
+            if (prop.getOwner() instanceof Class && !(prop.getOwner() instanceof Interaction)) {
+                // represents attribute of a class
+                Attribute dercsAttribute = model.getCorrespondingDercsElement(prop);
+                return DercsAccessHelper.getObjectRelatedTo(dercsAttribute, model);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Finds existing assignment actions in the given behavior, that perform the same action as the given assignment action
+     * @param behavior the behavior to search
+     * @param assignmentAction the assignment action to check
+     * @return the list of equivalent assignment actions
+     */
+    public static List<AssignmentAction> findEquivalentAssignmentActions(Behavior behavior, AssignmentAction assignmentAction) {
+        List<AssignmentAction> matchingDestination = behavior.getBehavioralElements().stream()
+                .filter(elem -> elem instanceof AssignmentAction)
+                .map(elem -> (AssignmentAction)elem)
+                .filter(elem -> elem.getDestinationAttribute() == assignmentAction.getDestinationAttribute() || elem.getDestinationVariable() == assignmentAction.getDestinationVariable())
+                .collect(Collectors.toList());
+
+        List<AssignmentAction> matchingActions = new ArrayList<>();
+
+        for (AssignmentAction otherAssignment : matchingDestination) {
+            if (otherAssignment.isAssignmentOfValue() && assignmentAction.isAssignmentOfValue() && otherAssignment.getValue().equals(assignmentAction.getValue())) {
+                matchingActions.add(otherAssignment);
+                continue;
+            }
+
+            if (otherAssignment.isAssignmentOfActionResult() && assignmentAction.isAssignmentOfActionResult()) {
+                // check source action
+                ActionWithOutput source1 = otherAssignment.getResultOfAction();
+                ActionWithOutput source2 = assignmentAction.getResultOfAction();
+
+                if (source1.getClass() != source2.getClass()) {
+                    continue;
+                }
+
+                if (source1 instanceof ObjectAction) {
+                    ObjectAction _source1 = (ObjectAction) source1;
+                    ObjectAction _source2 = (ObjectAction) source2;
+                    if (_source1.getRelatedObject() != _source2.getRelatedObject()) {
+                        continue;
+                    }
+
+                    if (_source1 instanceof CreateObjectAction) {
+                        if (Arrays.equals(((CreateObjectAction)_source1).getParameterValues().toArray(), ((CreateObjectAction)_source2).getParameterValues().toArray())) {
+                            matchingActions.add(otherAssignment);
+                        }
+                    } else {
+                        matchingActions.add(otherAssignment);
+                    }
+
+                } else if (source1 instanceof ExpressionAction) {
+                    ExpressionAction _source1 = (ExpressionAction) source1;
+                    ExpressionAction _source2 = (ExpressionAction) source2;
+                    if (Objects.equals(_source1.getExpression(), _source2.getExpression())) {
+                        matchingActions.add(otherAssignment);
+                    }
+
+                } else if (source1 instanceof ArrayAction) {
+                    ArrayAction _source1 = (ArrayAction) source1;
+                    ArrayAction _source2 = (ArrayAction) source2;
+                    if (Objects.equals(_source1.getArrayElement(), _source2.getArrayElement())) {
+                        matchingActions.add(otherAssignment);
+                    }
+
+                } else if (source1 instanceof SendMessageAction) {
+                    SendMessageAction _source1 = (SendMessageAction) source1;
+                    SendMessageAction _source2 = (SendMessageAction) source2;
+                    if (_source1.getFromObject() != _source2.getFromObject() || _source1.getToObject() != _source2.getToObject()) {
+                        continue;
+                    }
+
+                    if (_source1.getRelatedMethod() != _source2.getRelatedMethod() || _source1.getMessageSort() != _source2.getMessageSort()) {
+                        continue;
+                    }
+
+                    if (Arrays.equals(_source1.getParameterValues().toArray(), _source2.getParameterValues().toArray())) {
+                        matchingActions.add(otherAssignment);
+                    }
+                }
+            }
+        }
+
+        return matchingActions;
     }
 }

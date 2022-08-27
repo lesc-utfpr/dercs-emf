@@ -9,6 +9,7 @@ import dercs.loader.exception.DuplicateElementNameException;
 import dercs.structure.Attribute;
 import dercs.structure.Class;
 import dercs.structure.Method;
+import dercs.structure.runtime.RuntimeElement;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -40,6 +41,11 @@ public class BehaviorTester {
      */
     public static BehaviorTester of(Behavior behavior) {
         return new BehaviorTester(behavior);
+    }
+
+    public BehaviorTester ignore() {
+        getCurrentElementAndAdvance(Action.class);
+        return this;
     }
 
     public BehaviorTester returnAction(Consumer<ActionWithOutput> sourceActionConsumer) {
@@ -80,18 +86,16 @@ public class BehaviorTester {
 
     public BehaviorTester methodCall(String calledObject, String calledMethod, String... args) {
         SendMessageAction action = getCurrentElementAndAdvance(SendMessageAction.class);
-        //TODO: re-add once SMA creator works
-//        assertNotNull(action.getToObject(), "Destination object of method call is null.");
-//        RuntimeElement runtimeCalledElement = action.getToObject().getAssociatedElement();
-//        assertEquals(calledObject, runtimeCalledElement.getName());
+        assertNotNull(action.getToObject(), "Destination object of method call is null.");
+        RuntimeElement runtimeCalledElement = action.getToObject().getAssociatedElement();
+        assertEquals(calledObject, runtimeCalledElement.getName());
         Method method = action.getRelatedMethod();
         assertEquals(calledMethod, method.getName());
 
-        //TODO: see above
-//        assertEquals(args.length, action.getParameterValues().size(), "Incorrect number of method arguments.");
-//        for (int i = 0; i < args.length; i++) {
-//            assertEquals(args[i], action.getParameterValues().get(i).toString());
-//        }
+        assertEquals(args.length, action.getParameterValues().size(), "Incorrect number of method arguments.");
+        for (int i = 0; i < args.length; i++) {
+            assertEquals(args[i], action.getParameterValues().get(i).toString());
+        }
 
         return this;
     }
@@ -127,18 +131,16 @@ public class BehaviorTester {
         return assignment(destination, source -> {
             assertInstanceOf(SendMessageAction.class, source);
             SendMessageAction action = ((SendMessageAction) source);
-            //TODO: re-add once SMA creator works
-//            assertNotNull(action.getToObject(), "Destination object of method call is null.");
-//            RuntimeElement runtimeCalledElement = action.getToObject().getAssociatedElement();
-//            assertEquals(calledObject, runtimeCalledElement.getName());
+            assertNotNull(action.getToObject(), "Destination object of method call is null.");
+            RuntimeElement runtimeCalledElement = action.getToObject().getAssociatedElement();
+            assertEquals(calledObject, runtimeCalledElement.getName());
             Method method = action.getRelatedMethod();
             assertEquals(calledMethod, method.getName());
 
-            //TODO: see above
-//            assertEquals(args.length, action.getParameterValues().size(), "Incorrect number of method arguments.");
-//            for (int i = 0; i < args.length; i++) {
-//                assertEquals(args[i], action.getParameterValues().get(i).toString());
-//            }
+            assertEquals(args.length, action.getParameterValues().size(), "Incorrect number of method arguments.");
+            for (int i = 0; i < args.length; i++) {
+                assertEquals(args[i], action.getParameterValues().get(i).toString());
+            }
         });
     }
 
@@ -247,6 +249,16 @@ public class BehaviorTester {
         try {
             Class cls = DercsAccessHelper.findNamedElement(model.getClasses(), className);
             Method method = cls.getMethod(methodName);
+            return method.getTriggeredBehavior();
+        } catch (DuplicateElementNameException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public static Behavior getConstructorBehavior(Model model, String className) {
+        try {
+            Class cls = DercsAccessHelper.findNamedElement(model.getClasses(), className);
+            Method method = DercsAccessHelper.getConstructor(cls);
             return method.getTriggeredBehavior();
         } catch (DuplicateElementNameException ex) {
             throw new RuntimeException(ex);

@@ -30,7 +30,7 @@ public class ReplyActionCreator extends BaseActionCreator {
         Attribute targetAttribute = BehaviorHelper.getMessageTargetClass(model, message).getAttribute(message.getName());
         if (targetAttribute == null) {
             // local variable
-            LocalVariable var = BehaviorHelper.getOrCreateLocalVariable(model, callingBehavior, message.getName(), sendMessageAction.getRelatedMethod().getReturnType());
+            LocalVariable var = BehaviorHelper.getOrCreateLocalVariableRecursive(model, callingBehavior, message.getName(), sendMessageAction.getRelatedMethod().getReturnType());
             return DercsConstructors.newAssignmentAction(var, sendMessageAction);
         } else {
             // attribute

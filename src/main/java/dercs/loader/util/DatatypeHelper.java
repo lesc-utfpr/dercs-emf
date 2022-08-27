@@ -1,5 +1,6 @@
 package dercs.loader.util;
 
+import dercs.behavior.MessageSort;
 import dercs.datatypes.String;
 import dercs.datatypes.*;
 import dercs.loader.exception.ClassNotFoundException;
@@ -106,6 +107,17 @@ public class DatatypeHelper {
                 return ParameterKind.OUT;
             default:
                 throw new InvalidDataTypeException(direction.name());
+        }
+    }
+
+    public static MessageSort convertMessageSort(org.eclipse.uml2.uml.MessageSort sort) {
+        switch (sort) {
+            case SYNCH_CALL_LITERAL:
+                return MessageSort.SYNCHCALL;
+            case ASYNCH_CALL_LITERAL:
+                return MessageSort.ASYNCHCALL;
+            default:
+                return MessageSort.OTHER;
         }
     }
 
