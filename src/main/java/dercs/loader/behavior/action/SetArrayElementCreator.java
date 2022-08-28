@@ -1,18 +1,28 @@
 package dercs.loader.behavior.action;
 
-import dercs.behavior.Behavior;
+import dercs.behavior.LocalVariable;
 import dercs.behavior.actions.Action;
 import dercs.behavior.actions.ActionNames;
-import dercs.loader.exception.DercsLoaderException;
-import dercs.loader.wrapper.InProgressDercsModel;
+import dercs.loader.behavior.ActionHelper;
+import dercs.loader.exception.InvalidActionSyntaxException;
+import dercs.structure.Attribute;
 import dercs.util.DercsConstructors;
 import org.eclipse.uml2.uml.Message;
 
-public class SetArrayElementCreator extends BaseActionCreator {
+public class SetArrayElementCreator extends AbstractArrayActionCreator {
     @Override
-    protected Action createAction(InProgressDercsModel model, Message message, Behavior behavior) throws DercsLoaderException {
-        //TODO: Dummy for now
-        return DercsConstructors.newSetArrayElementAction(null, null, null);
+    protected String[] getAndVerifyParameters(Message message) throws InvalidActionSyntaxException {
+        return ActionHelper.getParametersFromMethodString(message.getName(), 3);
+    }
+
+    @Override
+    protected Action createForAttribute(Attribute attribute, Message message, String[] params) {
+        return DercsConstructors.newSetArrayElementAction(null, attribute, params[1], params[2]);
+    }
+
+    @Override
+    protected Action createForLocalVariable(LocalVariable localVariable, Message message, String[] params) {
+        return DercsConstructors.newSetArrayElementAction(localVariable, params[1], params[2]);
     }
 
     @Override

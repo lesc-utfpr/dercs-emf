@@ -17,6 +17,11 @@ import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.VisibilityKind;
 import org.eclipse.uml2.uml.internal.impl.PrimitiveTypeImpl;
 
+import java.lang.Double;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+import java.util.regex.Pattern;
+
 /**
  * Contains helper functions for various conversions involving UML and DERCS datatypes.
  */
@@ -236,5 +241,56 @@ public class DatatypeHelper {
         }
 
         return newType;
+    }
+
+    private static final Pattern identifierPattern = Pattern.compile("[a-zA-Z_-][\\w_-]*");
+    public static boolean isIdentifier(java.lang.String value) {
+        if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
+            return false;
+        }
+
+        return identifierPattern.matcher(value).matches();
+    }
+
+    public static boolean isNumber(java.lang.String value) {
+        try {
+            Double.parseDouble(value);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+    }
+
+    public static boolean isExpression(java.lang.String value) {
+        //TODO this is very wrong and should be replaced with a proper expression-parser in the future
+        StringTokenizer parser = new StringTokenizer(value, " ()|&<>=+-*/", false);
+        ArrayList<java.lang.String> tokens = new ArrayList<java.lang.String>();
+
+        while(parser.hasMoreTokens()){
+            java.lang.String token = parser.nextToken();
+
+            // when encountering a " or ', merge tokens until finding the same symbol again to close the string
+            // this is only correct in some cases, but it is the original behavior,
+            // so it stays until proper expression parsing is added
+            if (token.contains("'")) {
+                java.lang.String next = parser.nextToken();
+                while (!next.contains("'")) {
+                    token += " " + next;
+                    next = parser.nextToken();
+                }
+            }
+
+            if (token.contains("\"")) {
+                java.lang.String next = parser.nextToken();
+                while (!next.contains("\"")) {
+                    token += " " + next;
+                    next = parser.nextToken();
+                }
+            }
+
+            tokens.add(token);
+        }
+
+        return tokens.size() > 1;
     }
 }

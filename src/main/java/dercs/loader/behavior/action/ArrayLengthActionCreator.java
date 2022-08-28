@@ -9,24 +9,24 @@ import dercs.structure.Attribute;
 import dercs.util.DercsConstructors;
 import org.eclipse.uml2.uml.Message;
 
-public class RemoveArrayElementActionCreator extends AbstractArrayActionCreator {
+public class ArrayLengthActionCreator extends AbstractArrayActionCreator {
     @Override
     protected String[] getAndVerifyParameters(Message message) throws InvalidActionSyntaxException {
-        return ActionHelper.getParametersFromMethodString(message.getName(), 2);
+        return ActionHelper.getParametersFromMethodString(message.getName(), 1);
     }
 
     @Override
     protected Action createForAttribute(Attribute attribute, Message message, String[] params) {
-        return DercsConstructors.newRemoveArrayElementAction(attribute, params[1]);
+        return DercsConstructors.newGetArrayLengthAction(attribute);
     }
 
     @Override
     protected Action createForLocalVariable(LocalVariable localVariable, Message message, String[] params) {
-        return DercsConstructors.newRemoveArrayElementAction(localVariable, params[1]);
+        return DercsConstructors.newGetArrayLengthAction(localVariable);
     }
 
     @Override
     public boolean canHandleMessage(Message message) {
-        return message.getName() != null && message.getName().startsWith(ActionNames.REMOVE_ARRAY_ELEMENT_ACTION);
+        return message.getName() != null && message.getName().startsWith(ActionNames.ARRAY_LENGTH_ACTION);
     }
 }

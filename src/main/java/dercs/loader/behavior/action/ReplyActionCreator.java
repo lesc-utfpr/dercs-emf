@@ -4,6 +4,7 @@ import dercs.behavior.Behavior;
 import dercs.behavior.LocalVariable;
 import dercs.behavior.actions.Action;
 import dercs.behavior.actions.SendMessageAction;
+import dercs.loader.behavior.ActionHelper;
 import dercs.loader.behavior.BehaviorHelper;
 import dercs.loader.exception.DuplicatedBehaviorException;
 import dercs.loader.wrapper.InProgressDercsModel;
@@ -27,7 +28,7 @@ public class ReplyActionCreator extends BaseActionCreator {
             return null;
         }
 
-        Attribute targetAttribute = BehaviorHelper.getMessageTargetClass(model, message).getAttribute(message.getName());
+        Attribute targetAttribute = ActionHelper.getMessageTargetClass(model, message).getAttribute(message.getName());
         if (targetAttribute == null) {
             // local variable
             LocalVariable var = BehaviorHelper.getOrCreateLocalVariableRecursive(model, callingBehavior, message.getName(), sendMessageAction.getRelatedMethod().getReturnType());

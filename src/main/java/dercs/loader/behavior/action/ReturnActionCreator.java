@@ -4,31 +4,34 @@ import dercs.behavior.Behavior;
 import dercs.behavior.LocalVariable;
 import dercs.behavior.actions.Action;
 import dercs.behavior.actions.ActionNames;
-import dercs.datatypes.ClassDataType;
+import dercs.behavior.actions.AssignmentAction;
+import dercs.behavior.actions.ExpressionAction;
+import dercs.datatypes.*;
+import dercs.loader.behavior.ActionHelper;
 import dercs.loader.behavior.BehaviorHelper;
 import dercs.loader.exception.ClassNotFoundException;
 import dercs.loader.exception.DercsLoaderException;
-import dercs.loader.exception.InvalidActionSyntaxException;
 import dercs.loader.exception.InvalidAttributeReferenceException;
+import dercs.loader.util.DatatypeHelper;
 import dercs.loader.util.DercsAccessHelper;
 import dercs.loader.wrapper.InProgressDercsModel;
 import dercs.structure.Attribute;
 import dercs.structure.Class;
+import dercs.structure.Method;
 import dercs.structure.runtime.Object;
 import dercs.util.DercsConstructors;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 
+import java.lang.String;
+
 public class ReturnActionCreator extends BaseActionCreator {
     @Override
     protected Action createAction(InProgressDercsModel model, Message message, Behavior behavior) throws DercsLoaderException {
         // try to get the returned information
-        String[] params = BehaviorHelper.getParametersFromMethodString(message.getName());
-        if (params[0].isEmpty()) {
-            throw new InvalidActionSyntaxException(message.getName());
-        }
+        String[] params = ActionHelper.getParametersFromMethodString(message.getName(), 1);
 
-        Class sourceClass = BehaviorHelper.getMessageSourceClass(model, message);
+        Class sourceClass = ActionHelper.getMessageSourceClass(model, message);
         if (sourceClass == null) {
             throw new ClassNotFoundException(((MessageOccurrenceSpecification) message.getSendEvent()).getCovered().getName());
         }
@@ -40,8 +43,9 @@ public class ReturnActionCreator extends BaseActionCreator {
         params[0] = params[0].trim();
 
         Attribute attribute = sourceClass.getAttribute(params[0]);
+        LocalVariable localVariable = BehaviorHelper.getLocalVariableRecursive(behavior, params[0]);
 
-        //TODO: what about literal values?
+        // there is currently no difference in the created action regardless of the value source
         if (attribute != null) {
             // attribute
             // now try to check if there is an object that refers to this attribute
@@ -49,16 +53,20 @@ public class ReturnActionCreator extends BaseActionCreator {
             if ((obj == null) && (attribute.getDataType() instanceof ClassDataType)) {
                 throw new InvalidAttributeReferenceException(params[0]);
             }
-        } else {
+
+        } else if (localVariable != null) {
             // local variable
-            LocalVariable localVar = BehaviorHelper.getOrCreateLocalVariableRecursive(model, behavior, params[0], null);
+            // NOTE: this is slightly different to old DERCS, which created a new local variable here
+        } else {
+            // value
+
         }
 
-        // TEMPORARY: there is no information on the method associated to the return action
-        Action newAction = DercsConstructors.newReturnAction(null, params[0]);
+        //TODO: check if this is always the correct method
+        Method method = getCompiler().getMethodCallstack().peek().getMethod();
+        Action newAction = DercsConstructors.newReturnAction(method, params[0]);
 
-        //TODO: set input to expression if method is null ?
-        // see old DERCS: MDO_DERCSLoader.fixReturnActionsWithExpression();
+        //TODO: set right side to expression if necessary
 
         return newAction;
     }

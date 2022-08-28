@@ -24,23 +24,34 @@ public class MessageProcessor {
         this.model = model;
         this.compiler = compiler;
         this.actionCreators = new ArrayList<>();
+
+        registerCreators();
+
+        this.actionCreators.forEach(creator -> creator.setParent(this));
+    }
+
+    private void registerCreators() {
         Collections.addAll(this.actionCreators,
                 new ReplyActionCreator(),
                 new AssignActionCreator(),
                 new ReturnActionCreator(),
                 new SetArrayElementCreator(),
                 new RemoveArrayElementActionCreator(),
-                //TODO: expression, array element, and state actions
+                new ModifyStateActionCreator(),
+                new ExpressionActionCreator(),
+                new InsertArrayElementActionCreator(),
+                new SetArrayElementCreator(),
+                new RemoveArrayElementActionCreator(),
+                //TODO: new GetArrayElementActionCreator() probably needs to assign result, so subclass of AbstractAssignmentActionCreator?
+                new ArrayLengthActionCreator(),
                 new CreateObjectActionCreator(),
                 new DestroyObjectActionCreator(),
                 new SendMessageActionCreator()
         );
-
-        this.actionCreators.forEach(creator -> creator.setParent(this));
     }
 
     public Action addActionFromMessage(Message message, Behavior currentBehavior) throws DercsLoaderException {
-        Class targetClass = BehaviorHelper.getMessageTargetClass(model, message);
+        Class targetClass = ActionHelper.getMessageTargetClass(model, message);
 
         if (targetClass == null && (message.getMessageSort() != MessageSort.REPLY_LITERAL)) {
             throw new ClassNotFoundException(((MessageOccurrenceSpecification) message.getReceiveEvent()).getCovered().getName());

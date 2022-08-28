@@ -2,19 +2,17 @@ package dercs.loader.behavior;
 
 import dercs.behavior.Behavior;
 import dercs.behavior.LocalVariable;
-import dercs.behavior.actions.*;
 import dercs.behavior.actions.CreateObjectAction;
+import dercs.behavior.actions.*;
 import dercs.datatypes.ClassDataType;
-import dercs.loader.exception.ClassNotFoundException;
 import dercs.loader.exception.DuplicateElementNameException;
 import dercs.loader.util.DercsAccessHelper;
 import dercs.loader.util.DercsCreationHelper;
 import dercs.loader.wrapper.InProgressDercsModel;
 import dercs.structure.Attribute;
-import dercs.structure.Method;
 import dercs.structure.runtime.Object;
-import org.eclipse.uml2.uml.*;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -117,87 +115,6 @@ public class BehaviorHelper {
         }
 
         return allFragments;
-    }
-
-    /**
-     * Returns the DERCS method/constructor/destructor represented by the given message.
-     * @param model the DERCS model
-     * @param message the message to process
-     * @return the method/constructor/destructor represented by the message, or {@code null} if it does not represent any method
-     */
-    public static Method getMethodFromMessage(InProgressDercsModel model, Message message) {
-        NamedElement signature = message.getSignature();
-
-        // normal methods
-        if (signature instanceof Operation) {
-            return model.getCorrespondingDercsElement(signature);
-        }
-
-        // create and delete messages
-        dercs.structure.Class dercsClass = getMessageTargetClass(model, message);
-
-        if (message.getMessageSort() == MessageSort.CREATE_MESSAGE_LITERAL) {
-            if (dercsClass == null) {
-                throw new RuntimeException();
-            }
-            return DercsAccessHelper.getConstructor(dercsClass);
-        } else if (message.getMessageSort() == MessageSort.DELETE_MESSAGE_LITERAL) {
-            if (dercsClass == null) {
-                throw new RuntimeException();
-            }
-            return DercsAccessHelper.getDestructor(dercsClass);
-        }
-
-        return null;
-    }
-
-    /**
-     * Gets the parameters from a string of the form: METH(p1, p2, p3, ...)
-     * @param methodString the string from which the parameters should be parsed
-     * @return the parameters
-     */
-    public static String[] getParametersFromMethodString(String methodString) {
-        int startIdx = methodString.indexOf('(');
-        int endIdx = methodString.lastIndexOf(')');
-        String[] params = methodString.substring(startIdx + 1, endIdx).split(",");
-
-        for (int i = 0; i < params.length; i++) {
-            params[i] = params[i].trim();
-        }
-
-        return params;
-    }
-
-    /**
-     * Gets the DERCS class that is the source of this message.
-     * @param model the DERCS model
-     * @param message the message to process
-     * @return the source DERCS class, or {@code null} if the source is not a class
-     */
-    public static dercs.structure.Class getMessageSourceClass(InProgressDercsModel model, Message message) {
-        Lifeline lifeline = ((MessageOccurrenceSpecification) message.getSendEvent()).getCovered();
-        if (!(lifeline.getRepresents() instanceof Property) || !(lifeline.getRepresents().getType() instanceof Class)) {
-            // target lifeline does not represent a class
-            return null;
-        }
-        Class reprClass = ((Class) lifeline.getRepresents().getType());
-        return model.getCorrespondingDercsElement(reprClass);
-    }
-
-    /**
-     * Gets the DERCS class that is the target of this message.
-     * @param model the DERCS model
-     * @param message the message to process
-     * @return the target DERCS class, or {@code null} if the target is not a class
-     */
-    public static dercs.structure.Class getMessageTargetClass(InProgressDercsModel model, Message message) {
-        Lifeline lifeline = ((MessageOccurrenceSpecification) message.getReceiveEvent()).getCovered();
-        if (!(lifeline.getRepresents() instanceof Property) || !(lifeline.getRepresents().getType() instanceof Class)) {
-            // target lifeline does not represent a class
-            return null;
-        }
-        Class reprClass = ((Class) lifeline.getRepresents().getType());
-        return model.getCorrespondingDercsElement(reprClass);
     }
 
     /**

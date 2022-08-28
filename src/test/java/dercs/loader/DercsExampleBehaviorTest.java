@@ -14,7 +14,6 @@ public class DercsExampleBehaviorTest extends AbstractLoaderFileTest {
     public void testManualForLoopBehavior() {
         BehaviorTester.of(BehaviorTester.getMethodBehavior(model(), "ParentClass1", "baseMethod"))
                 .withLocalVariable("Integer", "i")
-                .withLocalVariable(null, "false") //TODO: remove this once return actions correctly handle literal values
                 .assignmentFromValue("i", "0")
                 .subBehavior(loop -> loop
                         .withExitCondition("!(i < 10)")
@@ -23,7 +22,7 @@ public class DercsExampleBehaviorTest extends AbstractLoaderFileTest {
                                 .assignmentFromValue("i", "-999")
                                 .end()
                         )
-                        .assignmentFromValue("i", "i + 1")
+                        .assignmentFromExpression("i", "i + 1")
                         .end()
                 )
                 .returnAction("false")
@@ -48,7 +47,7 @@ public class DercsExampleBehaviorTest extends AbstractLoaderFileTest {
                         .withLocalVariable(null, "i")
                         .withEnterCondition("int i = 5")
                         .withExitCondition("!(i > 0)")
-                        .assignmentFromValue("i", "i - 1")
+                        .assignmentFromExpression("i", "i - 1")
                         .end()
                 )
                 .end();

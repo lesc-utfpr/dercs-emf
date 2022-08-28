@@ -13,8 +13,8 @@ public class UmlWheelchairBehaviorTest extends AbstractLoaderFileTest {
     @Test
     public void testGeneralBehavior() {
         BehaviorTester.of(BehaviorTester.getMethodBehavior(model(), "MovementController", "processMovementInformation"))
-                .assignmentFromValue("newAngle", "angle + (x/y)*360")
-                .assignmentFromValue("newSpeed", "speed + (x/y)*10/66")
+                .assignmentFromExpression("newAngle", "angle + (x/y)*360")
+                .assignmentFromExpression("newSpeed", "speed + (x/y)*10/66")
                 .end();
     }
 
@@ -55,8 +55,8 @@ public class UmlWheelchairBehaviorTest extends AbstractLoaderFileTest {
                 .withLocalVariable("Float", "angle")
                 .assignmentFromMethodCall("lWheel", "leftWheelSensor", "getValue")
                 .assignmentFromMethodCall("rWheel", "rightWheelSensor", "getValue")
-                .assignmentFromValue("speed", "(lWheel + rWheel)/2")
-                .assignmentFromValue("angle", "((lWheel - rWheel)/360)*1000")
+                .assignmentFromExpression("speed", "(lWheel + rWheel)/2")
+                .assignmentFromExpression("angle", "((lWheel - rWheel)/360)*1000")
                 .methodCall("movInfo", "setSpeed", "speed")
                 .methodCall("movInfo", "setAngle", "angle")
                 .end();

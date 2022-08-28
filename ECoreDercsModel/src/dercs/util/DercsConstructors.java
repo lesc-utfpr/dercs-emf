@@ -297,10 +297,25 @@ public class DercsConstructors {
         return obj;
     }
 
+    public static GetArrayLengthAction newGetArrayLengthAction(Attribute attribute) {
+        GetArrayLengthAction obj = ActionsFactory.eINSTANCE.createGetArrayLengthAction();
+        obj.setName("Action");
+        obj.setArrayAttribute(attribute);
+        return obj;
+    }
+
     public static RemoveArrayElementAction newRemoveArrayElementAction(LocalVariable variable, String element) {
         RemoveArrayElementAction obj = ActionsFactory.eINSTANCE.createRemoveArrayElementAction();
         obj.setName("Action");
         obj.setArrayVariable(variable);
+        obj.setArrayElement(element);
+        return obj;
+    }
+
+    public static RemoveArrayElementAction newRemoveArrayElementAction(Attribute variable, String element) {
+        RemoveArrayElementAction obj = ActionsFactory.eINSTANCE.createRemoveArrayElementAction();
+        obj.setName("Action");
+        obj.setArrayAttribute(variable);
         obj.setArrayElement(element);
         return obj;
     }

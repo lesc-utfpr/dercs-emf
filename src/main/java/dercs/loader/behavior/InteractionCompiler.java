@@ -191,7 +191,7 @@ public class InteractionCompiler {
             this.targetLifeline = ((MessageOccurrenceSpecification) message.getReceiveEvent()).getCovered();
 
             //TODO: this needs to select the subclass-version of a method if we are on a subclass overriding another method
-            this.method = BehaviorHelper.getMethodFromMessage(InteractionCompiler.this.model, message);
+            this.method = ActionHelper.getMethodFromMessage(InteractionCompiler.this.model, message);
             this.modificationState = MethodModificationState.NEWLY_CREATED_BEHAVIOR;
 
             if (this.method == null) {

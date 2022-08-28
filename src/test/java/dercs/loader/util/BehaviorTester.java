@@ -68,19 +68,45 @@ public class BehaviorTester {
         return this;
     }
 
-    //TODO: re-add these two once the action creators exits
     public BehaviorTester setArrayElement(String destination, String index, String value) {
         SetArrayElementAction action = getCurrentElementAndAdvance(SetArrayElementAction.class);
-        //checkDestination(action, destination);
-        //assertEquals(index, action.getArrayElement());
-        //assertEquals(value, action.getValue());
+        checkDestination(action, destination);
+        assertEquals(index, action.getArrayElement());
+        assertEquals(value, action.getValue());
         return this;
     }
 
+    public BehaviorTester insertArrayElement(String destination, String index, String value) {
+        InsertArrayElementAction action = getCurrentElementAndAdvance(InsertArrayElementAction.class);
+        checkDestination(action, destination);
+        assertEquals(index, action.getArrayElement());
+        assertEquals(value, action.getValue());
+        return this;
+    }
+
+    public BehaviorTester insertArrayElement(String destination, String value) {
+        InsertArrayElementAction action = getCurrentElementAndAdvance(InsertArrayElementAction.class);
+        checkDestination(action, destination);
+        assertEquals(value, action.getValue());
+        return this;
+    }
+
+//    public BehaviorTester getArrayElement(String array, String index) {
+//
+//    }
+
+//    public BehaviorTester arrayLength(String array) {
+//
+//    }
+
+//    public BehaviorTester modifyState(String newState) {
+//
+//    }
+
     public BehaviorTester removeArrayElement(String destination, String index) {
         RemoveArrayElementAction action = getCurrentElementAndAdvance(RemoveArrayElementAction.class);
-        //checkDestination(action, destination);
-        //assertEquals(index, action.getArrayElement());
+        checkDestination(action, destination);
+        assertEquals(index, action.getArrayElement());
         return this;
     }
 
@@ -157,6 +183,14 @@ public class BehaviorTester {
         assertEquals(value, action.getValue());
         checkDestination(action, destination);
         return this;
+    }
+
+    public BehaviorTester assignmentFromExpression(String destination, String expression) {
+        return assignment(destination, source -> {
+            assertInstanceOf(ExpressionAction.class, source);
+            String expressionValue = ((ExpressionAction) source).getExpression();
+            assertEquals(expression, expressionValue);
+        });
     }
 
     public BehaviorTester subBehavior(Consumer<BehaviorTester> subTesterConsumer) {

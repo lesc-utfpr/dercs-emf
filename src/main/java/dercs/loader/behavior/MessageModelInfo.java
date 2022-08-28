@@ -39,13 +39,13 @@ public class MessageModelInfo {
      * @param model the DERCS model
      */
     public MessageModelInfo(Message message, Behavior behavior, InProgressDercsModel model) throws DercsLoaderException {
-        method = BehaviorHelper.getMethodFromMessage(model, message);
+        method = ActionHelper.getMethodFromMessage(model, message);
 
         sourceLifeline = ((MessageOccurrenceSpecification) message.getSendEvent()).getCovered();
         targetLifeline = ((MessageOccurrenceSpecification) message.getReceiveEvent()).getCovered();
 
-        sourceClass = BehaviorHelper.getMessageSourceClass(model, message);
-        targetClass = BehaviorHelper.getMessageTargetClass(model, message);
+        sourceClass = ActionHelper.getMessageSourceClass(model, message);
+        targetClass = ActionHelper.getMessageTargetClass(model, message);
 
         if (targetClass == null) {
             throw new ClassNotFoundException(targetLifeline.getName());
