@@ -99,9 +99,11 @@ public class BehaviorTester {
 //
 //    }
 
-//    public BehaviorTester modifyState(String newState) {
-//
-//    }
+    public BehaviorTester modifyState(String newState) {
+        ModifyStateAction action = getCurrentElementAndAdvance(ModifyStateAction.class);
+        assertEquals(newState, action.getRelatedTransition().getToState().getName());
+        return this;
+    }
 
     public BehaviorTester removeArrayElement(String destination, String index) {
         RemoveArrayElementAction action = getCurrentElementAndAdvance(RemoveArrayElementAction.class);

@@ -307,17 +307,33 @@ public interface Class extends BaseElement {
 	 * @generated NOT
 	 */
 	default Attribute getAttribute(String name) {
+		return this.getAttributeWithMinimumVisibility(name, Visibility.PRIVATE);
+	}
+
+	/**
+	 * Return the attribute with the specified name and the specified visibility or greater.
+	 * @param name Attribute's name.
+	 * @param visibility the minimum required visibility
+	 * @return The indicated attribute, NULL if it could not be found.
+	 * @generated NOT
+	 */
+	default Attribute getAttributeWithMinimumVisibility(String name, Visibility visibility) {
 		if ((name.contains("[")) && (name.contains("]"))) {
 			name = name.substring(0, name.indexOf("["));
 		}
 
 		for (Attribute attribute : this.getAttributes()) {
-			if (attribute.getName().equals(name)) {
+			if (attribute.getName().equals(name) && attribute.getVisibility().getValue() >= visibility.getValue()) {
 				return attribute;
 			}
 		}
 
-		return null;
+		// also search super-classes
+		if (this.getSuperClass() != null) {
+			return this.getSuperClass().getAttributeWithMinimumVisibility(name, visibility == Visibility.PUBLIC ? Visibility.PUBLIC : Visibility.PROTECTED);
+		} else {
+			return null;
+		}
 	}
 
 	/**

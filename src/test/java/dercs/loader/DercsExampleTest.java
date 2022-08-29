@@ -7,8 +7,8 @@ import dercs.structure.Class;
 import dercs.structure.runtime.Node;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static dercs.loader.util.DercsAssertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DercsExampleTest extends AbstractLoaderFileTest {
     public DercsExampleTest() throws DercsLoaderException {
@@ -117,5 +117,9 @@ public class DercsExampleTest extends AbstractLoaderFileTest {
 
         Class parent2 = findDercsNamedElement(model().getClasses(), "ParentClass2");
         assertMethodSignature(parent2, "+ voidMethod(enumParam: TestEnum)");
+
+        Class child3 = findDercsNamedElement(model().getClasses(), "ChildClass3");
+        assertMethodSignature(child3, "+ voidMethod(enumParam: TestEnum)");
+        assertTrue(child3.getMethod("voidMethod").isOverwritingMethod());
     }
 }
