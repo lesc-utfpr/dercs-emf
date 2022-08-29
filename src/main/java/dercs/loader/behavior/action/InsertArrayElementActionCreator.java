@@ -25,17 +25,22 @@ public class InsertArrayElementActionCreator extends AbstractArrayActionCreator 
             }
         }
 
+        if (params.length == 2) {
+            // no index given -> append at end (null index)
+            params = new String[] {params[0], null, params[1]};
+        }
+
         return params;
     }
 
     @Override
     protected Action createForAttribute(Attribute attribute, Message message, String[] params) {
-        return DercsConstructors.newGetArrayElementAction(null, attribute, params[1]);
+        return DercsConstructors.newInsertArrayElementAction(null, attribute, params[1], params[2]);
     }
 
     @Override
     protected Action createForLocalVariable(LocalVariable localVariable, Message message, String[] params) {
-        return DercsConstructors.newGetArrayElementAction(localVariable, params[1]);
+        return DercsConstructors.newInsertArrayElementAction(localVariable, params[1], params[2]);
     }
 
     @Override

@@ -266,8 +266,7 @@ public class DercsConstructors {
         obj.setName("Action");
         obj.setArrayVariable(variable);
         obj.setArrayElement(element);
-        // FIXME: The value is not passed in the original dercs constructor.
-        obj.setValue("");
+        obj.setValue(value);
         return obj;
     }
 
@@ -277,8 +276,7 @@ public class DercsConstructors {
         obj.setArrayObject(object);
         obj.setArrayAttribute(attribute);
         obj.setArrayElement(element);
-        // FIXME: The value is not passed in the original dercs constructor.
-        obj.setValue("");
+        obj.setValue(value);
         return obj;
     }
 

@@ -9,6 +9,7 @@ import dercs.structure.Attribute;
 import dercs.util.DercsConstructors;
 import org.eclipse.uml2.uml.Message;
 
+//TODO: unfinished, no receiver
 public class ArrayLengthActionCreator extends AbstractArrayActionCreator {
     @Override
     protected String[] getAndVerifyParameters(Message message) throws InvalidActionSyntaxException {
