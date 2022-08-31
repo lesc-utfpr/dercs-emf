@@ -5,6 +5,8 @@ import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.exception.DuplicateElementNameException;
 import dercs.loader.util.AbstractLoaderFileTest;
 import dercs.loader.util.DercsAccessHelper;
+import dercs.loader.util.Util;
+import dercs.structure.BaseElement;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -159,8 +161,52 @@ public class UmlWheelchairExampleAoTest extends AbstractLoaderFileTest {
         }
     }
 
+    //TODO: add expected matches for actions once they are implemented
+    private final String[][] expectedJoinPointMatches = {
+            {"JPDD_ActiveObjectClass", "MovementController", "Alarm", "JoystickDriver", "MovementEncoder"},
+            {"JPDD_ExclusiveObjectClass", "MovementInformation", "JoystickInformation", "SensorDriver"},
+            {"JPDD_InfoClassAttribute", "MovementInformation::speed", "MovementInformation::angle", "JoystickInformation::XPosition", "JoystickInformation::YPosition"},
+            {"JPDD_InfoObjectConstruction_2", "MovementInformation::MovementInformation()", "JoystickInformation::JoystickInformation()"},
+            {"JPDD_SubSystemClass", "ControlSubSystem", "SensoringSubSystem"},
+            {"JPDD_SubSystemConstruction_2", "ControlSubSystem::ControlSubSystem()", "SensoringSubSystem::SensoringSubSystem()"},
+            {"JPDD_ActiveObjectConstruction", "MovementController::MovementController(JoystickInformation, Alarm, MovementInformation) [Behavior]", "Alarm::Alarm() [Behavior]", "JoystickDriver::JoystickDriver(JoystickInformation) [Behavior]", "MovementEncoder::MovementEncoder(MovementInformation, Alarm, WheelSpeedSensorDriver, WheelSpeedSensorDriver) [Behavior]"},
+//            {"JPDD_ActiveObjectConstruction_Action"},
+            {"JPDD_ActiveObjectConstructor", "MovementController::MovementController(JoystickInformation, Alarm, MovementInformation)", "Alarm::Alarm()", "JoystickDriver::JoystickDriver(JoystickInformation)", "MovementEncoder::MovementEncoder(MovementInformation, Alarm, WheelSpeedSensorDriver, WheelSpeedSensorDriver)"},
+//            {"JPDD_ExclusiveGet"},
+//            {"JPDD_ExclusiveSet"},
+            {"JPDD_InfoAttributeRead", "MovementInformation::getAngle() [Behavior]", "MovementInformation::getSpeed() [Behavior]", "MovementInformation::getMode() [Behavior]", "JoystickInformation::getXPosition() [Behavior]", "JoystickInformation::getYPosition() [Behavior]"},
+            {"JPDD_InfoAttributeWrite", "MovementInformation::setAngle(Float) [Behavior]", "MovementInformation::setSpeed(Float) [Behavior]", "JoystickInformation::setXPosition(Integer) [Behavior]", "JoystickInformation::setYPosition(Integer) [Behavior]"},
+//            {"JPDD_InfoObjectConstruction_Action"},
+//            {"JPDD_ObjectConstructionAction"},
+//            {"JPDD_ObjectDestructionAction"},
+            {"JPDD_PeriodicBehavior", "JoyStickDriver::run() [Behavior]", "MovementController::run() [Behavior]"},
+//            {"JPDD_SendMsgToRemoteObject"},
+            {"JPDD_SubSystemConstruction", "ControlSubSystem::ControlSubSystem() [Behavior]", "SensoringSubSystem::SensoringSubSystem() [Behavior]"}
+    };
+
     @Test
-    public void testJoinPoints() {
-        //TODO
+    public void testJoinPoints() throws DuplicateElementNameException {
+        for (String[] expected : expectedJoinPointMatches) {
+            JoinPoint joinPoint = DercsAccessHelper.findNamedElement(model().getJoinPoints(), expected[0]);
+            assertNotNull(joinPoint, "Expected join point '" + expected[0] + "'");
+
+            if (expected.length == 1) {
+                // no matches expected for this join point
+                assertEquals(0, joinPoint.getSelectedElements().size(), "Expected no matches for join point '"  + expected[0] + "'.");
+            } else {
+                assertEquals(expected.length - 1, joinPoint.getSelectedElements().size(), "Incorrect number of matches for join point '"  + expected[0] + "'.");
+
+                for (int i = 1; i < expected.length; i++) {
+                    // expect match with given name
+                    String name = expected[i];
+
+                    BaseElement expectedMatch = joinPoint.getSelectedElements().stream()
+                            .filter(elem -> Util.getHumanReadableElementName(elem).equals(name))
+                            .findFirst()
+                            .orElse(null);
+                    assertNotNull(expectedMatch, "Expected to find matching element '" + expected[i] + "' for join point '" + joinPoint.getName() + "'.");
+                }
+            }
+        }
     }
 }

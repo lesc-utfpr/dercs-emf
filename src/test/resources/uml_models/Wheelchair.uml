@@ -717,15 +717,15 @@
         <message xmi:type="uml:Message" xmi:id="_aLKdoBGcEe2S89iiM9m_3Q" name="*(..):*" receiveEvent="_aLLEsBGcEe2S89iiM9m_3Q" sendEvent="_aLKdoRGcEe2S89iiM9m_3Q"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Interaction" xmi:id="_d9Cz0BGcEe2S89iiM9m_3Q" name="JPDD_SubSystemConstruction">
-        <lifeline xmi:type="uml:Lifeline" xmi:id="_hAgk0BGcEe2S89iiM9m_3Q" name="* : *" coveredBy="_kEJU8RGcEe2S89iiM9m_3Q _kEZMkRGcEe2S89iiM9m_3Q _jgWEUBGcEe2S89iiM9m_3Q"/>
-        <lifeline xmi:type="uml:Lifeline" xmi:id="_hvtNIBGcEe2S89iiM9m_3Q" name="* : *SubSystem" coveredBy="_kEJ8ABGcEe2S89iiM9m_3Q _kEZMkBGcEe2S89iiM9m_3Q _kEXXYBGcEe2S89iiM9m_3Q"/>
-        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_kEJU8RGcEe2S89iiM9m_3Q" name="Message6SendEvent" covered="_hAgk0BGcEe2S89iiM9m_3Q" message="_kEJU8BGcEe2S89iiM9m_3Q"/>
-        <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_jgWEUBGcEe2S89iiM9m_3Q" name="ActionExecutionSpecification3" covered="_hAgk0BGcEe2S89iiM9m_3Q" finish="_kEZMkRGcEe2S89iiM9m_3Q" start="_kEJU8RGcEe2S89iiM9m_3Q"/>
-        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_kEJ8ABGcEe2S89iiM9m_3Q" name="Message6ReceiveEvent" covered="_hvtNIBGcEe2S89iiM9m_3Q" message="_kEJU8BGcEe2S89iiM9m_3Q"/>
-        <fragment xmi:type="uml:BehaviorExecutionSpecification" xmi:id="_kEXXYBGcEe2S89iiM9m_3Q" name="BehaviorExecutionSpecification8" covered="_hvtNIBGcEe2S89iiM9m_3Q" finish="_kEZMkBGcEe2S89iiM9m_3Q" start="_kEJ8ABGcEe2S89iiM9m_3Q"/>
+        <lifeline xmi:type="uml:Lifeline" xmi:id="_hAgk0BGcEe2S89iiM9m_3Q" name="* : *" coveredBy="_kEJU8RGcEe2S89iiM9m_3Q _moOn4CktEe2czbFmqFYodw _kEZMkRGcEe2S89iiM9m_3Q _agSlsCktEe2czbFmqFYodw _af_DsCktEe2czbFmqFYodw"/>
+        <lifeline xmi:type="uml:Lifeline" xmi:id="_jSUcACktEe2czbFmqFYodw" name="* : *SubSystem" coveredBy="_moOn4SktEe2czbFmqFYodw"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_kEJU8RGcEe2S89iiM9m_3Q" name="Message6SendEvent" covered="_hAgk0BGcEe2S89iiM9m_3Q"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_moOn4CktEe2czbFmqFYodw" name="Message8SendEvent" covered="_hAgk0BGcEe2S89iiM9m_3Q" message="_moGsECktEe2czbFmqFYodw"/>
+        <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_af_DsCktEe2czbFmqFYodw" name="ActionExecutionSpecification7" covered="_hAgk0BGcEe2S89iiM9m_3Q" finish="_agSlsCktEe2czbFmqFYodw" start="_moOn4CktEe2czbFmqFYodw"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_moOn4SktEe2czbFmqFYodw" name="Message8ReceiveEvent" covered="_jSUcACktEe2czbFmqFYodw" message="_moGsECktEe2czbFmqFYodw"/>
         <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_kEZMkRGcEe2S89iiM9m_3Q" name="Message10ReceiveEvent" covered="_hAgk0BGcEe2S89iiM9m_3Q"/>
-        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_kEZMkBGcEe2S89iiM9m_3Q" name="Message10SendEvent" covered="_hvtNIBGcEe2S89iiM9m_3Q"/>
-        <message xmi:type="uml:Message" xmi:id="_kEJU8BGcEe2S89iiM9m_3Q" name="" receiveEvent="_kEJ8ABGcEe2S89iiM9m_3Q" sendEvent="_kEJU8RGcEe2S89iiM9m_3Q"/>
+        <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_agSlsCktEe2czbFmqFYodw" name="ActionExecutionSpecification7Finish" covered="_hAgk0BGcEe2S89iiM9m_3Q" execution="_af_DsCktEe2czbFmqFYodw"/>
+        <message xmi:type="uml:Message" xmi:id="_moGsECktEe2czbFmqFYodw" name="" messageSort="createMessage" receiveEvent="_moOn4SktEe2czbFmqFYodw" sendEvent="_moOn4CktEe2czbFmqFYodw"/>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_Os8KEBDcEe2TWOXscLXHQA" name="DERAF">
@@ -1155,7 +1155,6 @@
     <every xmi:type="uml:LiteralString" xmi:id="_RddGoBGcEe2S89iiM9m_3Q" value="*"/>
   </Time:TimedEvent>
   <AMoDERT.AspectsModeling:JoinPoint xmi:id="_cmIEMBGcEe2S89iiM9m_3Q" base_Message="_aLKdoBGcEe2S89iiM9m_3Q"/>
-  <AMoDERT.AspectsModeling:JoinPoint xmi:id="_lf3FABGcEe2S89iiM9m_3Q" base_Message="_kEJU8BGcEe2S89iiM9m_3Q" Behavior="true"/>
   <AMoDERT.AspectsModeling:JPDD xmi:id="_TymY4BPoEe2mIJOBK3lvIQ" base_Package="_v4e_UBGUEe2S89iiM9m_3Q"/>
   <AMoDERT.AspectsModeling:JPDD xmi:id="_U3pVYBPoEe2mIJOBK3lvIQ" base_Package="_719d8BGUEe2S89iiM9m_3Q"/>
   <AMoDERT.AspectsModeling:JPDD xmi:id="_Vl2fMBPoEe2mIJOBK3lvIQ" base_Package="_DFEwABGVEe2S89iiM9m_3Q"/>
@@ -1177,4 +1176,5 @@
   <AMoDERT.AspectsModeling:JPDD xmi:id="_GK27YBPpEe2DgdmO0TrBQw" base_Interaction="_d9Cz0BGcEe2S89iiM9m_3Q"/>
   <AMoDERT.AspectsModeling:Aspect xmi:id="_lsnnEBPrEe2DgdmO0TrBQw" base_Class="_6mYkIBDeEe2TWOXscLXHQA"/>
   <AMoDERT.AspectsModeling:JoinPoint xmi:id="_DcjasBZdEe2IPojCvHPA1w" base_Message="_w0RVUBGYEe2S89iiM9m_3Q" Behavior="true"/>
+  <AMoDERT.AspectsModeling:JoinPoint xmi:id="_oWW9oCktEe2czbFmqFYodw" base_Message="_moGsECktEe2czbFmqFYodw" Behavior="true"/>
 </xmi:XMI>
