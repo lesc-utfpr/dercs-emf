@@ -1,40 +1,54 @@
 package dercs.loader.ao;
 
-import dercs.AO.ElementSelectionKind;
-import dercs.loader.ao.matcher.JoinPointSpecificElementMatcher;
+import dercs.loader.ao.matcher.*;
+import dercs.loader.exception.DercsLoaderException;
 import dercs.loader.wrapper.InProgressDercsModel;
 import dercs.structure.BaseElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Used to find matching elements for a given {@link JoinPointDefinition}.
  */
 public class JoinPointMatcher {
+    private static final Logger LOGGER = LoggerFactory.getLogger("JoinPointMatcher");
     private final InProgressDercsModel model;
 
     /**
      * A map that holds the corresponding matcher for each element selection kind.
      */
-    private final Map<ElementSelectionKind, JoinPointSpecificElementMatcher> matcherForSelectionKind;
+    private final List<ISpecializedJoinPointMatcher> matchers;
 
     public JoinPointMatcher(InProgressDercsModel model) {
         this.model = model;
-        matcherForSelectionKind = new HashMap<>();
+        matchers = new ArrayList<>();
 
-        // registerMatcher(new ClassMatcher());
-        // registerMatcher(new AttributeMatcher());
-        // ...
+        registerMatchers();
     }
 
-    private void registerMatcher(JoinPointSpecificElementMatcher matcher) {
-        matcherForSelectionKind.put(matcher.forSelectionKind(), matcher);
+    private void registerMatchers() {
+        Collections.addAll(matchers,
+                new ClassMatcher(),
+                new AttributeMatcher(),
+                new CreateDestroyMessageMatcher(),
+                new MethodMatcher(),
+                new BehaviorMatcher()
+        );
     }
 
-    public List<BaseElement> getSelectedElements(JoinPointDefinition joinPoint) {
-        JoinPointSpecificElementMatcher matcher = matcherForSelectionKind.get(joinPoint.getSelectionKind());
-        return matcher.match(model, joinPoint);
+    public List<? extends BaseElement> getSelectedElements(JoinPointDefinition joinPoint) throws DercsLoaderException {
+        // dispatch on join point type
+        for (ISpecializedJoinPointMatcher matcher : this.matchers) {
+            if (matcher.canHandle(joinPoint)) {
+                return matcher.match(model, joinPoint);
+            }
+        }
+
+        LOGGER.warn("No JoinPointMatcher implemented for selection kind '{}'. Skipping.", joinPoint.getSelectionKind());
+        return Collections.emptyList();
     }
 }

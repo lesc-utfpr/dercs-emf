@@ -37,9 +37,9 @@ public abstract class BaseActionCreator {
     protected abstract Action createAction(InProgressDercsModel model, Message message, Behavior behavior) throws DercsLoaderException;
 
     /**
-     * Checks whether the given message can be handled by this creator
+     * Checks whether the given message can be handled by this creator.
      * @param message the message to check
-     * @return {@code true} if this message can be handled, {@code true} otherwise
+     * @return {@code true} if this message can be handled, {@code false} otherwise
      */
     public abstract boolean canHandleMessage(Message message);
 

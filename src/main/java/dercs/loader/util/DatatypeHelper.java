@@ -201,7 +201,7 @@ public class DatatypeHelper {
      * @param umlType the UML primitive type to convert
      * @return the corresponding DERCS primitive type
      */
-    private static DataType convertPrimitiveType(PrimitiveType umlType) throws InvalidDataTypeException {
+    public static DataType convertPrimitiveType(PrimitiveType umlType) throws InvalidDataTypeException {
         DataType newType;
         switch (((PrimitiveTypeImpl) umlType).eProxyURI().fragment()) {
             case "EInt":
