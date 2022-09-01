@@ -3,11 +3,15 @@ package dercs.loader.behavior;
 import dercs.behavior.Behavior;
 import dercs.behavior.actions.Action;
 import dercs.behavior.actions.SendMessageAction;
-import dercs.loader.exception.*;
+import dercs.loader.exception.DercsLoaderException;
+import dercs.loader.exception.DuplicatedBehaviorException;
+import dercs.loader.exception.ExecutionFlowException;
+import dercs.loader.exception.MessageWithoutAssociatedOperationException;
 import dercs.loader.util.DercsBuilders;
 import dercs.loader.wrapper.InProgressDercsModel;
 import dercs.structure.Constructor;
 import dercs.structure.Method;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.uml2.uml.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -196,6 +200,12 @@ public class InteractionCompiler {
 
             if (this.method == null) {
                 throw new MessageWithoutAssociatedOperationException(message.getQualifiedName());
+            }
+
+            // register additional stereotypes for this method if any exist in the diagram
+            List<EObject> stereotypes = InteractionCompiler.this.model.getSourceResource().getAppliedStereotypes(message);
+            if (!stereotypes.isEmpty()) {
+                InteractionCompiler.this.model.registerMethodBehaviorStereotypes(method, stereotypes);
             }
 
             if (this.method.getTriggeredBehavior() != null) {

@@ -50,7 +50,8 @@ public class CreateDestroyMessageMatcher extends ClassMatcher implements ISpecia
 
             // check stereotypes
             List<EObject> stereotypes = getStereotypesFromDercsElement(model, methodToCheck);
-            if (!StereotypeMatcher.stereotypesMatch(stereotypes, joinPoint.getRequiredStereotypes())) {
+            stereotypes.addAll(model.getMethodBehaviorStereotypes(methodToCheck));
+            if (!StereotypeMatcher.stereotypesMatch(model, stereotypes, joinPoint.getRequiredStereotypes())) {
                 continue;
             }
 

@@ -55,7 +55,7 @@ public class MethodMatcher extends ClassMatcher implements ISpecializedJoinPoint
 
                 // check stereotypes
                 List<EObject> stereotypes = getStereotypesFromDercsElement(model, method);
-                if (!StereotypeMatcher.stereotypesMatch(stereotypes, joinPoint.getRequiredStereotypes())) {
+                if (!StereotypeMatcher.stereotypesMatch(model, stereotypes, joinPoint.getRequiredStereotypes())) {
                     continue;
                 }
 

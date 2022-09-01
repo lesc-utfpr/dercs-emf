@@ -37,7 +37,7 @@ public class ClassMatcher implements ISpecializedJoinPointMatcher {
 
             // check stereotypes
             List<EObject> stereotypes = getStereotypesFromDercsElement(model, cls);
-            if (!StereotypeMatcher.stereotypesMatch(stereotypes, requiredStereotypes)) {
+            if (!StereotypeMatcher.stereotypesMatch(model, stereotypes, requiredStereotypes)) {
                 continue;
             }
 

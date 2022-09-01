@@ -9,6 +9,7 @@ import dercs.loader.exception.InvalidDeployedElementException;
 import dercs.loader.util.DatatypeHelper;
 import dercs.loader.util.DercsCreationHelper;
 import dercs.structure.Class;
+import dercs.structure.Method;
 import dercs.structure.runtime.Node;
 import dercs.structure.runtime.Object;
 import org.eclipse.emf.ecore.EObject;
@@ -19,9 +20,7 @@ import org.eclipse.uml2.uml.Manifestation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.IdentityHashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Wraps a {@link dercs.Model} that is still being created to provide helper functions.
@@ -53,6 +52,11 @@ public class InProgressDercsModel {
     private final Map<EObject, Element> elementPairsDercsToUml;
 
     /**
+     * Additional method stereotypes that are discovered while processing a method's sequence diagram.
+     */
+    private final Map<Method, List<EObject>> additionalMethodStereotypes;
+
+    /**
      * Create a wrapped model from the given Dercs model, and the UML resource it was created from.
      * @param model the DERCS model to wrap
      * @param resource the source UML resource
@@ -63,6 +67,7 @@ public class InProgressDercsModel {
 
         this.elementPairsUmlToDercs = new IdentityHashMap<>();
         this.elementPairsDercsToUml = new IdentityHashMap<>();
+        this.additionalMethodStereotypes = new IdentityHashMap<>();
     }
 
     /**
@@ -136,6 +141,25 @@ public class InProgressDercsModel {
     public <T extends EObject> T getCorrespondingDercsElement(Element umlElement) {
         Objects.requireNonNull(umlElement, "Tried to get element pair of null UML element!");
         return (T) this.elementPairsUmlToDercs.get(umlElement);
+    }
+
+    /**
+     * Register additional stereotypes for a method.
+     * These may be found during loading of sequence diagrams.
+     * @param method the DERCS method
+     * @param stereotypes the additonal stereotypes to add
+     */
+    public void registerMethodBehaviorStereotypes(Method method, List<EObject> stereotypes) {
+        this.additionalMethodStereotypes.merge(method, stereotypes, (oldVal, newVal) -> {oldVal.addAll(newVal); return oldVal;});
+    }
+
+    /**
+     * Returns the additional stereotypes registered for this method
+     * @param method the DERCS method
+     * @return the registered additional stereotypes
+     */
+    public List<EObject> getMethodBehaviorStereotypes(Method method) {
+        return this.additionalMethodStereotypes.getOrDefault(method, Collections.emptyList());
     }
 
     // === Utilities ===

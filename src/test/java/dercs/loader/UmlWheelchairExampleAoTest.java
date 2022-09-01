@@ -179,7 +179,7 @@ public class UmlWheelchairExampleAoTest extends AbstractLoaderFileTest {
 //            {"JPDD_InfoObjectConstruction_Action"},
 //            {"JPDD_ObjectConstructionAction"},
 //            {"JPDD_ObjectDestructionAction"},
-            {"JPDD_PeriodicBehavior", "JoyStickDriver::run() [Behavior]", "MovementController::run() [Behavior]"},
+            {"JPDD_PeriodicBehavior", "JoystickDriver::run() [Behavior]", "MovementController::run() [Behavior]"},
 //            {"JPDD_SendMsgToRemoteObject"},
             {"JPDD_SubSystemConstruction", "ControlSubSystem::ControlSubSystem() [Behavior]", "SensoringSubSystem::SensoringSubSystem() [Behavior]"}
     };

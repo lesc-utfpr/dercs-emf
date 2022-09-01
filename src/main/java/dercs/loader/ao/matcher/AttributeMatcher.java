@@ -33,7 +33,7 @@ public class AttributeMatcher extends ClassMatcher implements ISpecializedJoinPo
 
                 // check stereotypes
                 List<EObject> stereotypes = getStereotypesFromDercsElement(model, attribute);
-                if (!StereotypeMatcher.stereotypesMatch(stereotypes, joinPoint.getRequiredStereotypes())) {
+                if (!StereotypeMatcher.stereotypesMatch(model, stereotypes, joinPoint.getRequiredStereotypes())) {
                     continue;
                 }
 
