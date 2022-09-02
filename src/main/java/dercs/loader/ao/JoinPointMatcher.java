@@ -36,7 +36,13 @@ public class JoinPointMatcher {
                 new AttributeMatcher(),
                 new CreateDestroyMessageMatcher(),
                 new MethodMatcher(),
-                new BehaviorMatcher()
+                new BehaviorMatcher(),
+                new NodeMatcher(),
+                new ObjectMatcher(),
+                new CreateObjectActionMatcher(),
+                new DestroyObjectActionMatcher()
+//                new ReturnActionMatcher(),
+//                new SendMessageActionMatcher()
         );
     }
 

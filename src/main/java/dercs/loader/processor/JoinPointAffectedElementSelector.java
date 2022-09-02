@@ -46,6 +46,10 @@ public class JoinPointAffectedElementSelector extends AbstractModelProcessor {
                 LOGGER.info(" - Selecting element '{}'.", Util.getHumanReadableElementName(element));
                 joinPoint.getSelectedElements().add(element);
             }
+
+            if (matchingElements.isEmpty()) {
+                LOGGER.info(" X None found.");
+            }
         }
     }
 

@@ -29,9 +29,13 @@ public class MethodMatcher extends ClassMatcher implements ISpecializedJoinPoint
             targetClassStereotypes = model.getSourceResource().getAppliedStereotypes(((Operation) joinPoint.getMatchedElement()).getClass_());
             methodMatchName = getMethodString(((Operation) joinPoint.getMatchedElement()));
         } else if (joinPoint.getMatchedElement() instanceof Message) {
-            MessageOccurrenceSpecification receiveEvent = (MessageOccurrenceSpecification) ((Message) joinPoint.getMatchedElement()).getReceiveEvent();
-            targetClassName = receiveEvent.getCovered().getName();
-            targetClassStereotypes = model.getSourceResource().getAppliedStereotypes(receiveEvent.getCovered());
+            Lifeline targetLifeline = ((MessageOccurrenceSpecification) ((Message) joinPoint.getMatchedElement()).getReceiveEvent()).getCovered();
+            if (targetLifeline.getRepresents() != null) {
+                targetClassName = targetLifeline.getName() + " : " + targetLifeline.getRepresents().getName();
+            } else {
+                targetClassName = targetLifeline.getName();
+            }
+            targetClassStereotypes = model.getSourceResource().getAppliedStereotypes(targetLifeline);
             methodMatchName = ((Message) joinPoint.getMatchedElement()).getName();
         } else {
             throw new RuntimeException("Unexpected type '" + joinPoint.getMatchedElement().getClass().getName() + "' for method join point.");

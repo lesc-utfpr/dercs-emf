@@ -1,6 +1,5 @@
 package dercs.loader.ao.matcher;
 
-import dercs.AO.ElementSelectionKind;
 import dercs.datatypes.DataType;
 import dercs.loader.ao.JoinPointDefinition;
 import dercs.loader.exception.DercsLoaderException;
@@ -9,6 +8,7 @@ import dercs.loader.util.DatatypeHelper;
 import dercs.loader.wrapper.InProgressDercsModel;
 import dercs.structure.BaseElement;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.Type;
 
@@ -70,6 +70,17 @@ public interface ISpecializedJoinPointMatcher {
             String jpddName = jpddType.getName();
             return nameMatches(dercsName, jpddName);
         }
+    }
 
+    default String getMatchNameFromLifeline(Lifeline lifeline) {
+        if (lifeline.getRepresents() != null) {
+            if (lifeline.getName() == null || lifeline.getName().isEmpty()) {
+                return "* : " + lifeline.getRepresents().getName();
+            } else {
+                return lifeline.getName() + " : " + lifeline.getRepresents().getName();
+            }
+        } else {
+            return lifeline.getName();
+        }
     }
 }

@@ -30,21 +30,23 @@ public class ClassMatcher implements ISpecializedJoinPointMatcher {
         }
 
         for (Class cls : model.getModel().getClasses()) {
-            // check name
-            if (!nameMatches(cls.getName(), matchName)) {
-                continue;
+            if (classMatches(model, cls, matchName, requiredStereotypes)) {
+                matched.add(cls);
             }
-
-            // check stereotypes
-            List<EObject> stereotypes = getStereotypesFromDercsElement(model, cls);
-            if (!StereotypeMatcher.stereotypesMatch(model, stereotypes, requiredStereotypes)) {
-                continue;
-            }
-
-            matched.add(cls);
         }
 
         return matched;
+    }
+
+    protected boolean classMatches(InProgressDercsModel model, Class cls, String matchName, Collection<EObject> requiredStereotypes) {
+        // check name
+        if (!nameMatches(cls.getName(), matchName)) {
+            return false;
+        }
+
+        // check stereotypes
+        List<EObject> stereotypes = getStereotypesFromDercsElement(model, cls);
+        return StereotypeMatcher.stereotypesMatch(model, stereotypes, requiredStereotypes);
     }
 
     @Override
