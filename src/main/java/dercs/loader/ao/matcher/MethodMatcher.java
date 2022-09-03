@@ -30,11 +30,7 @@ public class MethodMatcher extends ClassMatcher implements ISpecializedJoinPoint
             methodMatchName = getMethodString(((Operation) joinPoint.getMatchedElement()));
         } else if (joinPoint.getMatchedElement() instanceof Message) {
             Lifeline targetLifeline = ((MessageOccurrenceSpecification) ((Message) joinPoint.getMatchedElement()).getReceiveEvent()).getCovered();
-            if (targetLifeline.getRepresents() != null) {
-                targetClassName = targetLifeline.getName() + " : " + targetLifeline.getRepresents().getName();
-            } else {
-                targetClassName = targetLifeline.getName();
-            }
+            targetClassName = getMatchNameFromLifeline(targetLifeline);
             targetClassStereotypes = model.getSourceResource().getAppliedStereotypes(targetLifeline);
             methodMatchName = ((Message) joinPoint.getMatchedElement()).getName();
         } else {
@@ -70,7 +66,7 @@ public class MethodMatcher extends ClassMatcher implements ISpecializedJoinPoint
         return matched;
     }
 
-    private boolean methodMatches(Method dercsMethod, String jpddMethodName) throws UnsupportedJpddDefinitionException {
+    protected boolean methodMatches(Method dercsMethod, String jpddMethodName) throws UnsupportedJpddDefinitionException {
         if (!jpddMethodName.contains("(") ||  !jpddMethodName.contains(")") || !jpddMethodName.contains(":")) {
             throw new UnsupportedJpddDefinitionException("");
         }
@@ -78,6 +74,9 @@ public class MethodMatcher extends ClassMatcher implements ISpecializedJoinPoint
         String methodName = jpddMethodName.substring(0, jpddMethodName.indexOf("(")).trim();
         String methodReturn = jpddMethodName.substring(jpddMethodName.indexOf(":") + 1).trim();
         String[] methodParams = jpddMethodName.substring(jpddMethodName.indexOf("(") + 1, jpddMethodName.indexOf(")")).split(",");
+        if (methodParams.length == 1 && methodParams[0].trim().isEmpty()) {
+            methodParams = new String[0];
+        }
 
         if (!nameMatches(dercsMethod.getName(), methodName) || !nameMatches(DatatypeHelper.getDatatypeName(dercsMethod.getReturnType()), methodReturn)) {
             return false;
@@ -92,7 +91,7 @@ public class MethodMatcher extends ClassMatcher implements ISpecializedJoinPoint
         }
 
         //TODO: implement parameter matching
-        throw new RuntimeException("Not implemented.");
+        return true;
     }
 
     private String getMethodString(Operation umlMethod) {

@@ -17,10 +17,12 @@ import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-public abstract class AbstractActionMatcher extends ClassMatcher implements ISpecializedJoinPointMatcher {
+public abstract class AbstractActionMatcher extends MethodMatcher implements ISpecializedJoinPointMatcher {
     private String targetLifelineName;
     private List<EObject> targetClassStereotypes;
+    private Set<EObject> joinPointRequiredStereotypes;
 
     @Override
     public List<? extends BaseElement> match(InProgressDercsModel model, JoinPointDefinition joinPoint) throws DercsLoaderException {
@@ -28,6 +30,7 @@ public abstract class AbstractActionMatcher extends ClassMatcher implements ISpe
             throw new RuntimeException("Unexpected element type.");
         }
         Message message = (Message) joinPoint.getMatchedElement();
+        joinPointRequiredStereotypes = joinPoint.getRequiredStereotypes();
 
         // get target class properties
         Lifeline targetLifeline = ((MessageOccurrenceSpecification) ((Message) joinPoint.getMatchedElement()).getReceiveEvent()).getCovered();
@@ -58,7 +61,7 @@ public abstract class AbstractActionMatcher extends ClassMatcher implements ISpe
         return matchingActions;
     }
 
-    private List<Action> findMatchingActions(InProgressDercsModel model, Behavior behavior, Message message) {
+    private List<Action> findMatchingActions(InProgressDercsModel model, Behavior behavior, Message message) throws DercsLoaderException {
         List<Action> matchingActions = new ArrayList<>();
         for (BehavioralElement element : behavior.getBehavioralElements()) {
             if (element instanceof Behavior) {
@@ -92,15 +95,19 @@ public abstract class AbstractActionMatcher extends ClassMatcher implements ISpe
         return this.targetLifelineName;
     }
 
-    protected List<EObject> getTargetClassStereotypes() {
+    protected List<EObject> getRequiredTargetClassStereotypes() {
         return targetClassStereotypes;
+    }
+
+    protected Set<EObject> getJoinPointRequiredStereotypes() {
+        return joinPointRequiredStereotypes;
     }
 
     protected boolean isCandidateMethod(InProgressDercsModel model, Method method, Message message) {
         return true;
     }
 
-    abstract protected boolean actionMatches(InProgressDercsModel model, Action action, Message message);
+    abstract protected boolean actionMatches(InProgressDercsModel model, Action action, Message message) throws DercsLoaderException;
 
     @Override
     abstract public boolean canHandle(JoinPointDefinition joinPointDefinition);

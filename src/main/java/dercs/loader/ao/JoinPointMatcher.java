@@ -40,9 +40,9 @@ public class JoinPointMatcher {
                 new NodeMatcher(),
                 new ObjectMatcher(),
                 new CreateObjectActionMatcher(),
-                new DestroyObjectActionMatcher()
-//                new ReturnActionMatcher(),
-//                new SendMessageActionMatcher()
+                new DestroyObjectActionMatcher(),
+                new ReturnActionMatcher(),
+                new SendMessageActionMatcher()
         );
     }
 
