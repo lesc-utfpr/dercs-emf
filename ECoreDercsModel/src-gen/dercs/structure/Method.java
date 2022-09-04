@@ -360,4 +360,13 @@ public interface Method extends BaseElement {
 		return this.getAssociatedAttribute() != null;
 	}
 
+	//=== COMPATIBILITY ===
+
+	/**
+	 * @generated NOT
+	 */
+	default int getParametersCount() {
+		return getParameters().size();
+	}
+
 } // Method

@@ -240,4 +240,34 @@ public interface AssignmentAction extends Action {
 		return (this.getDestinationAttribute() == null) && (this.getDestinationVariable() != null);
 	}
 
+	//=== COMPATIBILITY ===
+
+	/**
+	 * @generated NOT
+	 */
+	default Attribute getAttribute() {
+		return getDestinationAttribute();
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default LocalVariable getVariable() {
+		return getDestinationVariable();
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default dercs.structure.runtime.Object getObject() {
+		return getDestinationObject();
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default ActionWithOutput getAction() {
+		return getResultOfAction();
+	}
+
 } // AssignmentAction

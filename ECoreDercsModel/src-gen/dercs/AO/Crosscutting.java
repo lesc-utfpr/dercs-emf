@@ -113,4 +113,30 @@ public interface Crosscutting extends NamedElement {
 		return result;
 	}
 
+	// === COMPATIBILITY ===
+
+	/**
+	 * @generated NOT
+	 */
+	default CrosscuttingInformation getInformationByName(String name) {
+		for(CrosscuttingInformation info : getCrosscuttingInformations()) {
+			if (info.getName().equals(name)) {
+				return info;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default String getValueOf(String name) {
+		CrosscuttingInformation result = getInformationByName(name);
+		if (result != null)
+			return result.getValue();
+		else
+			return "";
+	}
+
 } // Crosscutting

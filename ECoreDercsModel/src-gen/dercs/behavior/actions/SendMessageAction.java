@@ -153,4 +153,48 @@ public interface SendMessageAction extends ActionWithOutput {
 	 */
 	void setMessageSort(MessageSort value);
 
+	// === COMPATIBILITY ===
+
+	/**
+	 * @generated NOT
+	 */
+	default EList<Object> getParametersValues() {
+		return getParameterValues();
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default int getParametersValuesCount() {
+		return getParameterValues().size();
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default boolean isParameterValue(int index) {
+		return getParameterValues().get(index) instanceof String;
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default boolean isParameterVariable(int index) {
+		return getParameterValues().get(index) instanceof dercs.behavior.LocalVariable;
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default boolean isParameterAttribute(int index) {
+		return getParameterValues().get(index) instanceof dercs.structure.Attribute;
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default boolean isParameterObject(int index) {
+		return getParameterValues().get(index) instanceof dercs.structure.runtime.Object;
+	}
+
 } // SendMessageAction

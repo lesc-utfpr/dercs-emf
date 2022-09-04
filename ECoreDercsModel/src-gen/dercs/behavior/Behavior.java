@@ -220,7 +220,7 @@ public interface Behavior extends BehavioralElement {
 	 * @generated NOT
 	 */
 	default boolean isBranch() {
-		return (this.getEnterCondition() != null) && (this.getEnterCondition().equals(""))
+		return (this.getEnterCondition() != null) && (!this.getEnterCondition().equals(""))
 				&& ((this.getExitCondition() == null) || (this.getExitCondition().equals("")));
 	}
 

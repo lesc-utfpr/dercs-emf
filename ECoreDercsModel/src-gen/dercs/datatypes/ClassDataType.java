@@ -41,4 +41,13 @@ public interface ClassDataType extends DataType {
 	 */
 	void setRepresents(dercs.structure.Class value);
 
+	//=== COMPATIBILITY ===
+
+	/**
+	 * @generated NOT
+	 */
+	default dercs.structure.Class getRepresent() {
+		return getRepresents();
+	}
+
 } // ClassDataType

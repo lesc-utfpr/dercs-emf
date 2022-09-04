@@ -129,4 +129,13 @@ public interface Object extends RuntimeElement {
 		createRuntimeInformationForAttributes();
 	}
 
+	//=== COMPATIBILITY ===
+
+	/**
+	 * @generated NOT
+	 */
+	default dercs.structure.Class getInstanceOf() {
+		return getInstanceOfClass();
+	}
+
 } // Object

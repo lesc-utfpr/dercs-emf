@@ -40,4 +40,55 @@ public interface CreateObjectAction extends ObjectAction {
 	 */
 	EList<String> getParameterValues();
 
+	//=== COMPATIBILITY ===
+
+	/**
+	 * @generated NOT
+	 */
+	default void addParameterValue(String value) {
+		getParameterValues().add(value);
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default void addParameterValue(dercs.structure.Attribute attr) {
+		getParameterValues().add(attr.getName());
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default void addParameterValue(dercs.structure.runtime.Object obj) {
+		getParameterValues().add(obj.getName());
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default void addParameterValue(dercs.behavior.LocalVariable var) {
+		getParameterValues().add(var.getName());
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default String getParameterValue(int index) {
+		return getParameterValues().get(index);
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default int getParametersValuesCount() {
+		return getParameterValues().size();
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	default EList<String> getParametersValues() {
+		return getParameterValues();
+	}
+
 } // CreateObjectAction

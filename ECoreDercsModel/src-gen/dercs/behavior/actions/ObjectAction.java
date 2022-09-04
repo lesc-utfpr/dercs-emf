@@ -49,4 +49,13 @@ public interface ObjectAction extends ActionWithOutput {
 	 */
 	void setRelatedObject(dercs.structure.runtime.Object value);
 
+	//=== COMPATIBILITY ===
+
+	/**
+	 * @generated NOT
+	 */
+	default dercs.structure.runtime.Object getObject() {
+		return getRelatedObject();
+	}
+
 } // ObjectAction
