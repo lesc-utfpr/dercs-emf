@@ -209,7 +209,7 @@ public class BehaviorHelper {
 
         } else if (operatorKind == InteractionOperatorKind.ALT_LITERAL) {
             if (guardString == null || guardString.isEmpty() || guardString.equalsIgnoreCase("else")) {
-                behavior.setEnterCondition(" ");
+                behavior.setEnterCondition("");
             } else {
                 behavior.setEnterCondition(guardString);
             }

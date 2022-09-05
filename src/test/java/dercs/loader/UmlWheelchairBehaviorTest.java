@@ -35,9 +35,17 @@ public class UmlWheelchairBehaviorTest extends AbstractLoaderFileTest {
                         .withEnterCondition("mode == RETAIN_VALUES_ON_ERROR")
                         .selfCall("getLastValidControlComputation")
                         .methodCall("wcAct", "changeMovement", "newAngle", "newSpeed")
-                        .withAlternateBehavior(b2 -> b2
-                                .withEnterCondition("mode == STOP_ON_ERROR")
-                                .methodCall("wcAct", "stopWheelChair")
+//                        .withAlternateBehavior(b2 -> b2
+//                                .withEnterCondition("mode == STOP_ON_ERROR")
+//                                .methodCall("wcAct", "stopWheelChair")
+//                                .end()
+//                        )
+                        .withAlternateBehavior(b2 -> b2     //FIXME: temporary change to tests while the workaround in InteractionCompiler::CombinedFragmentInfo::createNextOperandInfo() is present
+                                .subBehavior(b3 -> b3
+                                        .withEnterCondition("mode == STOP_ON_ERROR")
+                                        .methodCall("wcAct", "stopWheelChair")
+                                        .end()
+                                )
                                 .end()
                         )
                         .end()

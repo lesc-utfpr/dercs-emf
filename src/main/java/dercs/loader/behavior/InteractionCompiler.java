@@ -304,7 +304,17 @@ public class InteractionCompiler {
                 return null;
             }
             CombinedFragmentInfo nextInfo = new CombinedFragmentInfo(this.fragment, this.currentOperandIndex + 1);
-            this.behavior.setAlternateBehavior(nextInfo.behavior);
+            //FIXME: temporary fix. GenERTiCA currently does not support "else if" constructs.
+            // so we create an else branch without an entry condition and then put the if inside that
+            ValueSpecification nextGuard = this.fragment.getOperands().get(nextInfo.currentOperandIndex).getGuard().getSpecification();
+            if (this.fragment.getInteractionOperator() == InteractionOperatorKind.ALT_LITERAL && !(nextGuard == null || nextGuard.stringValue() == null || nextGuard.stringValue().isEmpty())) {
+                Behavior emptyElseBehavior = DercsBuilders.Behavior.create().build();
+                this.behavior.setAlternateBehavior(emptyElseBehavior);
+                emptyElseBehavior.getBehavioralElements().add(nextInfo.behavior);
+            } else {
+                // this is normally all that's required
+                this.behavior.setAlternateBehavior(nextInfo.behavior);
+            }
             return nextInfo;
         }
 
