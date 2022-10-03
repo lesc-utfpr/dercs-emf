@@ -47,7 +47,13 @@ public class Util {
             return getHumanReadableActionName((Action) element);
 
         } else if (element instanceof Object) {
-            return "{" + element.getName() + " : " + ((Object) element).getInstanceOfClass().getName() + "}";
+            // if the object is associated to an attribute, represent the name as "ClassName~attrName"
+            if (((Object) element).getAssociatedElement() instanceof Attribute) {
+                Attribute attr = (Attribute) ((Object) element).getAssociatedElement();
+                return "{" + attr.getOwnerClass().getName() + "~" + element.getName() + " : " + ((Object) element).getInstanceOfClass().getName() + "}";
+            } else {
+                return "{" + element.getName() + " : " + ((Object) element).getInstanceOfClass().getName() + "}";
+            }
 
         } else if (element instanceof LocalVariable){
             return "{Local " + element.getName() + "}";

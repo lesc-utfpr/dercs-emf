@@ -109,7 +109,8 @@ public class UmlDercsLoader implements IDercsLoader{
                 new JoinPointsExtractor(),
                 new PointcutsExtractor(),
                 new CrosscuttingExtractor(),
-                new JoinPointAffectedElementSelector()
+                new JoinPointAffectedElementSelector(),
+                new ObjectNameFixer()
         );
     }
 }

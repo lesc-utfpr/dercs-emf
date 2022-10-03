@@ -42,7 +42,7 @@ public class DercsExampleBehaviorTest extends AbstractLoaderFileTest {
                         .withEnterCondition("enumParam == LITERAL_1")
                         .setArrayElement("arrayProp", "3", "-999")
                         .withAlternateBehavior(alt2 -> alt2
-                                .withEnterCondition("")
+                                .withEnterCondition(" ")
                                 .removeArrayElement("arrayProp", "0")
                                 .end()
                         )

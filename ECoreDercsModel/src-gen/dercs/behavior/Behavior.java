@@ -354,4 +354,13 @@ public interface Behavior extends BehavioralElement {
 		return result;
 	}
 
+	// === COMPATIBILITY ===
+
+	/**
+	 * @generated NOT
+	 */
+	default Behavior getAlternativeBehavior() {
+		return getAlternateBehavior();
+	}
+
 } // Behavior

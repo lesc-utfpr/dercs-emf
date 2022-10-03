@@ -115,7 +115,7 @@ public class BehaviorTester {
     public BehaviorTester methodCall(String calledObject, String calledMethod, String... args) {
         SendMessageAction action = getCurrentElementAndAdvance(SendMessageAction.class);
         assertNotNull(action.getToObject(), "Destination object of method call is null.");
-        RuntimeElement runtimeCalledElement = action.getToObject().getAssociatedElement();
+        RuntimeElement runtimeCalledElement = action.getToObject();
         assertEquals(calledObject, runtimeCalledElement.getName());
         Method method = action.getRelatedMethod();
         assertEquals(calledMethod, method.getName());
