@@ -12,6 +12,8 @@ The built jar can be found in the `build/libs/` directory.
 
 ## Development
 The DERCS model is defined through a Eclipse Modeling Framework Ecore model.  
+(For a tutorial on basic usage of Ecore see e.g.: https://eclipsesource.com/blogs/tutorials/emf-tutorial/)  
+
 To make changes to the model:
 1. Open the project using the Eclipse Modeling Tools
 2. Edit the model in the `ECoreDercsModel/model/dercs.ecore` file
